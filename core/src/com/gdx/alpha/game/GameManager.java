@@ -117,8 +117,8 @@ public class GameManager {
         speed = new Array<Float>();
         time = new Array<Float>();
 
-        enemies = new Array<Microbe>(50);
-        bullets = new Array<VirusBullet>(50);
+        enemies = new Array<Microbe>(150);
+        bullets = new Array<VirusBullet>(150);
         axes = new Array<Axe>(20);
         sperms = new Array<Sperm>(50);
         bacteriophages = new Array<Bacteriophage>(10);
@@ -225,7 +225,8 @@ public class GameManager {
         if (MathUtils.random(100) > 70) {
             bacteriophage=null;
             //bacteriophages.clear();
-            int weapon_type_bacteriophage = MathUtils.random(0, 3);
+            int weapon_type_bacteriophage = MathUtils.random(0, 2);
+            System.out.println("Weapon type: "+ weapon_type_bacteriophage);
             switch (weapon_type_bacteriophage) {
                 case 0:
                     bacteriophage = new Bacteriophage(new Vector2(this.enemies.get(i).getPosition()),

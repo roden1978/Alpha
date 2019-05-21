@@ -17,7 +17,7 @@ vir004_bullet
   orig: 15, 16
   offset: 0, 0
   index: -1
-vir09_bullet
+vir009_bullet
   rotate: false
   xy: 0, 45
   size: 15, 16

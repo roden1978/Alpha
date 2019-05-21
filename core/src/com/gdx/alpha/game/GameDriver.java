@@ -96,6 +96,7 @@ public class GameDriver {
     public void buildEnemies(int i){
             //String s = gameManager.name.get(i);
             Microbe microbe = null;
+        //System.out.println("Height: "+gameManager.virusAtlas);
             microbe = new Virus(new Vector2(gameManager.posX.get(i),gameManager.posY.get(i) * Gdx.graphics.getHeight()),gameManager.speed.get(i),
                     gameManager.weight.get(i),gameManager.player,gameManager.virusAtlas, gameManager.virusBulletAtlas, gameManager.lifeAtlas);
             if (microbe != null){
@@ -240,7 +241,8 @@ public class GameDriver {
     }
     public void addBacteriophageToGame(){
         for (int i = 0; i < gameManager.bacteriophages.size; i++) {
-            gameScreen.getGameStage().addActor(gameManager.bacteriophages.get(i));
+            if (gameManager.bacteriophages.get(i) != null)
+                gameScreen.getGameStage().addActor(gameManager.bacteriophages.get(i));
         }
     }
 }

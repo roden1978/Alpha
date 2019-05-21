@@ -30,7 +30,7 @@ public class Virus extends Microbe {
     private float boundWidth;
     private float boundHeight;
     private float degree;
-    private String virus_name;
+    private Integer virus_type;
 
     public Virus(Vector2 position, float speed, int weight, Player player,
                   TextureAtlas virusTextureAtlas, TextureAtlas bulletTextureAtlas, TextureAtlas lifeScaleAtlas) {
@@ -41,10 +41,10 @@ public class Virus extends Microbe {
         this.virusTextureAtlas = virusTextureAtlas;
         this.bulletTextureAtlas = bulletTextureAtlas;
         this.lifeScaleAtlas = lifeScaleAtlas;
-        this.virus_name = virus_name;
+        this.virus_type = 0;
         init();
         virusBound = new Bounds(position.x, position.y, boundWidth, boundHeight);
-        lifeScale = new LifeScale(lifeScaleAtlas,position.x + boundWidth/2 - lifeScaleAtlas.findRegion("green").getRegionWidth()/2,
+        lifeScale = new LifeScale(lifeScaleAtlas,position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
                 position.y + boundHeight,lifeScaleAtlas.findRegion("green").getRegionWidth());
         maxHealth = health;
     }
@@ -54,6 +54,7 @@ public class Virus extends Microbe {
         bulletsArray = new Array<VirusBullet>();
         setVirusParameters(weight);
         setVirusTextureRegions(weight);
+
         /*
         switch (weight){
             case 0://small
@@ -96,14 +97,14 @@ public class Virus extends Microbe {
         */
     }
 
-    public void shot(float delta){
+    private void shot(float delta){
         intervalDelta += delta;
 
         if (intervalDelta > interval){//изменить тип пуль
-            bullet = new VirusBullet(0,new Vector2 (player.getPositionX(),
-                    player.getPositionY() + player.getSpriteRegionHeight()/2),bulletTextureAtlas);
+            bullet = new VirusBullet(this.virus_type,new Vector2 (player.getPositionX(),
+                    player.getPositionY() + player.getSpriteRegionHeight()/2.0f),bulletTextureAtlas);
             bullet.setPosition(position.x + virusTextureRegion.getRegionWidth(),
-                    position.y + virusTextureRegion.getRegionWidth() / 2 - bullet.getWidth() / 2);
+                    position.y + virusTextureRegion.getRegionWidth() / 2.0f - bullet.getWidth() / 2.0f);
             bullet.setSpeed(interval * 8);
             bullet.updateAngel();
             bulletsArray.add(bullet);
@@ -115,9 +116,9 @@ public class Virus extends Microbe {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.draw(virusTextureRegion, this.position.x, this.position.y,virusTextureRegion.getRegionWidth()/2,
-                virusTextureRegion.getRegionHeight()/2,virusTextureRegion.getRegionWidth(),virusTextureRegion.getRegionHeight(),
-                1,1,degree);
+        batch.draw(virusTextureRegion, this.position.x, this.position.y,virusTextureRegion.getRegionWidth()/2.00f,
+                virusTextureRegion.getRegionHeight()/2.00f,virusTextureRegion.getRegionWidth(),virusTextureRegion.getRegionHeight(),
+                1.0f,1.0f,degree);
         lifeScale.draw(batch,parentAlpha);
     }
 
@@ -130,8 +131,8 @@ public class Virus extends Microbe {
             degree = 0.0f;
         degree -=5.0f;
         virusBound.update(position.x, position.y, boundWidth, boundHeight);
-        lifeScale.setWidth(33*health/maxHealth);
-        lifeScale.setPosition(position.x + boundWidth/2 - lifeScaleAtlas.findRegion("green").getRegionWidth()/2,
+        lifeScale.setWidth(33.0f*health/maxHealth);
+        lifeScale.setPosition(position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
                 position.y + boundHeight);
     }
 
@@ -145,7 +146,7 @@ public class Virus extends Microbe {
         return bulletsArray;
     }
 
-    public void setVirusParameters(int weight){
+    private void setVirusParameters(int weight){
         switch (weight){
             case 0://small
                 setHealth(70);
@@ -173,8 +174,9 @@ public class Virus extends Microbe {
                 break;
         }
     }
-    public void setVirusTextureRegions(int weight){
-        int virus_type = MathUtils.random(0,10);
+    private void setVirusTextureRegions(int weight){
+        this.virus_type = MathUtils.random(0,9);
+        System.out.println("Virus type: "+ virus_type);
         switch (virus_type){
             case 0:
                 switch(weight){
