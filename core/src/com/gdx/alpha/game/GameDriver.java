@@ -7,6 +7,7 @@ import com.gdx.alpha.effects.HitParticleEffect;
 import com.gdx.alpha.entitys.Axe;
 import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.ScoreCloud;
+import com.gdx.alpha.entitys.Virus;
 import com.gdx.alpha.entitys.VirusA;
 import com.gdx.alpha.entitys.VirusB;
 import com.gdx.alpha.entitys.VirusBullet;
@@ -84,7 +85,7 @@ public class GameDriver {
             if ((int)gameTime == gameManager.time.get(i)){
                 buildEnemies(i);
                 gameManager.time.removeIndex(i);
-                gameManager.name.removeIndex(i);
+                //ameManager.name.removeIndex(i);
                 gameManager.posX.removeIndex(i);
                 gameManager.posY.removeIndex(i);
                 gameManager.weight.removeIndex(i);
@@ -93,20 +94,14 @@ public class GameDriver {
         }
     }
     public void buildEnemies(int i){
-            String s = gameManager.name.get(i);
+            //String s = gameManager.name.get(i);
             Microbe microbe = null;
-            if (s.equals("virusA")) {
-                microbe = new VirusA(new Vector2(gameManager.posX.get(i),gameManager.posY.get(i) * Gdx.graphics.getHeight()),gameManager.speed.get(i),
-                        gameManager.weight.get(i),gameManager.player,gameManager.virusAtlas, gameManager.virusBulletAtlas, gameManager.lifeAtlas);
+            microbe = new Virus(new Vector2(gameManager.posX.get(i),gameManager.posY.get(i) * Gdx.graphics.getHeight()),gameManager.speed.get(i),
+                    gameManager.weight.get(i),gameManager.player,gameManager.virusAtlas, gameManager.virusBulletAtlas, gameManager.lifeAtlas);
+            if (microbe != null){
                 gameManager.enemies.add(microbe);
+                gameScreen.getGameStage().addActor(microbe);
             }
-            if (s.equals("virusB")) {
-                microbe = new VirusB(new Vector2(gameManager.posX.get(i),gameManager.posY.get(i) * Gdx.graphics.getHeight()),gameManager.speed.get(i),
-                        gameManager.weight.get(i),gameManager.player,gameManager.virusAtlas, gameManager.virusBulletAtlas, gameManager.lifeAtlas);
-                gameManager.enemies.add(microbe);
-            }
-        if(microbe != null)
-            gameScreen.getGameStage().addActor(microbe);
     }
     public void controlEnemiesPosition(){
         //отслеживание позиции врагов и удаление их со сцены если они вышли за пределы экрана

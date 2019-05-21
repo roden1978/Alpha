@@ -34,7 +34,7 @@ public class GameManager {
     private String[] levels;
     private String[] levelString;
     private String[] param;
-    public Array<String> name;
+    public Array<Integer> name;
     public Array<Float> posX;
     public Array<Float> posY;
     public Array<Integer> weight;
@@ -110,7 +110,7 @@ public class GameManager {
 
     public GameManager(int level) {
         this.level = level;
-        name = new Array<String>();
+        name = new Array<Integer>();
         posX = new Array<Float>();
         posY = new Array<Float>();
         weight = new Array<Integer>();
@@ -144,12 +144,12 @@ public class GameManager {
             levelString = levels[i].split(":");
             if (Integer.valueOf(levelString[0].trim()) == level) {
                 param = levelString[1].split(";");
-                name.add(param[0]);
-                posX.add(Float.valueOf(param[1]));
-                posY.add(Float.valueOf(param[2]));
-                weight.add(Integer.valueOf(param[3]));
-                speed.add(Float.valueOf(param[4]));
-                time.add(Float.valueOf(param[5]));
+                //name.add(Integer.valueOf(param[0]));
+                posX.add(Float.valueOf(param[0]));
+                posY.add(Float.valueOf(param[1]));
+                weight.add(Integer.valueOf(param[2]));
+                speed.add(Float.valueOf(param[3]));
+                time.add(Float.valueOf(param[4]));
             }
         }
     }
