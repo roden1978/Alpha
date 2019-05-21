@@ -1,0 +1,68 @@
+
+bacA.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bacA001
+  rotate: false
+  xy: 0, 66
+  size: 124, 66
+  orig: 124, 66
+  offset: 0, 0
+  index: -1
+bacA002
+  rotate: false
+  xy: 0, 0
+  size: 124, 66
+  orig: 124, 66
+  offset: 0, 0
+  index: -1
+bacA003
+  rotate: false
+  xy: 124, 66
+  size: 124, 66
+  orig: 124, 66
+  offset: 0, 0
+  index: -1
+bacA004
+  rotate: false
+  xy: 124, 0
+  size: 124, 66
+  orig: 124, 66
+  offset: 0, 0
+  index: -1
+bacA005
+  rotate: false
+  xy: 248, 66
+  size: 124, 66
+  orig: 124, 66
+  offset: 0, 0
+  index: -1
+bacA006
+  rotate: false
+  xy: 248, 0
+  size: 124, 66
+  orig: 124, 66
+  offset: 0, 0
+  index: -1
+bacA007
+  rotate: false
+  xy: 372, 66
+  size: 124, 66
+  orig: 124, 66
+  offset: 0, 0
+  index: -1
+bacA008
+  rotate: false
+  xy: 372, 0
+  size: 124, 66
+  orig: 124, 66
+  offset: 0, 0
+  index: -1
+bacA009
+  rotate: false
+  xy: 496, 66
+  size: 124, 66
+  orig: 124, 66
+  offset: 0, 0
+  index: -1

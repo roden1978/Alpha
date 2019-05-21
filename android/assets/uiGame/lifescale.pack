@@ -1,0 +1,26 @@
+
+lifescale.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+green
+  rotate: false
+  xy: 0, 10
+  size: 33, 5
+  orig: 33, 5
+  offset: 0, 0
+  index: -1
+red
+  rotate: false
+  xy: 0, 5
+  size: 33, 5
+  orig: 33, 5
+  offset: 0, 0
+  index: -1
+yellow
+  rotate: false
+  xy: 0, 0
+  size: 33, 5
+  orig: 33, 5
+  offset: 0, 0
+  index: -1

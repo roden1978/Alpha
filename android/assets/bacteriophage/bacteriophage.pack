@@ -1,0 +1,145 @@
+
+bacteriophage.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+000
+  rotate: false
+  xy: 0, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+004
+  rotate: false
+  xy: 0, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+001
+  rotate: false
+  xy: 67, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+003
+  rotate: false
+  xy: 67, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+002
+  rotate: false
+  xy: 134, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+005
+  rotate: false
+  xy: 201, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+009
+  rotate: false
+  xy: 201, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+015
+  rotate: false
+  xy: 201, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+019
+  rotate: false
+  xy: 201, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+006
+  rotate: false
+  xy: 268, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+008
+  rotate: false
+  xy: 268, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+016
+  rotate: false
+  xy: 268, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+018
+  rotate: false
+  xy: 268, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+007
+  rotate: false
+  xy: 335, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+017
+  rotate: false
+  xy: 335, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+010
+  rotate: false
+  xy: 402, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+014
+  rotate: false
+  xy: 402, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+011
+  rotate: false
+  xy: 469, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+013
+  rotate: false
+  xy: 469, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+012
+  rotate: false
+  xy: 536, 0
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,117 @@
+
+stone.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+s001
+  rotate: false
+  xy: 0, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+s002
+  rotate: false
+  xy: 55, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+s016
+  rotate: false
+  xy: 55, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+s003
+  rotate: false
+  xy: 110, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+s015
+  rotate: false
+  xy: 110, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+s004
+  rotate: false
+  xy: 165, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+s014
+  rotate: false
+  xy: 165, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+s005
+  rotate: false
+  xy: 220, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+s013
+  rotate: false
+  xy: 220, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+s006
+  rotate: false
+  xy: 275, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+s012
+  rotate: false
+  xy: 275, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+s007
+  rotate: false
+  xy: 330, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+s011
+  rotate: false
+  xy: 330, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+s008
+  rotate: false
+  xy: 385, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+s010
+  rotate: false
+  xy: 385, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+s009
+  rotate: false
+  xy: 440, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1

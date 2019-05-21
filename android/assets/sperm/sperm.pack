@@ -1,0 +1,33 @@
+
+sperm.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+sperm001
+  rotate: false
+  xy: 0, 23
+  size: 123, 23
+  orig: 123, 23
+  offset: 0, 0
+  index: -1
+sperm002
+  rotate: false
+  xy: 0, 0
+  size: 123, 23
+  orig: 123, 23
+  offset: 0, 0
+  index: -1
+sperm003
+  rotate: false
+  xy: 123, 23
+  size: 123, 23
+  orig: 123, 23
+  offset: 0, 0
+  index: -1
+sperm004
+  rotate: false
+  xy: 123, 0
+  size: 123, 23
+  orig: 123, 23
+  offset: 0, 0
+  index: -1

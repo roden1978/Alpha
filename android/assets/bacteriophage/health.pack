@@ -1,0 +1,117 @@
+
+health.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+h001
+  rotate: false
+  xy: 0, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+h002
+  rotate: false
+  xy: 55, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+h016
+  rotate: false
+  xy: 55, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+h003
+  rotate: false
+  xy: 110, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+h015
+  rotate: false
+  xy: 110, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+h004
+  rotate: false
+  xy: 165, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+h014
+  rotate: false
+  xy: 165, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+h005
+  rotate: false
+  xy: 220, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+h013
+  rotate: false
+  xy: 220, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+h006
+  rotate: false
+  xy: 275, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+h012
+  rotate: false
+  xy: 275, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+h007
+  rotate: false
+  xy: 330, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+h011
+  rotate: false
+  xy: 330, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+h008
+  rotate: false
+  xy: 385, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+h010
+  rotate: false
+  xy: 385, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+h009
+  rotate: false
+  xy: 440, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1

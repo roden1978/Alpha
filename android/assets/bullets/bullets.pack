@@ -1,0 +1,75 @@
+
+bullets.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+vir001_bullet
+  rotate: false
+  xy: 0, 61
+  size: 15, 16
+  orig: 15, 16
+  offset: 0, 0
+  index: -1
+vir004_bullet
+  rotate: false
+  xy: 15, 61
+  size: 15, 16
+  orig: 15, 16
+  offset: 0, 0
+  index: -1
+vir09_bullet
+  rotate: false
+  xy: 0, 45
+  size: 15, 16
+  orig: 15, 16
+  offset: 0, 0
+  index: -1
+vir002_bullet
+  rotate: false
+  xy: 15, 46
+  size: 15, 15
+  orig: 15, 15
+  offset: 0, 0
+  index: -1
+vir003_bullet
+  rotate: false
+  xy: 15, 31
+  size: 15, 15
+  orig: 15, 15
+  offset: 0, 0
+  index: -1
+vir005_bullet
+  rotate: false
+  xy: 0, 30
+  size: 15, 15
+  orig: 15, 15
+  offset: 0, 0
+  index: -1
+vir006_bullet
+  rotate: false
+  xy: 15, 16
+  size: 15, 15
+  orig: 15, 15
+  offset: 0, 0
+  index: -1
+vir007_bullet
+  rotate: false
+  xy: 0, 15
+  size: 15, 15
+  orig: 15, 15
+  offset: 0, 0
+  index: -1
+vir008_bullet
+  rotate: false
+  xy: 15, 1
+  size: 15, 15
+  orig: 15, 15
+  offset: 0, 0
+  index: -1
+vir010_bullet
+  rotate: false
+  xy: 0, 0
+  size: 15, 15
+  orig: 15, 15
+  offset: 0, 0
+  index: -1

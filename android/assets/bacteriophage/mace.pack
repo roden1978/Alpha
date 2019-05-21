@@ -1,0 +1,117 @@
+
+mace.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+m001
+  rotate: false
+  xy: 0, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+m002
+  rotate: false
+  xy: 55, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+m016
+  rotate: false
+  xy: 55, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+m003
+  rotate: false
+  xy: 110, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+m015
+  rotate: false
+  xy: 110, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+m004
+  rotate: false
+  xy: 165, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+m014
+  rotate: false
+  xy: 165, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+m005
+  rotate: false
+  xy: 220, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+m013
+  rotate: false
+  xy: 220, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+m006
+  rotate: false
+  xy: 275, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+m012
+  rotate: false
+  xy: 275, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+m007
+  rotate: false
+  xy: 330, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+m011
+  rotate: false
+  xy: 330, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+m008
+  rotate: false
+  xy: 385, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+m010
+  rotate: false
+  xy: 385, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+m009
+  rotate: false
+  xy: 440, 0
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1

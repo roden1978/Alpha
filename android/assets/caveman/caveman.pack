@@ -1,0 +1,54 @@
+
+caveman.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+right_shot_game001
+  rotate: false
+  xy: 0, 0
+  size: 45, 100
+  orig: 45, 100
+  offset: 0, 0
+  index: -1
+right_shot_game002
+  rotate: false
+  xy: 45, 0
+  size: 45, 100
+  orig: 45, 100
+  offset: 0, 0
+  index: -1
+right_shot_game003
+  rotate: false
+  xy: 90, 0
+  size: 45, 100
+  orig: 45, 100
+  offset: 0, 0
+  index: -1
+right_shot_game004
+  rotate: false
+  xy: 135, 0
+  size: 45, 100
+  orig: 45, 100
+  offset: 0, 0
+  index: -1
+right_shot_game005
+  rotate: false
+  xy: 180, 0
+  size: 45, 100
+  orig: 45, 100
+  offset: 0, 0
+  index: -1
+right_shot_game006
+  rotate: false
+  xy: 225, 0
+  size: 45, 100
+  orig: 45, 100
+  offset: 0, 0
+  index: -1
+right_shot_game007
+  rotate: false
+  xy: 270, 0
+  size: 45, 100
+  orig: 45, 100
+  offset: 0, 0
+  index: -1

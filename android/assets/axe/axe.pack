@@ -1,0 +1,68 @@
+
+axe.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+axe001
+  rotate: false
+  xy: 0, 26
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+axe002
+  rotate: false
+  xy: 0, 0
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+axe003
+  rotate: false
+  xy: 26, 26
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+axe004
+  rotate: false
+  xy: 26, 0
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+axe005
+  rotate: false
+  xy: 52, 26
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+axe006
+  rotate: false
+  xy: 52, 0
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+axe007
+  rotate: false
+  xy: 78, 26
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+axe008
+  rotate: false
+  xy: 78, 0
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+axe009
+  rotate: false
+  xy: 104, 26
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1

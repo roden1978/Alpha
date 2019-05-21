@@ -1,0 +1,19 @@
+
+sound.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+sound_off
+  rotate: false
+  xy: 0, 0
+  size: 75, 64
+  orig: 75, 64
+  offset: 0, 0
+  index: -1
+sound_on
+  rotate: false
+  xy: 75, 0
+  size: 75, 64
+  orig: 75, 64
+  offset: 0, 0
+  index: -1

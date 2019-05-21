@@ -1,0 +1,54 @@
+{
+    "com.badlogic.gdx.graphics.Color":{
+        "white":{"r":1, "g":1, "b":1, "a":1},
+        "black":{"r":0, "g":0, "b":0, "a":1},
+        "red":  {"r":1, "g":0, "b":0, "a":1},
+        "green":{"r":0, "g":1, "b":0, "a":1},
+        "blue": {"r":0, "g":0, "b":1, "a":1}
+    },
+    "com.badlogic.gdx.graphics.g2d.BitmapFont":{
+        "bitmapFont72":{
+         "file": "font/stonefont.fnt"
+         },
+         "namesfont":{
+            "file": "font/font.fnt"
+         },
+         "namesfont72":{
+            "file": "font/namesfont72.fnt"
+         },
+         "namesfont56":{
+            "file": "font/namesfont56.fnt"
+         },
+         "font_red_32":{
+                     "file": "font/font_red_32.fnt"
+                  },
+         "font_green_32":{
+                     "file": "font/font_green_32.fnt"
+                  }
+    },
+    "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle":{
+        "default":{
+            "font": "bitmapFont72"
+        },
+        "style56":{
+            "font": "namesfont56"
+        },
+        "style36":{
+            "font": "namesfont"
+        }
+    },
+    "com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle":{
+        "default":{
+            "font": "namesfont56",
+            "fontColorSelected": "red",
+            "fontColorUnselected": "white",
+            "selection": "selection"
+        }
+    },
+    "com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle":{
+        "default":{
+            "hScrollKnob": "hscroll",
+            "vScrollKnob": "vscroll"
+        }
+    }
+}
