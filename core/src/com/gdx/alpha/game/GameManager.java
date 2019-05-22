@@ -94,6 +94,8 @@ public class GameManager {
 
     private String line;
 
+    private Boolean level_end;
+
     //элементы интерфейса строки состояния игры
     private TextureAtlas uiAtlas;
     private TextureAtlas textureAtlas;
@@ -117,8 +119,8 @@ public class GameManager {
         speed = new Array<Float>();
         time = new Array<Float>();
 
-        enemies = new Array<Microbe>(150);
-        bullets = new Array<VirusBullet>(150);
+        enemies = new Array<Microbe>(50);
+        bullets = new Array<VirusBullet>(50);
         axes = new Array<Axe>(20);
         sperms = new Array<Sperm>(50);
         bacteriophages = new Array<Bacteriophage>(10);
@@ -127,6 +129,8 @@ public class GameManager {
         scoreCloudArray = new Array<ScoreCloud>(10);
 
         line = new String();
+
+        level_end = false;
 
         try {
             loadLevel();
@@ -185,6 +189,7 @@ public class GameManager {
         backgroundLayer00 = new ParallaxBackgroundLayer00(backgroundAtlas);
         backgroundLayer01 = new ParallaxBackgroundLayer01(backgroundAtlas);
         sprinkle = new Sprinkle(spermAtlas);
+        ovum = new Ovum(ovumAtlas);
     }
 
     public void buildActions() {
@@ -250,4 +255,12 @@ public class GameManager {
         }
         return bacteriophage;
     }
+    public void setLevelEnd(Boolean level_end){
+        this.level_end = level_end;
+    }
+
+    public Boolean getLevelEnd(){
+        return this.level_end;
+    }
+
 }//end of class

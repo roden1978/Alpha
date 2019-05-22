@@ -227,7 +227,9 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     }
     //состояние завершения уровня
     private void updateLevelEnd(){
-
+        if (Gdx.input.justTouched()){
+            state = LEVEL_END_STATE;
+        }
     }
     //состояние конец игры
     private void updateGameOver(){
@@ -295,7 +297,12 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     }
     //отрисовка состояния окончания уровная
     private void presentLevelEnd(){
-
+        Gdx.gl.glClearColor(1, 1, 1, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        spriteBatch.begin();
+        font.draw(spriteBatch,"LEVEL COMPLETE",gameStage.getWidth()/2 - font.getBounds("LEVEL COMPLETE").width/2,
+                gameStage.getHeight()/2 + font.getBounds("LEVEL COMPLETE").height/2);
+        spriteBatch.end();
     }
     //отрисовка окончания игры
     private void presentGameOver(){

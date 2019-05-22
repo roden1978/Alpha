@@ -31,7 +31,7 @@ public class Sprinkle extends Actor {
         sprinkle = new Array<Sperm>();
         pos = new Vector2();
         dir = new Vector2();
-        speed = 0.1f; //0.0625 - 5 минут
+        speed = 0.625f; //0.0625 - 5 минут скорость капли чем больше число тем выше скорость движения капли
      for (int i = 0; i < 5; i++) {
          for (int j = 0; j < 7; j++) {
              if (sprinklePos[i][j] != 0) {

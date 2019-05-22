@@ -46,8 +46,12 @@ public class GameDriver {
         System.out.println("GameDriver create");
     }
 
+/*gameDrive фукция которая является игровым процессом
+* функция вводит в игровой процесс всех объектов
+* контролирует процессы взаимодействия объектов
+* и удаление объектов из игрововго процесса*/
     public void gameDrive(float delta){
-
+        //Блок ввода в игру объектов игрововго процесса
         addEnemiesToGame(delta);
         addBulletsToArray();
         addBulletsToGame();
@@ -56,20 +60,29 @@ public class GameDriver {
         addHitParticleEffectToGame();
         addScoreCloudToGame();
         addBacteriophageToGame();
+        addOvumToGame();
+        //---------------------------------------------------
 
+        //Блок контроля столкновений и взаимодействия объектов
         collisionDetector.detectPlayerCollisions();
         collisionDetector.detectWeaponBulletCollision();
         collisionDetector.detectWeaponEnemyCollisions();
         collisionDetector.detectSpermCollisions();
         collisionDetector.detectBacteriophageEnemyCollisions();
+        collisionDetector.detectOvumSpermsCollisions();
+        //----------------------------------------------------
 
+        //Блок контроля нахождения объектов игрового процесса на игровой сцене
+        // и удаления если объекты покинули пределы игровой сцены
         controlEnemiesPosition();
         controlBulletPosition();
         controlAxePosition();
         controlHitParticleEffect();
         controlScoreCloud();
         controlLifeScale();
+        controlLevelEnd();
     }
+    //Функция ввода основных объектов в игру
     public void addGeneralActorsToScene(){
         gameScreen.getGameStage().addActor(gameManager.backgroundLayer01);
         gameScreen.getGameStage().addActor(gameManager.backgroundLayer00);
@@ -78,6 +91,7 @@ public class GameDriver {
         gameScreen.getGameStage().addActor(gameManager.throwWeapon);
         gameScreen.getGameStage().addActor(gameManager.player);
     }
+    //Функция ввода в игру "врагов"
     public void addEnemiesToGame(float delta){
         //вводим врагов в игру
         gameTime += delta;
@@ -93,6 +107,7 @@ public class GameDriver {
             }
         }
     }
+    //Функция создания классов "врагов"
     public void buildEnemies(int i){
             //String s = gameManager.name.get(i);
             Microbe microbe = null;
@@ -125,7 +140,7 @@ public class GameDriver {
         //добавляем пули врагов в общий массив пуль для дальнейшей обработки
         //затем массивы пуль каждого врага очищаем
         //отдельный массив пуль нуже для того чтобы пули не были привязаны к врагам и не уничтожались при уничтожении врага,
-        //а прожили свой жизненный цикл и выполнили свое предназначение
+        //а прожили свой жизненный цикл
         for (int i = 0; i < gameManager.enemies.size; i++) {
             if (gameManager.enemies.get(i) != null) {
                 for (int j = 0; j < gameManager.enemies.get(i).getBulletsArray().size; j++) {
@@ -244,5 +259,19 @@ public class GameDriver {
             if (gameManager.bacteriophages.get(i) != null)
                 gameScreen.getGameStage().addActor(gameManager.bacteriophages.get(i));
         }
+    }
+    public void addOvumToGame(){
+        if (gameManager.ovum != null){
+            for (int i = 0; i < gameManager.sperms.size; i++){
+                if (gameManager.sperms.get(i).getPositionX() <= gameScreen.getGameStage().getWidth() -
+                        (gameScreen.getGameStage().getWidth()/3.0f)*2.0f)
+                    gameScreen.getGameStage().addActor(gameManager.ovum);
+
+            }
+        }
+    }
+    public void controlLevelEnd(){
+        if(gameManager.getLevelEnd())
+            gameScreen.setGameState(3); //Level end
     }
 }

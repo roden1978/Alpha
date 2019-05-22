@@ -43,6 +43,7 @@ public class CollisionDetector {
     private Rectangle axeRect;
     private Rectangle spermRect;
     private Rectangle bacRect;
+    private Rectangle ovumRect;
 
     public CollisionDetector(GameManager gameManager) {
         this.gameManager = gameManager;
@@ -51,6 +52,7 @@ public class CollisionDetector {
         bulletRect = new Rectangle();
         axeRect = new Rectangle();
         spermRect = new Rectangle();
+        ovumRect = new Rectangle();
 
         deleteAxe = -1;
         deleteMicrobe = -1;
@@ -313,4 +315,22 @@ public class CollisionDetector {
         }
         deleteSperm = -1;
     }
-}
+
+    public void detectOvumSpermsCollisions(){
+        if (gameManager.sperms.size > 0) {
+            for (int i = 0; i < gameManager.sperms.size; i++) {
+                if (gameManager.ovum != null && gameManager.sperms.get(i) != null) {
+                    ovumRect = gameManager.ovum.getBound().getBox();
+                    spermRect = gameManager.sperms.get(i).getBound().getBox();
+                    if (ovumRect.contains(spermRect) || ovumRect.overlaps(spermRect)) {
+                        hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.ovum_effect), 0.5f);
+                        hitParticleEffect.setPositionEffect(gameManager.sperms.get(i).getPositionX() + spermRect.getWidth() / 2,
+                                gameManager.sperms.get(i).getPositionY() - spermRect.getHeight() / 2);
+                        gameManager.hitParticleEffectArray.add(hitParticleEffect);
+                        gameManager.setLevelEnd(true);
+                    }
+                }
+            }
+        }
+    }
+}//end fo class
