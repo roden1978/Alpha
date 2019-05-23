@@ -205,33 +205,9 @@ public class CollisionDetector {
                                             gameManager.fontScoreCloudGreen, gameManager.enemies.get(i).getPrice(), true);
                                     gameManager.scoreCloudArray.add(scoreCloud);
                                     //Добавление бактериофага в игру
-                                    //bacteriophage=gameManager.randomizeBacteriophages(i);
                                     if (gameManager.randomizeBacteriophages(i) != null)
                                         gameManager.bacteriophages.add(gameManager.randomizeBacteriophages(i));
-                                    /*
-                                    if (MathUtils.random(100) > 70) {
-                                        if (MathUtils.randomBoolean()) {
-                                            int weapon_type_bacteriophage = MathUtils.random(1, 3);
-                                            switch (weapon_type_bacteriophage) {
-                                                case 1:
-                                                    bacteriophage = new Bacteriophage(new Vector2(gameManager.enemies.get(i).getPosition()),
-                                                            0.0f, gameManager.bacteriophage_weapon_maceAtlas, "m001");
-                                                    break;
-                                                case 2:
-                                                    bacteriophage = new Bacteriophage(new Vector2(gameManager.enemies.get(i).getPosition()),
-                                                            0.0f, gameManager.bacteriophage_weapon_stoneAtlas,"s001");
-                                                    break;
-                                            }
-
-                                        } else {
-                                            bacteriophage = new Bacteriophage(new Vector2(gameManager.enemies.get(i).getPosition()),
-                                                    0.0f, gameManager.bacteriophageAtlas,"h001");
-                                        }
-
-                                        gameManager.bacteriophages.add(bacteriophage);
-                                    }
-                                    */
-                                }
+                                  }
                             }
                         }
                     }
@@ -317,20 +293,29 @@ public class CollisionDetector {
     }
 
     public void detectOvumSpermsCollisions(){
-        if (gameManager.sperms.size > 0) {
+        if (gameManager.sperms.size > 0 && gameManager.getOvumEffectStart() == false) {
             for (int i = 0; i < gameManager.sperms.size; i++) {
                 if (gameManager.ovum != null && gameManager.sperms.get(i) != null) {
                     ovumRect = gameManager.ovum.getBound().getBox();
                     spermRect = gameManager.sperms.get(i).getBound().getBox();
                     if (ovumRect.contains(spermRect) || ovumRect.overlaps(spermRect)) {
-                        hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.ovum_effect), 0.5f);
+                        hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.ovum_effect), 5.0f);
                         hitParticleEffect.setPositionEffect(gameManager.sperms.get(i).getPositionX() + spermRect.getWidth() / 2,
                                 gameManager.sperms.get(i).getPositionY() - spermRect.getHeight() / 2);
                         gameManager.hitParticleEffectArray.add(hitParticleEffect);
-                        gameManager.setLevelEnd(true);
+                        gameManager.setOvumEffectStart(true);
+
                     }
                 }
             }
+        }
+    }
+
+    public void detectLevelEnd(){
+        //System.out.println("Delta: " + gameManager.getDeltaTimeParticleEffect());
+        if (gameManager.getDeltaTimeParticleEffect() < 0.0f){
+            gameManager.setOvumEffectStart(false);
+            gameManager.setLevelEnd(true);
         }
     }
 }//end fo class

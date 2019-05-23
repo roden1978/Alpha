@@ -70,6 +70,7 @@ public class GameDriver {
         collisionDetector.detectSpermCollisions();
         collisionDetector.detectBacteriophageEnemyCollisions();
         collisionDetector.detectOvumSpermsCollisions();
+        collisionDetector.detectLevelEnd();
         //----------------------------------------------------
 
         //Блок контроля нахождения объектов игрового процесса на игровой сцене
@@ -81,6 +82,10 @@ public class GameDriver {
         controlScoreCloud();
         controlLifeScale();
         controlLevelEnd();
+        /*Запуск задержки для отрисовки ovum_effect и выходом на экран с выбором уровня
+        * */
+        if(gameManager.getOvumEffectStart() == true)
+            changeDeltaTimeParticleEffect(delta);
     }
     //Функция ввода основных объектов в игру
     public void addGeneralActorsToScene(){
@@ -273,5 +278,10 @@ public class GameDriver {
     public void controlLevelEnd(){
         if(gameManager.getLevelEnd())
             gameScreen.setGameState(3); //Level end
+    }
+    //Изменение переменной delta_time_particle_effect которая применяется для
+    //задержки окончание уровня до конца отрисовки еффекта ovum_effect
+    public void changeDeltaTimeParticleEffect(float delta){
+        gameManager.setDeltaTimeParticleEffect(gameManager.getDeltaTimeParticleEffect() - delta);
     }
 }

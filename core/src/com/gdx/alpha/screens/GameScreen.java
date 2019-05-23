@@ -63,8 +63,9 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK){
-            if (state == PAUSE_STATE || state == END_STATE)
+            if (state == PAUSE_STATE || state == END_STATE || state == LEVEL_END_STATE)
                 screenManager.setCurrentScreen(new LevelScreen(screenManager));
+
             state = PAUSE_STATE;
         }
         if (keycode == Input.Keys.P)
@@ -88,16 +89,19 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        //System.out.println(screenX);
-        //System.out.println(screenY);
+        System.out.println("X: "+screenX);
+        System.out.println("Y: " + screenY);
         gameDriver.gameManager.player.setThrowing(true);
         gameDriver.gameManager.throwWeapon.setThrowing(true);
-
-        if (screenX > (int)gameDriver.gameManager.pauseImage.getX() &&
-                screenX < (int)(gameDriver.gameManager.pauseImage.getX() + gameDriver.gameManager.pauseImage.getImageWidth())&&
-                screenY < (int)(gameStage.getHeight() - gameDriver.gameManager.pauseImage.getY()) &&
-                screenY > (int) (gameStage.getHeight() - gameDriver.gameManager.pauseImage.getY() - gameDriver.gameManager.pauseImage.getImageHeight())){
-
+        System.out.println("X >: " + (int)gameDriver.gameManager.pauseImage.getImageX() +
+                " X <: " + (int)(gameStage.getWidth() - (gameStage.getWidth() - gameDriver.gameManager.pauseImage.getImageWidth()))+
+                " Y <: " + (int)(gameStage.getHeight() - (gameStage.getHeight() - gameDriver.gameManager.pauseImage.getImageHeight())) +
+                " Y >: " + 0);
+        if (screenX > (int)gameDriver.gameManager.pauseImage.getImageX() &&
+                screenX < (int)(gameStage.getWidth() - (gameStage.getWidth() - gameDriver.gameManager.pauseImage.getImageWidth()))&&
+                screenY < (int)(gameStage.getHeight() - (gameStage.getHeight() - gameDriver.gameManager.pauseImage.getImageHeight())) &&
+                screenY > 0.0f){
+//(int) (gameStage.getHeight() - gameDriver.gameManager.pauseImage.getImageY() - gameDriver.gameManager.pauseImage.getImageHeight())
             state = PAUSE_STATE;
         }
         return true;
@@ -265,7 +269,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     //отрисова состояний игры
     //отрисовка состояния готовности
     private void presentReady(){
-        Gdx.gl.glClearColor(1, 1, 1, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         spriteBatch.begin();
             font.draw(spriteBatch,"TAP TO PLAY",gameStage.getWidth()/2 - font.getBounds("TAP TO PLAY").width/2,
@@ -284,7 +288,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     }
     //отрисовка состояния паузы
     private void presentPaused(){
-        Gdx.gl.glClearColor(1, 1, 1, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         spriteBatch.begin();
         font.draw(spriteBatch,"PAUSE",gameStage.getWidth()/2 - font.getBounds("PAUSE").width/2,
@@ -297,7 +301,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     }
     //отрисовка состояния окончания уровная
     private void presentLevelEnd(){
-        Gdx.gl.glClearColor(1, 1, 1, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         spriteBatch.begin();
         font.draw(spriteBatch,"LEVEL COMPLETE",gameStage.getWidth()/2 - font.getBounds("LEVEL COMPLETE").width/2,
@@ -306,7 +310,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     }
     //отрисовка окончания игры
     private void presentGameOver(){
-        Gdx.gl.glClearColor(1, 1, 1, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         spriteBatch.begin();
         font.draw(spriteBatch,"GAME OVER",gameStage.getWidth()/2 - font.getBounds("GAME OVER").width/2,

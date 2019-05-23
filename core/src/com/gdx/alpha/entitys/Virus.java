@@ -176,7 +176,7 @@ public class Virus extends Microbe {
     }
     private void setVirusTextureRegions(int weight){
         this.virus_type = MathUtils.random(0,9);
-        System.out.println("Virus type: "+ virus_type);
+        //System.out.println("Virus type: "+ virus_type);
         switch (virus_type){
             case 0:
                 switch(weight){

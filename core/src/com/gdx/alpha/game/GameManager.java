@@ -93,8 +93,12 @@ public class GameManager {
     public ParallaxBackgroundLayer01 backgroundLayer01;
 
     private String line;
-
+    //Признак конца уровня
     private Boolean level_end;
+    //Время задежки для отработки эффектов
+    private float delta_time_particle_effect;
+    //Запущен ли ovum_effect
+    private Boolean ovum_effectStart;
 
     //элементы интерфейса строки состояния игры
     private TextureAtlas uiAtlas;
@@ -127,6 +131,8 @@ public class GameManager {
 
         hitParticleEffectArray = new Array<HitParticleEffect>(10);
         scoreCloudArray = new Array<ScoreCloud>(10);
+        delta_time_particle_effect = 5.0f;
+        ovum_effectStart = false;
 
         line = new String();
 
@@ -231,7 +237,7 @@ public class GameManager {
             bacteriophage=null;
             //bacteriophages.clear();
             int weapon_type_bacteriophage = MathUtils.random(0, 2);
-            System.out.println("Weapon type: "+ weapon_type_bacteriophage);
+            //System.out.println("Weapon type: "+ weapon_type_bacteriophage);
             switch (weapon_type_bacteriophage) {
                 case 0:
                     bacteriophage = new Bacteriophage(new Vector2(this.enemies.get(i).getPosition()),
@@ -261,6 +267,19 @@ public class GameManager {
 
     public Boolean getLevelEnd(){
         return this.level_end;
+    }
+
+    public void setDeltaTimeParticleEffect(float delta_time_paricle_effect){
+        this.delta_time_particle_effect = delta_time_paricle_effect;
+    }
+    public float getDeltaTimeParticleEffect(){
+        return this.delta_time_particle_effect;
+    }
+    public void setOvumEffectStart(Boolean start){
+        this.ovum_effectStart = start;
+    }
+    public Boolean getOvumEffectStart(){
+        return this.ovum_effectStart;
     }
 
 }//end of class
