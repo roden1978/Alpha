@@ -91,6 +91,9 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         System.out.println("X: "+screenX);
         System.out.println("Y: " + screenY);
+        System.out.println("State in: " + state);
+        if (state == PAUSE_STATE)
+            state = RUNNING_STATE;
         gameDriver.gameManager.player.setThrowing(true);
         gameDriver.gameManager.throwWeapon.setThrowing(true);
         System.out.println("X >: " + (int)gameDriver.gameManager.pauseImage.getImageX() +
@@ -103,6 +106,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
                 screenY > 0.0f){
 //(int) (gameStage.getHeight() - gameDriver.gameManager.pauseImage.getImageY() - gameDriver.gameManager.pauseImage.getImageHeight())
             state = PAUSE_STATE;
+            System.out.println("State out: " + state);
         }
         return true;
     }
@@ -225,8 +229,9 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     }
     //состояние паузы
     private void updatePause(){
-        if (Gdx.input.justTouched()) {
-            state = RUNNING_STATE;
+        if (Gdx.input.justTouched() && state == RUNNING_STATE) {
+            //state = RUNNING_STATE;
+            state = PAUSE_STATE;
         }
     }
     //состояние завершения уровня
@@ -295,7 +300,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
                 gameStage.getHeight()/2 + font.getBounds("PAUSE").height/2);
         font.draw(spriteBatch,"TAP TO CONTINUE",gameStage.getWidth()/2 - font.getBounds("TAP TO CONTINUE").width/2,
                 gameStage.getHeight()/2 - font.getBounds("TAP TO CONTINUE").height*2);
-        font.draw(spriteBatch,"OR BACK TO EXIT",gameStage.getWidth()/2 - font.getBounds("OR BACK TO EXIT").width/2,
+        font.draw(spriteBatch,"OR BACK (ESC) TO EXIT",gameStage.getWidth()/2 - font.getBounds("OR BACK (ESC) TO EXIT").width/2,
                 gameStage.getHeight()/2 - font.getBounds("OR BACK TO EXIT").height*3);
         spriteBatch.end();
     }
