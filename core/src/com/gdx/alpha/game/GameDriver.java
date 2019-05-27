@@ -223,7 +223,7 @@ public class GameDriver {
         }
         gameManager.sprinkle.getSpermArray().clear();
         //выводим массив сперматозоидов на игровую сцену
-        gameManager.spermAmount = gameManager.sperms.size;
+        gameManager.setSpermAmount(gameManager.sperms.size);
         gameManager.updateSpermAmount();
         for (int i = 0; i < gameManager.sperms.size; i++){
             if (gameManager.sperms.get(i) != null){

@@ -21,12 +21,12 @@ public class CollisionDetector {
 
     private GameManager gameManager;
     private InteractionManager interactionManager;
-    private Microbe removedMicrobe = null;
-    private VirusBullet removedBullet = null;
-    private Axe removedAxe = null;
-    private Sperm removedSperm = null;
-    private Float removedIndex = null;
-    private Bacteriophage bacRemoved = null;
+    private Microbe removedMicrobe;
+    private VirusBullet removedBullet;
+    private Axe removedAxe;
+    private Sperm removedSperm;
+    private Float removedIndex;
+    private Bacteriophage bacRemoved;
 
     private HitParticleEffect hitParticleEffect;
     private ScoreCloud scoreCloud;
@@ -56,6 +56,13 @@ public class CollisionDetector {
         spermRect = new Rectangle();
         ovumRect = new Rectangle();
 
+        removedMicrobe = null;
+        removedBullet = null;
+        removedAxe = null;
+        removedSperm = null;
+        removedIndex = null;
+        bacRemoved = null;
+
         deleteAxe = -1;
         deleteMicrobe = -1;
         deleteSperm = -1;
@@ -73,21 +80,11 @@ public class CollisionDetector {
                     playerRect = gameManager.player.getBound().getBox();
                     enemyRect = gameManager.enemies.get(i).getBound().getBox();
                     if (playerRect.overlaps(enemyRect) || playerRect.contains(enemyRect)) {
-                        /*
-                        hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.blow), 0.5f);
-                        hitParticleEffect.setPositionEffect(gameManager.enemies.get(i).getPositionX() + enemyRect.getWidth() / 2,
-                                gameManager.enemies.get(i).getPositionY() + enemyRect.getHeight() / 2);
-                        gameManager.hitParticleEffectArray.add(hitParticleEffect);
-                        gameManager.player.setHealth(gameManager.player.getHealth() - gameManager.enemies.get(i).getPrice());
-                        scoreCloud = new ScoreCloud(new Vector2(gameManager.player.getPositionX() + playerRect.getWidth() / 2,
-                                gameManager.player.getPositionY() + playerRect.getHeight() / 2),
-                                gameManager.fontScoreCloudRed, gameManager.enemies.get(i).getPrice(), false);
-                        gameManager.scoreCloudArray.add(scoreCloud);
-                        */
+
                         //Создаем эффект взрыва от столкновения игрока с врагом
                         interactionManager.createParticleEffectBlow(i);
                         //Изменение уровня жизни игрока от столкновения с врагом
-                        interactionManager.changePlayerHealth(i);
+                        interactionManager.changePlayerHealthEnemys(i);
                         //Создаем облако очков от столкновения игрока с врагом
                         interactionManager.createScoreCloudToPlayer(i);
 
@@ -105,18 +102,15 @@ public class CollisionDetector {
                     playerRect = gameManager.player.getBound().getBox();
                     bulletRect = gameManager.bullets.get(i).getBound().getBox();
                     if (playerRect.overlaps(bulletRect) || playerRect.contains(bulletRect)) {
-                        hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.blow_small), 0.5f);
-                        hitParticleEffect.setPositionEffect(gameManager.bullets.get(i).getPositionX() + bulletRect.getWidth() / 2,
-                                gameManager.bullets.get(i).getPositionY() + bulletRect.getHeight() / 2);
-                        gameManager.hitParticleEffectArray.add(hitParticleEffect);
-                        gameManager.player.setHealth(gameManager.player.getHealth() - gameManager.bullets.get(i).getPrice());
-                        scoreCloud = new ScoreCloud(new Vector2(gameManager.player.getPositionX() + playerRect.getWidth() / 2,
-                                gameManager.player.getPositionY() + playerRect.getHeight() / 2),
-                                gameManager.fontScoreCloudRed, gameManager.bullets.get(i).getPrice(), false);
-                        gameManager.scoreCloudArray.add(scoreCloud);
-                        gameManager.bullets.get(i).remove();
-                        removedBullet = gameManager.bullets.removeIndex(i);
-                        removedBullet = null;
+                      //Создаем эффект взрыва от столкновения игрока с пулями
+                       interactionManager.createParticleEffectBlowSmall(i);
+                       //Изменяем уровнь жизьни игрока от столкновения с пулями
+                       interactionManager.changePlayerHealthBullets(i);
+                       //Создаем облако очков от столкновения игрока с пулями
+                       interactionManager.createScoreCloudToBullets(i);
+                       gameManager.bullets.get(i).remove();
+                       removedBullet = gameManager.bullets.removeIndex(i);
+                       removedBullet = null;
                     }
                 }
             }
@@ -177,7 +171,7 @@ public class CollisionDetector {
 
     }
 
-
+//Обработка столкновений оружия с врагами
     public void detectWeaponEnemyCollisions() {
         if (gameManager.enemies.size > 0) {
             for (int i = 0; i < gameManager.enemies.size; i++) {
@@ -209,7 +203,7 @@ public class CollisionDetector {
                                     hitParticleEffect.setPositionEffect(gameManager.enemies.get(i).getPositionX() + enemyRect.getWidth() / 2,
                                             gameManager.enemies.get(i).getPositionY() + enemyRect.getHeight() / 2);
                                     gameManager.hitParticleEffectArray.add(hitParticleEffect);
-                                    gameManager.scoresAmount += gameManager.enemies.get(i).getPrice();
+                                    gameManager.setScoresAmount(gameManager.getScoresAmount()+ gameManager.enemies.get(i).getPrice());
                                     gameManager.updateScoresAmount();
                                     scoreCloud = new ScoreCloud(new Vector2(gameManager.enemies.get(i).getPositionX() + enemyRect.getWidth() / 2,
                                             gameManager.enemies.get(i).getPositionY() + enemyRect.getHeight() / 2),
@@ -232,6 +226,7 @@ public class CollisionDetector {
             deleteMicrobe = -1;
         }
     }
+    //Обработка столкновений оружия с пулями
     public void detectWeaponBulletCollision() {
         if (gameManager.axes.size > 0)
             for (int i = 0; i < gameManager.axes.size; i++) {
@@ -249,7 +244,7 @@ public class CollisionDetector {
                             gameManager.hitParticleEffectArray.add(hitParticleEffect);
                             gameManager.axes.get(i).remove();
                             gameManager.bullets.get(j).remove();
-                            gameManager.scoresAmount += gameManager.bullets.get(j).getPrice();
+                            gameManager.setScoresAmount(gameManager.getScoresAmount() + gameManager.bullets.get(j).getPrice());
                             gameManager.updateScoresAmount();
                             scoreCloud = new ScoreCloud(new Vector2(gameManager.bullets.get(j).getPositionX() + bulletRect.getWidth()/2,
                                     gameManager.bullets.get(j).getPositionY() + bulletRect.getHeight()/2),
@@ -277,7 +272,7 @@ public class CollisionDetector {
                     enemyRect = gameManager.enemies.get(j).getBound().getBox();
                     if (enemyRect.contains(spermRect) || enemyRect.overlaps(spermRect)) {
                         gameManager.sperms.get(i).remove();
-                        gameManager.spermAmount -= 1;
+                        gameManager.setSpermAmount(gameManager.getSpermAmount() - 1);
                         gameManager.updateSpermAmount();
                         hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.blow), 0.5f);
                         hitParticleEffect.setPositionEffect(gameManager.enemies.get(j).getPositionX() + enemyRect.getWidth()/2,

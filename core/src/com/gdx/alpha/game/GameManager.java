@@ -109,8 +109,8 @@ public class GameManager {
     private Label scoresLabel;
     private Label spermLabel;
     private Skin textSkin;
-    public Integer scoresAmount;
-    public Integer spermAmount;
+    private Integer scoresAmount;
+    private Integer spermAmount;
 
     public Table uiTable;
 
@@ -200,6 +200,22 @@ public class GameManager {
 
     public void buildActions() {
         throwWeapon = new Throw(0, new Vector2(player.getPositionX(), player.getPositionY()), axeAtlas);
+    }
+
+    public Integer getScoresAmount() {
+        return scoresAmount;
+    }
+
+    public void setScoresAmount(Integer scoresAmount) {
+        this.scoresAmount = scoresAmount;
+    }
+
+    public Integer getSpermAmount() {
+        return spermAmount;
+    }
+
+    public void setSpermAmount(Integer spermAmount) {
+        this.spermAmount = spermAmount;
     }
 
     public void buildUiStateString() {

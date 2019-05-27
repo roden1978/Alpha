@@ -2,6 +2,7 @@ package com.gdx.alpha.game;
 
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gdx.alpha.effects.HitParticleEffect;
 import com.gdx.alpha.entitys.Bacteriophage;
@@ -13,6 +14,7 @@ public class InteractionManager {
     private Bacteriophage bacteriophage;
     private HitParticleEffect hitParticleEffect;
     private ScoreCloud scoreCloud;
+    //private Rectangle bulletRect;
 
     public InteractionManager(GameManager gameManager) {
         this.gameManager = gameManager;
@@ -64,8 +66,28 @@ public class InteractionManager {
         gameManager.scoreCloudArray.add(scoreCloud);
     }
     //Изменение уровня жизни игрока от столкновения с врагом
-    public void changePlayerHealth(Integer i){
+    public void changePlayerHealthEnemys(Integer i){
         gameManager.player.setHealth(gameManager.player.getHealth() - gameManager.enemies.get(i).getPrice());
+    }
+
+    //Создание эффекта взрыва от столкновения игрока с пулями
+    public HitParticleEffect createParticleEffectBlowSmall( Integer i){
+        hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.blow_small), 0.5f);
+        hitParticleEffect.setPositionEffect(gameManager.bullets.get(i).getPositionX() + gameManager.bullets.get(i).getBound().getBox().getWidth() / 2,
+                gameManager.bullets.get(i).getPositionY() + gameManager.bullets.get(i).getBound().getBox().getHeight() / 2);
+        gameManager.hitParticleEffectArray.add(hitParticleEffect);
+        return hitParticleEffect;
+    }
+    //Изменение уровня жизни игрока от столкновения с пулями
+    public void changePlayerHealthBullets(Integer i){
+        gameManager.player.setHealth(gameManager.player.getHealth() - gameManager.bullets.get(i).getPrice());
+    }
+    //Создание облака очков от столкновения игрока с пулями
+    public void createScoreCloudToBullets(Integer i){
+        scoreCloud = new ScoreCloud(new Vector2(gameManager.player.getPositionX() + gameManager.player.getBound().getBox().getWidth() / 2,
+            gameManager.player.getPositionY() + gameManager.player.getBound().getBox().getHeight() / 2),
+        gameManager.fontScoreCloudRed, gameManager.bullets.get(i).getPrice(), false);
+        gameManager.scoreCloudArray.add(scoreCloud);
     }
 
 
