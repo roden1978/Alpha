@@ -20,6 +20,7 @@ import com.gdx.alpha.entitys.VirusBullet;
 public class CollisionDetector {
 
     private GameManager gameManager;
+    private InteractionManager interactionManager;
     private Microbe removedMicrobe = null;
     private VirusBullet removedBullet = null;
     private Axe removedAxe = null;
@@ -45,8 +46,9 @@ public class CollisionDetector {
     private Rectangle bacRect;
     private Rectangle ovumRect;
 
-    public CollisionDetector(GameManager gameManager) {
+    public CollisionDetector(GameManager gameManager, InteractionManager interactionManager) {
         this.gameManager = gameManager;
+        this.interactionManager = interactionManager;
         playerRect = new Rectangle();
         enemyRect = new Rectangle();
         bulletRect = new Rectangle();
@@ -71,6 +73,7 @@ public class CollisionDetector {
                     playerRect = gameManager.player.getBound().getBox();
                     enemyRect = gameManager.enemies.get(i).getBound().getBox();
                     if (playerRect.overlaps(enemyRect) || playerRect.contains(enemyRect)) {
+                        /*
                         hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.blow), 0.5f);
                         hitParticleEffect.setPositionEffect(gameManager.enemies.get(i).getPositionX() + enemyRect.getWidth() / 2,
                                 gameManager.enemies.get(i).getPositionY() + enemyRect.getHeight() / 2);
@@ -80,6 +83,14 @@ public class CollisionDetector {
                                 gameManager.player.getPositionY() + playerRect.getHeight() / 2),
                                 gameManager.fontScoreCloudRed, gameManager.enemies.get(i).getPrice(), false);
                         gameManager.scoreCloudArray.add(scoreCloud);
+                        */
+                        //Создаем эффект взрыва от столкновения игрока с врагом
+                        interactionManager.createParticleEffectBlow(i);
+                        //Изменение уровня жизни игрока от столкновения с врагом
+                        interactionManager.changePlayerHealth(i);
+                        //Создаем облако очков от столкновения игрока с врагом
+                        interactionManager.createScoreCloudToPlayer(i);
+
                         gameManager.enemies.get(i).remove();
                         removedMicrobe = gameManager.enemies.removeIndex(i);
                         removedMicrobe = null;
@@ -205,8 +216,8 @@ public class CollisionDetector {
                                             gameManager.fontScoreCloudGreen, gameManager.enemies.get(i).getPrice(), true);
                                     gameManager.scoreCloudArray.add(scoreCloud);
                                     //Добавление бактериофага в игру
-                                    if (gameManager.randomizeBacteriophages(i) != null)
-                                        gameManager.bacteriophages.add(gameManager.randomizeBacteriophages(i));
+                                    if (interactionManager.randomizeBacteriophages(i) != null)
+                                        gameManager.bacteriophages.add(interactionManager.randomizeBacteriophages(i));
                                   }
                             }
                         }

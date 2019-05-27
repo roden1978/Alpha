@@ -8,8 +8,6 @@ import com.gdx.alpha.entitys.Axe;
 import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.ScoreCloud;
 import com.gdx.alpha.entitys.Virus;
-import com.gdx.alpha.entitys.VirusA;
-import com.gdx.alpha.entitys.VirusB;
 import com.gdx.alpha.entitys.VirusBullet;
 import com.gdx.alpha.screens.GameScreen;
 import com.gdx.alpha.screens.ObjectScreen;
@@ -20,8 +18,9 @@ import com.gdx.alpha.screens.ObjectScreen;
 public class GameDriver {
 
     private ObjectScreen gameScreen;
-    public GameManager gameManager;
+    private GameManager gameManager;
     private CollisionDetector collisionDetector;
+    private InteractionManager interactionManager;
     private VirusBullet removedBullet = null;
     private Actor removedActor = null;
     private Axe removedAxe = null;
@@ -31,10 +30,18 @@ public class GameDriver {
 
     private float gameTime = 0.0f;
 
+    public GameManager getGameManager() {
+        return gameManager;
+    }
+
     public GameDriver(GameScreen gameScreen, int level){
         this.gameScreen = gameScreen;
+        //Создаем экземпляр класса GameManager
         gameManager = new GameManager(level);
-        collisionDetector = new CollisionDetector(gameManager);
+        //interaction manager
+        interactionManager = new InteractionManager(gameManager);
+        //Создаем экзкмпляр класса CollisionDetector и передаем в него экземпляр класса GameManager
+        collisionDetector = new CollisionDetector(gameManager,interactionManager);
         //загружаем ресурсы игры (текстуры)
         gameManager.loadSources();
         //инициализируем игрока и каплю
@@ -84,7 +91,7 @@ public class GameDriver {
         controlLevelEnd();
         /*Запуск задержки для отрисовки ovum_effect и выходом на экран с выбором уровня
         * */
-        if(gameManager.getOvumEffectStart() == true)
+        if(gameManager.getOvumEffectStart())
             changeDeltaTimeParticleEffect(delta);
     }
     //Функция ввода основных объектов в игру

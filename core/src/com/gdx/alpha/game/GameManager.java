@@ -232,35 +232,7 @@ public class GameManager {
         spermLabel.setText(String.valueOf(spermAmount));
     }
 
-    public Bacteriophage randomizeBacteriophages(int i) {
-        if (MathUtils.random(100) > 70) {
-            bacteriophage=null;
-            //bacteriophages.clear();
-            int weapon_type_bacteriophage = MathUtils.random(0, 2);
-            //System.out.println("Weapon type: "+ weapon_type_bacteriophage);
-            switch (weapon_type_bacteriophage) {
-                case 0:
-                    bacteriophage = new Bacteriophage(new Vector2(this.enemies.get(i).getPosition()),
-                            0.0f, bacteriophageAtlas, "h001");
-                    break;
-                case 1:
-                    bacteriophage = new Bacteriophage(new Vector2(this.enemies.get(i).getPosition()),
-                            0.0f, bacteriophage_weapon_maceAtlas, "m001");
-                    break;
-                case 2:
-                    bacteriophage = new Bacteriophage(new Vector2(this.enemies.get(i).getPosition()),
-                            0.0f, bacteriophage_weapon_stoneAtlas, "s001");
-                    break;
-                /*
-                    default:
-                    bacteriophage = new Bacteriophage(new Vector2(this.enemies.get(i).getPosition()),
-                            0.0f, bacteriophageAtlas, "h001");
-                    break;
-                    */
-            }
-        }
-        return bacteriophage;
-    }
+
     public void setLevelEnd(Boolean level_end){
         this.level_end = level_end;
     }
