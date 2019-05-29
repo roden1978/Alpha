@@ -17,15 +17,19 @@ public class Player extends Actor {
     private float velocity;
     private int health;
     private int maxHealth;
+    private Integer defaultHealth;
     private TextureAtlas cavemanAtlas;
     private TextureAtlas lifeScaleAtlas;
     private Animation cavemanAnimation;
     private float stateTime;
     private Bounds playerBound;
     private LifeScale lifeScale;
+    private Integer lifeCount;
     private float boundWidth;
     private float boundHeight;
     private boolean throwing;
+
+
 
     public Player(Vector2 position, Vector2 direction, float velocity){
         this.position = position;
@@ -40,7 +44,8 @@ public class Player extends Actor {
         playerBound = new Bounds(position.x, position.y, boundWidth, boundHeight);
         cavemanAnimation = new Animation(1/30f,cavemanAtlas.getRegions());
         stateTime = 0.0f;
-        health = maxHealth = 200;
+        health = maxHealth = defaultHealth = 200;
+        lifeCount = 3;
     }
 
 
@@ -108,5 +113,14 @@ public class Player extends Actor {
     }
     public void setThrowing(boolean throwing){
         this.throwing = throwing;
+    }
+    public void setLifeCount(Integer lifeCount){
+        this.lifeCount = lifeCount;
+    }
+    public Integer getLifeCount(){
+        return this.lifeCount;
+    }
+    public Integer getDefaultHealth() {
+        return defaultHealth;
     }
 }

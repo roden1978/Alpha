@@ -263,7 +263,12 @@ public class GameDriver {
         }
     }
     public void controlLifeScale(){
-        if (gameManager.player.getHealth() <= 0)
+        if (gameManager.player.getHealth() <= 0){
+            gameManager.player.setLifeCount(gameManager.player.getLifeCount() - 1);
+            gameManager.player.setHealth(gameManager.player.getDefaultHealth());
+            gameManager.getLifes().setLife_count(gameManager.player.getLifeCount());
+        }
+        if (gameManager.player.getLifeCount() == 0)
             gameScreen.setGameState(4); //Game over
     }
     public void addBacteriophageToGame(){
