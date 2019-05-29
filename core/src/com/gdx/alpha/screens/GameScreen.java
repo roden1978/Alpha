@@ -143,14 +143,17 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         //System.out.println("X: "+screenX);
         //System.out.println("Y: " + screenY);
         //System.out.println("State in: " + state);
+        //Отлеживание продолжения игрового процесса после нажатия на экране паузы
         if (state == PAUSE_STATE)
             state = RUNNING_STATE;
+        //Бросание оружия при одиночном клике по экрану
         gameDriver.getGameManager().player.setThrowing(true);
         gameDriver.getGameManager().throwWeapon.setThrowing(true);
         //System.out.println("X >: " + (int)gameDriver.gameManager.pauseImage.getImageX() +
         //        " X <: " + (int)(gameStage.getWidth() - (gameStage.getWidth() - gameDriver.gameManager.pauseImage.getImageWidth()))+
         //        " Y <: " + (int)(gameStage.getHeight() - (gameStage.getHeight() - gameDriver.gameManager.pauseImage.getImageHeight())) +
         //        " Y >: " + 0);
+        //Отслеживание нажатия на кнопку пауза во время игрового процесса
         if (screenX > (int)gameDriver.getGameManager().pauseImage.getImageX() &&
                 screenX < (int)(gameStage.getWidth() - (gameStage.getWidth() - gameDriver.getGameManager().pauseImage.getImageWidth()))&&
                 screenY < (int)(gameStage.getHeight() - (gameStage.getHeight() - gameDriver.getGameManager().pauseImage.getImageHeight())) &&
@@ -159,11 +162,15 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
             state = PAUSE_STATE;
             //System.out.println("State out: " + state);
         }
+        //Если уровень заокнчен по клику переходим к экрану выбора уровня
+        if(state == LEVEL_END_STATE)
+            state = END_STATE;
         return true;
     }
 
     @Override
     public boolean touchUp(int i, int i2, int i3, int i4) {
+        //Остановка процесса бросания оружия при отсутствии нажания экрана или удержания кнопки мыши
         gameDriver.getGameManager().player.setThrowing(false);
         gameDriver.getGameManager().throwWeapon.setThrowing(false);
         return true;
@@ -171,6 +178,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+        //Бросание оружия при удержании нажания на экране или левой кнопки мыши в игровом процессе
         gameDriver.getGameManager().player.setThrowing(true);
         gameDriver.getGameManager().throwWeapon.setThrowing(true);
 

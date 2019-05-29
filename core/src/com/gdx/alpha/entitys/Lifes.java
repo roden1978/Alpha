@@ -38,8 +38,13 @@ public class Lifes extends Actor {
                 lifes_region.setRegion(textureAtlas.findRegion("caveman_life02"));
                 break;
         }
-        batch.draw(lifes_region,x,y);
+       batch.draw(lifes_region,x,y);
     }
 
+    @Override
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
 
 }

@@ -50,10 +50,14 @@ public class GameManager {
     public TextureAtlas axeAtlas;
     public TextureAtlas ovumAtlas;
     public TextureAtlas lifeAtlas;
-    public TextureAtlas lifeCountAtlas;
+    //public TextureAtlas lifeCountAtlas;
     public TextureAtlas bacteriophageAtlas;
     public TextureAtlas bacteriophage_weapon_maceAtlas;
     public TextureAtlas bacteriophage_weapon_stoneAtlas;
+
+    private TextureAtlas cavemanAtlas;
+    private TextureAtlas lifeScaleAtlas;
+    private TextureAtlas lifeCountAtlas;
 
     //эффекты частиц
     public ParticleEffect blow;
@@ -107,11 +111,11 @@ public class GameManager {
     private TextureAtlas textureAtlas;
     private Label scoreCountLabel;//starImage;
     private Label spermCountLabel;//spermImage;
-    private Label lifeCountLabel;
+    //private Label lifeCountLabel;
     public Image pauseImage;
     private Label scoresLabel;
     private Label spermLabel;
-    private Label lifeLabel;
+    //private Label lifeLabel;
     private Skin textSkin;
     private Integer scoresAmount;
     private Integer spermAmount;
@@ -198,11 +202,14 @@ public class GameManager {
         bacteriophageAtlas = new TextureAtlas(Gdx.files.internal("bacteriophage/health.pack"));
         bacteriophage_weapon_maceAtlas = new TextureAtlas(Gdx.files.internal("bacteriophage/mace.pack"));
         bacteriophage_weapon_stoneAtlas = new TextureAtlas(Gdx.files.internal("bacteriophage/stone.pack"));
+        cavemanAtlas = new TextureAtlas(Gdx.files.internal("caveman/caveman.pack"));
+        lifeScaleAtlas = new TextureAtlas(Gdx.files.internal("uiGame/lifescale.pack"));
         lifeCountAtlas = new TextureAtlas(Gdx.files.internal("caveman/cm_life.pack"));
     }
 
     public void buildGeneralPlayers() {
-        player = new Player(new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2), new Vector2(0, 0), 0);
+        player = new Player(new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2),
+                cavemanAtlas, lifeScaleAtlas,lifeCountAtlas);
         backgroundLayer00 = new ParallaxBackgroundLayer00(backgroundAtlas);
         backgroundLayer01 = new ParallaxBackgroundLayer01(backgroundAtlas);
         sprinkle = new Sprinkle(spermAtlas);
@@ -234,14 +241,13 @@ public class GameManager {
         spermAmount = 0;
         scoreCountLabel = new Label("SC:", textSkin, "style36");
         spermCountLabel = new Label("SP:", textSkin, "style36");
-        lifeCountLabel = new Label("LIFE:", textSkin, "style36");
+        //lifeCountLabel = new Label("LIFE:", textSkin, "style36");
         pauseImage = new Image(uiAtlas.findRegion("pause"));
         //pauseImage.setScale(2.0f, 2.0f);
         spermLabel = new Label("000", textSkin, "style36");
         scoresLabel = new Label("000", textSkin, "style36");
         //создаем таблицу со строкой состояния
         uiTable = new Table();
-        //lifes = new Lifes(lifeCountAtlas, player.getLifeCount());
         //заполняем таблицу состояний значениями
         uiTable.clear();
         uiTable.setFillParent(true);
@@ -251,11 +257,6 @@ public class GameManager {
         uiTable.add(scoresLabel).row();
         uiTable.add(spermCountLabel).right().spaceRight(10.0f);
         uiTable.add(spermLabel).row();
-        uiTable.add(lifeCountLabel).right().spaceRight(10.0f);
-        lifes = new Lifes(lifeCountAtlas, player.getLifeCount(),
-                uiTable.getCell(lifeCountLabel).getPadX(),
-                uiTable.getCell(lifeCountLabel).getActorY() - uiTable.getCell(lifeCountLabel).getActorHeight()/2);
-        uiTable.add(lifes);
     }
 
     public void updateScoresAmount() {

@@ -1,6 +1,5 @@
 package com.gdx.alpha.entitys;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -8,22 +7,22 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
- * Created by admin on 20.01.2015.
+ * Created by Ro|)e|\| on 20.01.2015.
  */
 public class Player extends Actor {
 
     private Vector2 position;
-    private Vector2 direction;
-    private float velocity;
-    private int health;
-    private int maxHealth;
-    private Integer defaultHealth;
+    private float health;
+    private float maxHealth;
+    private float defaultHealth;
     private TextureAtlas cavemanAtlas;
     private TextureAtlas lifeScaleAtlas;
+    private TextureAtlas lifeCountAtlas;
     private Animation cavemanAnimation;
     private float stateTime;
     private Bounds playerBound;
     private LifeScale lifeScale;
+    private Lifes lifes;
     private Integer lifeCount;
     private float boundWidth;
     private float boundHeight;
@@ -31,21 +30,21 @@ public class Player extends Actor {
 
 
 
-    public Player(Vector2 position, Vector2 direction, float velocity){
+    public Player(Vector2 position, TextureAtlas cavemanAtlas, TextureAtlas lifeScaleAtlas, TextureAtlas lifeCountAtlas){
         this.position = position;
-        this.direction = direction;
-        this.velocity = velocity;
-        throwing = true;
-        cavemanAtlas = new TextureAtlas(Gdx.files.internal("caveman/caveman.pack"));
-        lifeScaleAtlas = new TextureAtlas(Gdx.files.internal("uiGame/lifescale.pack"));
+        this.stateTime = 0.0f;
+        this.health = this.maxHealth = this.defaultHealth = 200.0f;
+        this.lifeCount = 3;
+        this.throwing = true;
+        this.cavemanAtlas = cavemanAtlas;
+        this.lifeScaleAtlas = lifeScaleAtlas;
+        this.lifeCountAtlas = lifeCountAtlas;
         boundWidth = cavemanAtlas.findRegion("right_shot_game001").getRegionWidth();
         boundHeight = cavemanAtlas.findRegion("right_shot_game001").getRegionHeight();
         lifeScale = new LifeScale(lifeScaleAtlas,position.x, position.y,lifeScaleAtlas.findRegion("green").getRegionWidth());
+        lifes = new Lifes(lifeCountAtlas, lifeCount, position.x + boundWidth, position.y);
         playerBound = new Bounds(position.x, position.y, boundWidth, boundHeight);
         cavemanAnimation = new Animation(1/30f,cavemanAtlas.getRegions());
-        stateTime = 0.0f;
-        health = maxHealth = defaultHealth = 200;
-        lifeCount = 3;
     }
 
 
@@ -54,6 +53,7 @@ public class Player extends Actor {
         //super.draw(batch, parentAlpha);
         batch.draw(cavemanAnimation.getKeyFrame(stateTime, true), position.x, position.y);
         lifeScale.draw(batch, parentAlpha);
+        lifes.draw(batch,parentAlpha);
     }
 
     @Override
@@ -61,8 +61,10 @@ public class Player extends Actor {
        // super.act(delta);
         playerBound.update(position.x, position.y, boundWidth, boundHeight);
         lifeScale.setWidth(lifeScaleAtlas.findRegion("green").getRegionWidth()*health/maxHealth);
-        lifeScale.setPosition(position.x + boundWidth/2 - lifeScaleAtlas.findRegion("green").getRegionWidth()/2,
+        lifeScale.setPosition(position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
                 position.y + boundHeight);
+        lifes.setLife_count(lifeCount);
+        lifes.setPosition(position.x + boundWidth,position.y);
         if (throwing)
             stateTime +=delta;
         else
@@ -102,13 +104,11 @@ public class Player extends Actor {
         return playerBound;
     }
 
-    public void setHealth(int health){
+    public void setHealth(float health){
         this.health = health;
     }
-    public void changeHealth(int changeValue){
-        this.health -= changeValue;
-    }
-    public int getHealth(){
+
+    public float getHealth(){
         return health;
     }
     public void setThrowing(boolean throwing){
@@ -120,7 +120,7 @@ public class Player extends Actor {
     public Integer getLifeCount(){
         return this.lifeCount;
     }
-    public Integer getDefaultHealth() {
+    public float getDefaultHealth() {
         return defaultHealth;
     }
 }
