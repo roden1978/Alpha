@@ -208,8 +208,12 @@ public class GameManager {
     }
 
     public void buildGeneralPlayers() {
-        player = new Player(new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2),
-                cavemanAtlas, lifeScaleAtlas,lifeCountAtlas);
+        try {
+            player = new Player(new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2),
+                    cavemanAtlas, lifeScaleAtlas,lifeCountAtlas);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         backgroundLayer00 = new ParallaxBackgroundLayer00(backgroundAtlas);
         backgroundLayer01 = new ParallaxBackgroundLayer01(backgroundAtlas);
         sprinkle = new Sprinkle(spermAtlas);

@@ -84,7 +84,7 @@ public class CollisionDetector {
                         //Создаем эффект взрыва от столкновения игрока с врагом
                         interactionManager.createParticleEffectBlow(i);
                         //Изменение уровня жизни игрока от столкновения с врагом
-                        interactionManager.changePlayerHealthEnemys(i);
+                        interactionManager.changePlayerHealthEnemies(i);
                         //Создаем облако очков от столкновения игрока с врагом
                         interactionManager.createScoreCloudToPlayer(i);
 
@@ -107,7 +107,7 @@ public class CollisionDetector {
                        //Изменяем уровнь жизьни игрока от столкновения с пулями
                        interactionManager.changePlayerHealthBullets(i);
                        //Создаем облако очков от столкновения игрока с пулями
-                       interactionManager.createScoreCloudToBullets(i);
+                       interactionManager.createScoreCloudToPlayerBullets(i);;
                        gameManager.bullets.get(i).remove();
                        removedBullet = gameManager.bullets.removeIndex(i);
                        removedBullet = null;
@@ -148,10 +148,7 @@ public class CollisionDetector {
                                 gameManager.bacteriophages.get(i).remove();
                                 deleteBac = i;
                                 overlap = true;
-                                hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.blow), 0.5f);
-                                hitParticleEffect.setPositionEffect(gameManager.enemies.get(j).getPositionX() + enemyRect.getWidth()/2,
-                                        gameManager.enemies.get(j).getPositionY() + enemyRect.getHeight()/2);
-                                gameManager.hitParticleEffectArray.add(hitParticleEffect);
+                                interactionManager.createParticleEffectBlow(j);
                                 removedMicrobe = gameManager.enemies.removeIndex(j);
                                 removedMicrobe = null;
                             }
@@ -183,13 +180,9 @@ public class CollisionDetector {
                             //определение столкновения врага с топором
                             if (enemyRect.overlaps(axeRect) || enemyRect.contains(axeRect)) {
                                 //выводим эффект в массив эффектов
-                                hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.hit), 0.2f);
-                                hitParticleEffect.setPositionEffect(gameManager.axes.get(j).getPositionX(),
-                                        gameManager.axes.get(j).getPositionY() + axeRect.getHeight() / 2);
-                                gameManager.hitParticleEffectArray.add(hitParticleEffect);
-                                //System.out.println(gameManager.hitParticleEffectArray.size);
+                                interactionManager.createParticleEffectHit(j);
                                 //уменьшаем здоровье врага на величину здоровья оружия
-                                gameManager.enemies.get(i).changeHealth(gameManager.axes.get(j).health);
+                                interactionManager.changeEnemiesHealth(i,j);
                                 //удаляем оружие со сцены
                                 gameManager.axes.get(j).remove();
                                 removedAxe = gameManager.axes.removeIndex(j);
@@ -199,16 +192,12 @@ public class CollisionDetector {
                                     gameManager.enemies.get(i).remove();
                                     overlap = true;
                                     deleteMicrobe = i;
-                                    hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.blow), 0.5f);
-                                    hitParticleEffect.setPositionEffect(gameManager.enemies.get(i).getPositionX() + enemyRect.getWidth() / 2,
-                                            gameManager.enemies.get(i).getPositionY() + enemyRect.getHeight() / 2);
-                                    gameManager.hitParticleEffectArray.add(hitParticleEffect);
-                                    gameManager.setScoresAmount(gameManager.getScoresAmount()+ gameManager.enemies.get(i).getPrice());
-                                    gameManager.updateScoresAmount();
-                                    scoreCloud = new ScoreCloud(new Vector2(gameManager.enemies.get(i).getPositionX() + enemyRect.getWidth() / 2,
-                                            gameManager.enemies.get(i).getPositionY() + enemyRect.getHeight() / 2),
-                                            gameManager.fontScoreCloudGreen, gameManager.enemies.get(i).getPrice(), true);
-                                    gameManager.scoreCloudArray.add(scoreCloud);
+                                    //Создаем еффект взрыва
+                                    interactionManager.createParticleEffectBlow(i);
+                                    //Изменяем счетчик очков на велечину вознаграждения за поражение врага
+                                    interactionManager.changeScoreAmountUIEnemiesKill(i);
+                                    //Выводим облако очков поражения врага
+                                    interactionManager.createScoreCloudToEnemies(i);
                                     //Добавление бактериофага в игру
                                     if (interactionManager.randomizeBacteriophages(i) != null)
                                         gameManager.bacteriophages.add(interactionManager.randomizeBacteriophages(i));
@@ -238,18 +227,14 @@ public class CollisionDetector {
                         }
                         if (bulletRect.overlaps(axeRect) || bulletRect.contains(axeRect)) {
                             deleteAxe = i;
-                            hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.blow_small), 0.5f);
-                            hitParticleEffect.setPositionEffect(gameManager.bullets.get(j).getPositionX() + bulletRect.getWidth()/2,
-                                    gameManager.bullets.get(j).getPositionY() - bulletRect.getHeight()/2);
-                            gameManager.hitParticleEffectArray.add(hitParticleEffect);
+                            //Выводим эффект взрыва
+                            interactionManager.createParticleEffectBlowSmall(j);
                             gameManager.axes.get(i).remove();
                             gameManager.bullets.get(j).remove();
-                            gameManager.setScoresAmount(gameManager.getScoresAmount() + gameManager.bullets.get(j).getPrice());
-                            gameManager.updateScoresAmount();
-                            scoreCloud = new ScoreCloud(new Vector2(gameManager.bullets.get(j).getPositionX() + bulletRect.getWidth()/2,
-                                    gameManager.bullets.get(j).getPositionY() + bulletRect.getHeight()/2),
-                                    gameManager.fontScoreCloudGreen, gameManager.bullets.get(j).getPrice(),true);
-                            gameManager.scoreCloudArray.add(scoreCloud);
+                            //Изменяем счетчик очков на велечину вознаграждения за поражение пули врага
+                            interactionManager.changeScoreAmountUIBulletsKill(j);
+                           //Создание облака очков от столкновения пуль с оружием
+                            interactionManager.createScoreCloudToBullets(j);
                             removedMicrobe = gameManager.bullets.removeIndex(j);
                             removedMicrobe = null;
                             overlap = true;
@@ -274,14 +259,10 @@ public class CollisionDetector {
                         gameManager.sperms.get(i).remove();
                         gameManager.setSpermAmount(gameManager.getSpermAmount() - 1);
                         gameManager.updateSpermAmount();
-                        hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.blow), 0.5f);
-                        hitParticleEffect.setPositionEffect(gameManager.enemies.get(j).getPositionX() + enemyRect.getWidth()/2,
-                                gameManager.enemies.get(j).getPositionY() - enemyRect.getHeight()/2);
-                        gameManager.hitParticleEffectArray.add(hitParticleEffect);
-                        scoreCloud = new ScoreCloud(new Vector2(gameManager.sperms.get(i).getPositionX() + spermRect.getWidth()/2,
-                                gameManager.sperms.get(i).getPositionY() + spermRect.getHeight()/2),
-                                gameManager.fontScoreCloudRed, 1,false);
-                        gameManager.scoreCloudArray.add(scoreCloud);
+                        //Выводим эффект взрыва
+                        interactionManager.createParticleEffectBlow(j);
+                       //Создаем облако очков для сперм
+                        interactionManager.createScoreCloudToSperms(i);
                         gameManager.enemies.get(j).remove();
                         deleteSperm = i;
                         overlap = true;
@@ -305,12 +286,12 @@ public class CollisionDetector {
                     ovumRect = gameManager.ovum.getBound().getBox();
                     spermRect = gameManager.sperms.get(i).getBound().getBox();
                     if (ovumRect.contains(spermRect) || ovumRect.overlaps(spermRect)) {
-                        hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.ovum_effect), 5.0f);
+                       /* hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.ovum_effect), 5.0f);
                         hitParticleEffect.setPositionEffect(gameManager.sperms.get(i).getPositionX() + spermRect.getWidth() / 2,
                                 gameManager.sperms.get(i).getPositionY() - spermRect.getHeight() / 2);
                         gameManager.hitParticleEffectArray.add(hitParticleEffect);
-                        gameManager.setOvumEffectStart(true);
-
+                        gameManager.setOvumEffectStart(true);*/
+                        interactionManager.createParticleEffectOvum();
                     }
                 }
             }
