@@ -6,15 +6,18 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdx.alpha.entitys.Player;
 import com.gdx.alpha.game.GameDriver;
@@ -32,6 +35,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     private GameDriver gameDriver;
     private OrthographicCamera camera;
     private Viewport viewport;
+    private Image screenShot;
     private static final int READY_STATE = 0;
     private static final int RUNNING_STATE = 1;
     private static final int PAUSE_STATE = 2;
@@ -60,6 +64,8 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     private BitmapFont font;
     private SpriteBatch spriteBatch;
 
+    private Boolean takeScreenshot;
+
     //private Skin uiSkin;
 
     // конструктор класса
@@ -73,6 +79,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
         this.screenManager = screenManager;
+        this.takeScreenshot = false;
         camera = new OrthographicCamera(WIDTH,HEIGHT);
         //weaponType = 0;
         this.level = level;
@@ -119,8 +126,11 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
 
             state = PAUSE_STATE;
         }
-        if (keycode == Input.Keys.P)
+        if (keycode == Input.Keys.P){
             state = PAUSE_STATE;
+            takeScreenshot = true;
+        }
+
             //screenManager.setCurrentScreen(new LevelScreen(screenManager));
         return true;
     }
@@ -160,6 +170,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
                 screenY > 0.0f){
 //(int) (gameStage.getHeight() - gameDriver.gameManager.pauseImage.getImageY() - gameDriver.gameManager.pauseImage.getImageHeight())
             state = PAUSE_STATE;
+            takeScreenshot = true;
             //System.out.println("State out: " + state);
         }
         //Если уровень заокнчен по клику переходим к экрану выбора уровня
@@ -171,16 +182,20 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     @Override
     public boolean touchUp(int i, int i2, int i3, int i4) {
         //Остановка процесса бросания оружия при отсутствии нажания экрана или удержания кнопки мыши
-        gameDriver.getGameManager().player.setThrowing(false);
-        gameDriver.getGameManager().throwWeapon.setThrowing(false);
+       // if(!gameDriver.getGameManager().player.getNewlife()) {
+            gameDriver.getGameManager().player.setThrowing(false);
+            gameDriver.getGameManager().throwWeapon.setThrowing(false);
+       // }
         return true;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         //Бросание оружия при удержании нажания на экране или левой кнопки мыши в игровом процессе
-        gameDriver.getGameManager().player.setThrowing(true);
-        gameDriver.getGameManager().throwWeapon.setThrowing(true);
+        if (!gameDriver.getGameManager().player.getThrowing()) {
+            gameDriver.getGameManager().player.setThrowing(true);
+            gameDriver.getGameManager().throwWeapon.setThrowing(true);
+        }
 
         if(screenX < gameStage.getWidth() &&
                 screenX > gameDriver.getGameManager().player.getSpriteRegionWidth() &&
@@ -336,6 +351,11 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     }
     //отрисовка состояния паузы
     private void presentPaused(){
+        if(takeScreenshot){
+            screenShot = new Image(ScreenUtils.getFrameBufferTexture());
+            takeScreenshot = false;
+        }
+
         Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         spriteBatch.begin();
@@ -343,7 +363,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         //table.setFillParent(true);
         //table.add(backButton).left().pad(20).bottom();
         //table.draw(spriteBatch, 1.0f);
-
+            screenShot.draw(spriteBatch, 0.5f);
             font.draw(spriteBatch,"PAUSE",gameStage.getWidth()/2 - font.getBounds("PAUSE").width/2,
                     gameStage.getHeight()/2 + font.getBounds("PAUSE").height/2);
             font.draw(spriteBatch,"TAP TO CONTINUE",gameStage.getWidth()/2 - font.getBounds("TAP TO CONTINUE").width/2,

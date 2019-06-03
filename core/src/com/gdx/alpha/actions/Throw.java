@@ -134,4 +134,5 @@ public class Throw extends Actor{
     public void setThrowing(boolean throwing){
         this.throwing = throwing;
     }
+    public Boolean getThrowing(){return throwing;}
 }

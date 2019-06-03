@@ -13,7 +13,7 @@ import com.gdx.alpha.screens.GameScreen;
 import com.gdx.alpha.screens.ObjectScreen;
 
 /**
- * Created by Admin on 04.02.15.
+ * Created by Ro|)e|\| on 04.02.15.
  */
 public class GameDriver {
 
@@ -104,7 +104,7 @@ public class GameDriver {
         gameScreen.getGameStage().addActor(gameManager.player);
     }
     //Функция ввода в игру "врагов"
-    public void addEnemiesToGame(float delta){
+    void addEnemiesToGame(float delta){
         //вводим врагов в игру
         gameTime += delta;
         for (int i = 0; i < gameManager.time.size;i++){
@@ -120,7 +120,7 @@ public class GameDriver {
         }
     }
     //Функция создания классов "врагов"
-    public void buildEnemies(int i){
+    void buildEnemies(int i){
             //String s = gameManager.name.get(i);
             Microbe microbe = null;
         //System.out.println("Height: "+gameManager.virusAtlas);
@@ -131,7 +131,7 @@ public class GameDriver {
                 gameScreen.getGameStage().addActor(microbe);
             }
     }
-    public void controlEnemiesPosition(){
+    void controlEnemiesPosition(){
         //отслеживание позиции врагов и удаление их со сцены если они вышли за пределы экрана
         for (int i = 0; i < gameManager.enemies.size; i++){
             if (gameManager.enemies.get(i) != null){
@@ -148,7 +148,7 @@ public class GameDriver {
             }
         }
     }
-    public void addBulletsToArray() {
+    void addBulletsToArray() {
         //добавляем пули врагов в общий массив пуль для дальнейшей обработки
         //затем массивы пуль каждого врага очищаем
         //отдельный массив пуль нуже для того чтобы пули не были привязаны к врагам и не уничтожались при уничтожении врага,
@@ -163,7 +163,7 @@ public class GameDriver {
             }
         }
     }
-    public void addBulletsToGame(){
+    void addBulletsToGame(){
         //выводим пули врагов на игровую сцену
             for (int j = 0; j < gameManager.bullets.size; j++) {
                 if (gameManager.bullets.get(j) != null) {
@@ -171,7 +171,7 @@ public class GameDriver {
                 }
             }
     }
-    public void controlBulletPosition(){
+    void controlBulletPosition(){
         //отслеживание позиции пуль вирусов и удаление их со сцены если они вышли за пределы экрана
         for (int i = 0; i < gameManager.bullets.size; i++){
             if (gameManager.bullets.get(i) != null){
@@ -187,7 +187,7 @@ public class GameDriver {
             }
         }
     }
-    public void addAxesToGame(){
+    void addAxesToGame(){
         //вводим массив топоров для дальнейшей обработки
         for (int i = 0; i < gameManager.throwWeapon.getAxeArray().size; i++){
             if (gameManager.throwWeapon.getAxeArray().get(i) != null){
@@ -202,7 +202,7 @@ public class GameDriver {
             }
         }
     }
-    public void controlAxePosition(){
+    void controlAxePosition(){
         for (int i = 0; i < gameManager.axes.size; i++){
             if (gameManager.axes.get(i) != null){
                 if(gameManager.axes.get(i).getPositionX() < 50) {
@@ -214,7 +214,7 @@ public class GameDriver {
             }
         }
     }
-    public void addSpermsToGame(){
+    void addSpermsToGame(){
         //вводим массив сперматозоидов для дальнейшей обработки
         for (int i = 0; i < gameManager.sprinkle.getSpermArray().size; i++){
             if (gameManager.sprinkle.getSpermArray().get(i) != null){
@@ -231,7 +231,7 @@ public class GameDriver {
             }
         }
     }
-    public void controlHitParticleEffect(){
+    void controlHitParticleEffect(){
         for (int i = 0; i < gameManager.hitParticleEffectArray.size; i++){
             if (gameManager.hitParticleEffectArray.get(i).isComplete()){
                 gameManager.hitParticleEffectArray.get(i).resetEffect();
@@ -241,14 +241,14 @@ public class GameDriver {
             }
         }
     }
-    public void addHitParticleEffectToGame(){
+    void addHitParticleEffectToGame(){
         for (int i = 0; i < gameManager.hitParticleEffectArray.size; i++) {
             gameScreen.getGameStage().addActor(gameManager.hitParticleEffectArray.get(i));
             gameManager.hitParticleEffectArray.get(i).allowCompletionEffect();
             gameManager.hitParticleEffectArray.get(i).startEffect();
         }
     }
-    public void controlScoreCloud(){
+    void controlScoreCloud(){
         for (int i = 0; i < gameManager.scoreCloudArray.size; i++) {
             if(gameManager.scoreCloudArray.get(i).getY() > gameScreen.getGameStage().getHeight()){
                 gameManager.scoreCloudArray.get(i).remove();
@@ -257,27 +257,22 @@ public class GameDriver {
             }
         }
     }
-    public void addScoreCloudToGame(){
+    void addScoreCloudToGame(){
         for (int i = 0; i < gameManager.scoreCloudArray.size; i++) {
             gameScreen.getGameStage().addActor(gameManager.scoreCloudArray.get(i));
         }
     }
-    public void controlLifeScale(){
-        if (gameManager.player.getHealth() <= 0){
-            gameManager.player.setLifeCount(gameManager.player.getLifeCount() - 1);
-            gameManager.player.setHealth(gameManager.player.getDefaultHealth());
-            //gameManager.player.setLifeCount();
-        }
+    void controlLifeScale(){
         if (gameManager.player.getLifeCount() == 0)
             gameScreen.setGameState(4); //Game over
     }
-    public void addBacteriophageToGame(){
+    void addBacteriophageToGame(){
         for (int i = 0; i < gameManager.bacteriophages.size; i++) {
             if (gameManager.bacteriophages.get(i) != null)
                 gameScreen.getGameStage().addActor(gameManager.bacteriophages.get(i));
         }
     }
-    public void addOvumToGame(){
+    void addOvumToGame(){
         if (gameManager.ovum != null){
             for (int i = 0; i < gameManager.sperms.size; i++){
                 if (gameManager.sperms.get(i).getPositionX() <= gameScreen.getGameStage().getWidth() -
@@ -287,13 +282,13 @@ public class GameDriver {
             }
         }
     }
-    public void controlLevelEnd(){
+    void controlLevelEnd(){
         if(gameManager.getLevelEnd())
             gameScreen.setGameState(3); //Level end
     }
     //Изменение переменной delta_time_particle_effect которая применяется для
     //задержки окончание уровня до конца отрисовки еффекта ovum_effect
-    public void changeDeltaTimeParticleEffect(float delta){
+    void changeDeltaTimeParticleEffect(float delta){
         gameManager.setDeltaTimeParticleEffect(gameManager.getDeltaTimeParticleEffect() - delta);
     }
 }

@@ -1,0 +1,82 @@
+
+newlife.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+caveman_newlife00
+  rotate: false
+  xy: 1, 1
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+caveman_newlife01
+  rotate: false
+  xy: 53, 1
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+caveman_newlife02
+  rotate: false
+  xy: 105, 1
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+caveman_newlife03
+  rotate: false
+  xy: 157, 1
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+caveman_newlife04
+  rotate: false
+  xy: 209, 1
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+caveman_newlife05
+  rotate: false
+  xy: 261, 1
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+caveman_newlife06
+  rotate: false
+  xy: 313, 1
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+caveman_newlife07
+  rotate: false
+  xy: 365, 1
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+caveman_newlife08
+  rotate: false
+  xy: 417, 1
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+caveman_newlife09
+  rotate: false
+  xy: 469, 1
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+caveman_newlife10
+  rotate: false
+  xy: 521, 1
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1

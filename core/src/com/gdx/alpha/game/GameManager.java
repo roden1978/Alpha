@@ -56,6 +56,7 @@ public class GameManager {
     public TextureAtlas bacteriophage_weapon_stoneAtlas;
 
     private TextureAtlas cavemanAtlas;
+    private TextureAtlas caveman_newlifeAtlas;
     private TextureAtlas lifeScaleAtlas;
     private TextureAtlas lifeCountAtlas;
 
@@ -203,6 +204,7 @@ public class GameManager {
         bacteriophage_weapon_maceAtlas = new TextureAtlas(Gdx.files.internal("bacteriophage/mace.pack"));
         bacteriophage_weapon_stoneAtlas = new TextureAtlas(Gdx.files.internal("bacteriophage/stone.pack"));
         cavemanAtlas = new TextureAtlas(Gdx.files.internal("caveman/caveman.pack"));
+        caveman_newlifeAtlas = new TextureAtlas(Gdx.files.internal("caveman/newlife.pack"));
         lifeScaleAtlas = new TextureAtlas(Gdx.files.internal("uiGame/lifescale.pack"));
         lifeCountAtlas = new TextureAtlas(Gdx.files.internal("caveman/cm_life.pack"));
     }
@@ -210,7 +212,7 @@ public class GameManager {
     public void buildGeneralPlayers() {
         try {
             player = new Player(new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2),
-                    cavemanAtlas, lifeScaleAtlas,lifeCountAtlas);
+                    cavemanAtlas, lifeScaleAtlas,lifeCountAtlas, caveman_newlifeAtlas);
         } catch (Exception e) {
             e.printStackTrace();
         }
