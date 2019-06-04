@@ -1,6 +1,7 @@
 package com.gdx.alpha.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -21,8 +22,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.gdx.alpha.game.GameManager;
 
+import java.io.IOException;
+
 /**
- * Created by admin on 07.01.2015.
+ * Created by Ro|)e|\| on 07.01.2015.
  */
 public class LevelScreen extends ObjectScreen {
 
@@ -50,6 +53,17 @@ public class LevelScreen extends ObjectScreen {
     private int[] girlStatus;
     private ObjectScreen gameScreen;
     private int level;
+    //Члены класса для загрузки и выгрузки параметров уровней
+    private String[] levels;
+    private String[] levelString;
+    private String[] param;
+    private Array<Integer> levelNumber;
+    private Array<Integer> score;
+    private Array<Integer> sperms;
+    private Array<Integer> complete;
+    private Array<Integer> available;
+    private String line;
+
 
     public LevelScreen(ScreenManager screenManager){
         NAME = "LevelScreen";
@@ -57,9 +71,16 @@ public class LevelScreen extends ObjectScreen {
         time = 0.0f;
         level = 0;
         this.screenManager = screenManager;
-        scoreAmount = "0000";
-        spermAmount = "0000";
+        scoreAmount = "";
+        spermAmount = "";
         girlStatus = new int[]{1,1,1,1,1,0,0,0,0,0,0,0,0,0,0};
+
+        //Инициализируем массивы параметров уровней
+        levelNumber =new Array<Integer>();
+        score = new Array<Integer>();
+        sperms = new Array<Integer>();
+        complete = new Array<Integer>();
+        available = new Array<Integer>();
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -113,6 +134,12 @@ public class LevelScreen extends ObjectScreen {
 
         scores = new Label(scoreAmount,skin,"style36");
         sperm = new Label(spermAmount,skin,"style36");
+
+        try {
+            loadLevel();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -161,9 +188,10 @@ public class LevelScreen extends ObjectScreen {
         stage.act(delta);
         stage.draw();
 
+
         switch (girlsnames.getSelectedIndex()){
             case 0:
-                if (girlStatus[0] == 1){
+                if (available.get(0) == 1){
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl001o"));
                     playButton.setVisible(true);
                 }else {
@@ -171,9 +199,10 @@ public class LevelScreen extends ObjectScreen {
                     playButton.setVisible(false);
                 }
                 level = 0;
+                setScoreSperm(level);
                 break;
             case 1:
-                if (girlStatus[1] == 1){
+                if (available.get(1) == 1){
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl002o"));
                     playButton.setVisible(true);
                 }else {
@@ -181,9 +210,10 @@ public class LevelScreen extends ObjectScreen {
                     playButton.setVisible(false);
                 }
                 level = 1;
+                setScoreSperm(level);
                 break;
             case 2:
-                if (girlStatus[2] == 1){
+                if (available.get(2) == 1){
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl003o"));
                     playButton.setVisible(true);
                 }else {
@@ -191,9 +221,10 @@ public class LevelScreen extends ObjectScreen {
                     playButton.setVisible(false);
                 }
                 level = 2;
+                setScoreSperm(level);
                 break;
             case 3:
-                if (girlStatus[3] == 1){
+                if (available.get(3) == 1){
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl004o"));
                     playButton.setVisible(true);
                 }else {
@@ -201,9 +232,10 @@ public class LevelScreen extends ObjectScreen {
                     playButton.setVisible(false);
                 }
                 level = 3;
+                setScoreSperm(level);
                 break;
             case 4:
-                if (girlStatus[4] == 1){
+                if (available.get(4) == 1){
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl005o"));
                     playButton.setVisible(true);
                 }else {
@@ -211,9 +243,10 @@ public class LevelScreen extends ObjectScreen {
                     playButton.setVisible(false);
                 }
                 level = 4;
+                setScoreSperm(level);
                 break;
             case 5:
-                if (girlStatus[5] == 1){
+                if (available.get(5) == 1){
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(true);
                 }else {
@@ -221,9 +254,10 @@ public class LevelScreen extends ObjectScreen {
                     playButton.setVisible(false);
                 }
                 level = 5;
+                setScoreSperm(level);
                 break;
             case 6:
-                if (girlStatus[6] == 1){
+                if (available.get(6) == 1){
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(true);
                 }else {
@@ -231,9 +265,10 @@ public class LevelScreen extends ObjectScreen {
                     playButton.setVisible(false);
                 }
                 level = 6;
+                setScoreSperm(level);
                 break;
             case 7:
-                if (girlStatus[7] == 1){
+                if (available.get(7) == 1){
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(true);
                 }else {
@@ -241,9 +276,10 @@ public class LevelScreen extends ObjectScreen {
                     playButton.setVisible(false);
                 }
                 level = 7;
+                setScoreSperm(level);
                 break;
             case 8:
-                if (girlStatus[8] == 1){
+                if (available.get(8) == 1){
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(true);
                 }else {
@@ -251,9 +287,10 @@ public class LevelScreen extends ObjectScreen {
                     playButton.setVisible(false);
                 }
                 level = 8;
+                setScoreSperm(level);
                 break;
             case 9:
-                if (girlStatus[9] == 1){
+                if (available.get(9) == 1){
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(true);
                 }else {
@@ -261,9 +298,10 @@ public class LevelScreen extends ObjectScreen {
                     playButton.setVisible(false);
                 }
                 level = 9;
+                setScoreSperm(level);
                 break;
             case 10:
-                if (girlStatus[10] == 1){
+                if (available.get(10) == 1){
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(true);
                 }else {
@@ -271,9 +309,10 @@ public class LevelScreen extends ObjectScreen {
                     playButton.setVisible(false);
                 }
                 level = 10;
+                setScoreSperm(level);
                 break;
             case 11:
-                if (girlStatus[11] == 1){
+                if (available.get(11) == 1){
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(true);
                 }else {
@@ -281,9 +320,10 @@ public class LevelScreen extends ObjectScreen {
                     playButton.setVisible(false);
                 }
                 level = 11;
+                setScoreSperm(level);
                 break;
             case 12:
-                if (girlStatus[12] == 1){
+                if (available.get(12) == 1){
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(true);
                 }else {
@@ -291,9 +331,10 @@ public class LevelScreen extends ObjectScreen {
                     playButton.setVisible(false);
                 }
                 level = 12;
+                setScoreSperm(level);
                 break;
             case 13:
-                if (girlStatus[13] == 1){
+                if (available.get(13) == 1){
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(true);
                 }else {
@@ -301,9 +342,10 @@ public class LevelScreen extends ObjectScreen {
                     playButton.setVisible(false);
                 }
                 level = 13;
+                setScoreSperm(level);
                 break;
             case 14:
-                if (girlStatus[14] == 1){
+                if (available.get(14) == 1){
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(true);
                 }else {
@@ -311,6 +353,7 @@ public class LevelScreen extends ObjectScreen {
                     playButton.setVisible(false);
                 }
                 level = 14;
+                setScoreSperm(level);
                 break;
         }
     }
@@ -355,5 +398,28 @@ public class LevelScreen extends ObjectScreen {
     @Override
     public String getNAME() {
         return NAME;
+    }
+
+   //Считываем параметры уровней из файла
+    public void loadLevel() throws IOException {
+        FileHandle handle = Gdx.files.internal("levelparam.txt");
+        line = handle.readString();
+        levels = line.split("#");
+        for (int i = 0; i < levels.length; i++) {
+            levelString = levels[i].split(";");
+            //System.out.println(levels[i]);
+            levelNumber.add(Integer.valueOf(levelString[0].trim()));
+            score.add(Integer.valueOf(levelString[1].trim()));
+            sperms.add(Integer.valueOf(levelString[2].trim()));
+            complete.add(Integer.valueOf(levelString[3].trim()));
+            available.add(Integer.valueOf(levelString[4].trim()));
+            //System.out.println(levelString[0]+" "+levelString[1]+" "+levelString[2]+" "+levelString[3]+" "+levelString[4]);
+        }
+       // System.out.println(line +" "+levels[0]+" "+levels.length);
+    }
+    //Обновление счетчиков очков и спрм на экране выбора уровня
+    public void setScoreSperm(Integer i){
+        scores.setText(String.valueOf(score.get(i)));
+        sperm.setText(String.valueOf(sperms.get(i)));
     }
 }

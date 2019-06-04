@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * Created by admin on 21.05.2019.
+ * Created by Ro|)e|\| on 21.05.2019.
  */
 public class Virus extends Microbe {
 
@@ -54,47 +54,6 @@ public class Virus extends Microbe {
         bulletsArray = new Array<VirusBullet>();
         setVirusParameters(weight);
         setVirusTextureRegions(weight);
-
-        /*
-        switch (weight){
-            case 0://small
-                setHealth(70);
-                setPrice(100);
-                speed = 1.25f;
-                interval = 0.6f;
-                virusTextureRegion = virusTextureAtlas.findRegion("vir001_small");
-                boundWidth = virusTextureAtlas.findRegion("vir001_small").getRegionWidth();
-                boundHeight = virusTextureAtlas.findRegion("vir001_small").getRegionHeight();
-                break;
-            case 1://normal
-                setHealth(100);
-                setPrice(200);
-                speed = 1.0f;
-                interval = 1.0f;
-                virusTextureRegion = virusTextureAtlas.findRegion("vir001_normal");
-                boundWidth = virusTextureAtlas.findRegion("vir001_normal").getRegionWidth();
-                boundHeight = virusTextureAtlas.findRegion("vir001_normal").getRegionHeight();
-                break;
-            case 2://big
-                setHealth(150);
-                setPrice(300);
-                speed = 0.5f;
-                interval = 1.5f;
-                virusTextureRegion = virusTextureAtlas.findRegion("vir001_big");
-                boundWidth = virusTextureAtlas.findRegion("vir001_big").getRegionWidth();
-                boundHeight = virusTextureAtlas.findRegion("vir001_big").getRegionHeight();
-                break;
-            case 3://super big
-                setHealth(200);
-                setPrice(500);
-                speed = 0.25f;
-                interval = 2.0f;
-                virusTextureRegion = virusTextureAtlas.findRegion("vir001_superbig");
-                boundWidth = virusTextureAtlas.findRegion("vir001_superbig").getRegionWidth();
-                boundHeight = virusTextureAtlas.findRegion("vir001_superbig").getRegionHeight();
-                break;
-        }
-        */
     }
 
     private void shot(float delta){

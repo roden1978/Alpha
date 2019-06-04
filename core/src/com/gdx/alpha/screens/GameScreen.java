@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -19,11 +18,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.gdx.alpha.entitys.Player;
 import com.gdx.alpha.game.GameDriver;
 
 /**
- * Created by admin on 19.01.2015.
+ * Created by Ro|)e|\| on 19.01.2015.
  */
 public class GameScreen extends ObjectScreen implements InputProcessor{
 
@@ -69,7 +67,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     //private Skin uiSkin;
 
     // конструктор класса
-    public GameScreen(ScreenManager screenManager, int level){
+    GameScreen(ScreenManager screenManager, int level){
         NAME = "GameScreen";
         lifeTime = 0.0f;
         time = 0.0f;
@@ -227,17 +225,10 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     public void show() {
         //super.show();
         //создаем класс управления игрой
-        //back button
-       // if (state == PAUSE_STATE){
-        //    table.clear();
-        //    table.setFillParent(true);
-        //    table.add(backButton).left().pad(20.0f).bottom();
-        //    gameStage.addActor(table);
-       // }
-        //else{
+
             gameDriver = new GameDriver(this, level);
             gameDriver.addGeneralActorsToScene();
-        //}
+
 }
 
     public void update(float delta){
@@ -458,4 +449,6 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     public void setGameState(int state){
         this.state = state;
     }
+
+
 }
