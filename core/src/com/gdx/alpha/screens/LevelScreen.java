@@ -181,7 +181,7 @@ public class LevelScreen extends ObjectScreen {
             }
         });
 
-    }
+     }
 
     @Override
     public void render(float delta) {

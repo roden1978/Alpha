@@ -3,6 +3,7 @@ package com.gdx.alpha.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -20,6 +21,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdx.alpha.game.GameDriver;
+
+import java.io.IOException;
 
 /**
  * Created by Ro|)e|\| on 19.01.2015.
@@ -395,6 +398,11 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         if(isStringLevelParamsSave) {
             setLevelParams(screenManager.getLevelParams());
             createStringForSaveLevelParams();
+            try {
+                saveLevelParamFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             isStringLevelParamsSave = false;
         }
     }
@@ -506,5 +514,10 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
 
     public void setStringLevelParamsSave(Boolean stringLevelParamsSave) {
         isStringLevelParamsSave = stringLevelParamsSave;
+    }
+    public void saveLevelParamFile() throws IOException {
+        FileHandle handle = Gdx.files.local("levelparam.txt");
+        handle.writeString(savedLine, false);
+        screenManager.setLevelParams(savedLine);
     }
 }

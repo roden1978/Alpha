@@ -50,7 +50,7 @@ public class MenuScreen extends ObjectScreen {
     private Stage stage;
     private Skin skin;
     private Table table;
-    private TextButton exitButton, playButton;
+    private TextButton exitButton, playButton, aboutButton;
     private TextButton.TextButtonStyle textButtonStyle;
     private Label heading;
     private Label.LabelStyle headingStyle;
@@ -121,6 +121,10 @@ public class MenuScreen extends ObjectScreen {
         playButton.pad(20.0f);
         playButton.padBottom(25.0f);
 
+        aboutButton = new TextButton("ABOUT", textButtonStyle);
+        aboutButton.pad(20.0f);
+        aboutButton.padBottom(25.0f);
+
         headingStyle = new Label.LabelStyle();
         headingStyle.font = bitmapFont72;
         heading = new Label("ALPHA",headingStyle);
@@ -134,6 +138,8 @@ public class MenuScreen extends ObjectScreen {
         table.add(heading).colspan(5).expandX().spaceBottom(stage.getHeight()/10).align(Align.center).row();
         table.add().width(table.getWidth() / 5 * 3);
         table.add(playButton).spaceBottom(playButton.getHeight()/10).fillX().row();
+        table.add().width(table.getWidth() / 5 * 3);
+        table.add(aboutButton).spaceBottom(aboutButton.getHeight()/10).fillX().row();
         table.add().width(table.getWidth() / 5 * 3);
         table.add(exitButton).spaceBottom(exitButton.getHeight()).fillX().row();
         table.add().width(table.getWidth() / 5 * 3);
@@ -176,6 +182,14 @@ public class MenuScreen extends ObjectScreen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 screenManager.setCurrentScreen(new LevelScreen(screenManager));
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
+
+        aboutButton.addListener(new ClickListener(){
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                //screenManager.setCurrentScreen(new LevelScreen(screenManager));
                 super.touchUp(event, x, y, pointer, button);
             }
         });

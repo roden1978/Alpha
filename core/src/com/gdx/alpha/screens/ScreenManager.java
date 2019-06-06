@@ -42,4 +42,6 @@ public class ScreenManager {
         line = handle.readString();
     }
     public String getLevelParams(){return line;}
+
+    public void setLevelParams(String line){this.line = line;}
 }//end of class
