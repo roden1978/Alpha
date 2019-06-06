@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdx.alpha.game.GameDriver;
@@ -64,7 +65,16 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
 
     private Boolean takeScreenshot;
 
-    //private Skin uiSkin;
+    //Инициализируем массивы параметров уровней
+    private  Array<Integer> levelNumber;
+    private  Array<Integer> score;
+    private  Array<Integer> sperms;
+    private  Array<Integer> complete;
+    private  Array<Integer> available;
+    private String[] levels;
+    private String[] levelString;
+    private String savedLine;
+    private Boolean isStringLevelParamsSave;
 
     // конструктор класса
     GameScreen(ScreenManager screenManager, int level){
@@ -81,6 +91,15 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         camera = new OrthographicCamera(WIDTH,HEIGHT);
         //weaponType = 0;
         this.level = level;
+        //Инициализируем массивы параметров уровней
+        levelNumber =new Array<Integer>();
+        score = new Array<Integer>();
+        sperms = new Array<Integer>();
+        complete = new Array<Integer>();
+        available = new Array<Integer>();
+        savedLine = "";
+        isStringLevelParamsSave = false;
+
         font = new BitmapFont(Gdx.files.internal("font/stonefont.fnt"));
         spriteBatch = new SpriteBatch();
         Gdx.input.setInputProcessor(this);
@@ -372,6 +391,12 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
             font.draw(spriteBatch,"LEVEL COMPLETE",gameStage.getWidth()/2 - font.getBounds("LEVEL COMPLETE").width/2,
                     gameStage.getHeight()/2 + font.getBounds("LEVEL COMPLETE").height/2);
         spriteBatch.end();
+        //Сохранение результатов пройденного уровня
+        if(isStringLevelParamsSave) {
+            setLevelParams(screenManager.getLevelParams());
+            createStringForSaveLevelParams();
+            isStringLevelParamsSave = false;
+        }
     }
     //отрисовка окончания игры
     private void presentGameOver(){
@@ -450,5 +475,36 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         this.state = state;
     }
 
+    public void setLevelParams(String line) {
+        levels = line.split("#");
+        for (int i = 0; i < levels.length; i++) {
+            levelString = levels[i].split(";");
+            //System.out.println(levels[i]);
+            levelNumber.add(Integer.valueOf(levelString[0].trim()));
+            score.add(Integer.valueOf(levelString[1].trim()));
+            sperms.add(Integer.valueOf(levelString[2].trim()));
+            complete.add(Integer.valueOf(levelString[3].trim()));
+            available.add(Integer.valueOf(levelString[4].trim()));
+            //System.out.println(levelString[0]+" "+levelString[1]+" "+levelString[2]+" "+levelString[3]+" "+levelString[4]);
+        }
+        //Изменяем в массивах количество очков и кол-во сперм, устанавливаем признак что уровень выполнен,
+        // устанавливаем признак что следующий уровень открыт
+        score.set(level, gameDriver.getGameManager().getScoresAmount());
+        sperms.set(level, gameDriver.getGameManager().getSpermAmount());
+        complete.set(level, 1);
+       // if (levelNumber.size > level)
+        available.set(level + 1, 1);
+    }
+    public void createStringForSaveLevelParams(){
+        for (int i =0; i < levelNumber.size; i++){
+            savedLine += levelNumber.get(i).toString()+";"+score.get(i).toString()+";"+
+                    sperms.get(i).toString()+";"+complete.get(i).toString()+";" +
+                    available.get(i).toString()+"#";
+        }
+        System.out.println("Line: "+savedLine);
+    }
 
+    public void setStringLevelParamsSave(Boolean stringLevelParamsSave) {
+        isStringLevelParamsSave = stringLevelParamsSave;
+    }
 }

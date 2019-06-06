@@ -283,8 +283,10 @@ public class GameDriver {
         }
     }
     void controlLevelEnd(){
-        if(gameManager.getLevelEnd())
-            gameScreen.setGameState(3); //Level end
+        if(gameManager.getLevelEnd()){
+            gameScreen.setStringLevelParamsSave(true);
+            gameScreen.setGameState(3);
+        } //Level end
     }
     //Изменение переменной delta_time_particle_effect которая применяется для
     //задержки окончание уровня до конца отрисовки еффекта ovum_effect

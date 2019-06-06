@@ -1,16 +1,24 @@
 package com.gdx.alpha.screens;
 
-import java.util.List;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+
+import java.io.IOException;
 
 /**
- * Created by admin on 01.01.2015.
+ * Created by Ro|)e|\| on 01.01.2015.
  */
 public class ScreenManager {
     private static ObjectScreen currentScreen;
-    private static ObjectScreen prevScreen;
+    private String line;
 
     public ScreenManager(){
         currentScreen = null;
+        try {
+            loadLevelParamFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public ObjectScreen getCurrentScreen(){
@@ -21,12 +29,17 @@ public class ScreenManager {
             currentScreen.dispose();
             currentScreen = screen;
         }else{
-            this.currentScreen = screen;
+            currentScreen = screen;
         }
 
     }
 
-    public ScreenManager getScreenManager(){
+    /*public ScreenManager getScreenManager(){
         return this;
+    }*/
+    public void loadLevelParamFile() throws IOException{
+        FileHandle handle = Gdx.files.internal("levelparam.txt");
+        line = handle.readString();
     }
-}
+    public String getLevelParams(){return line;}
+}//end of class

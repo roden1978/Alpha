@@ -50,7 +50,7 @@ public class LevelScreen extends ObjectScreen {
     private Image  background, girl_image;
     private Label scores, sperm, scoresAmountLabel, spermAmountLabel;
     private String scoreAmount, spermAmount;
-    private int[] girlStatus;
+    //private int[] girlStatus;
     private ObjectScreen gameScreen;
     private int level;
     //Члены класса для загрузки и выгрузки параметров уровней
@@ -73,7 +73,7 @@ public class LevelScreen extends ObjectScreen {
         this.screenManager = screenManager;
         scoreAmount = "";
         spermAmount = "";
-        girlStatus = new int[]{1,1,1,1,1,0,0,0,0,0,0,0,0,0,0};
+        //girlStatus = new int[]{1,1,1,1,1,0,0,0,0,0,0,0,0,0,0};
 
         //Инициализируем массивы параметров уровней
         levelNumber =new Array<Integer>();
@@ -103,7 +103,6 @@ public class LevelScreen extends ObjectScreen {
         parameter.size = 40;
         parameter.characters="АБВГДЕЁЖЗИКЛМНОПРСТУФХЦШЩЬЫЪЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ";
         bitmapFont = freeTypeFontGenerator.generateFont(parameter);
-        //bitmapFont.setScale(2.0f);
         freeTypeFontGenerator.dispose();
 
         girlsnames = new List(skin);
@@ -135,11 +134,13 @@ public class LevelScreen extends ObjectScreen {
         scores = new Label(scoreAmount,skin,"style36");
         sperm = new Label(spermAmount,skin,"style36");
 
-        try {
+        readLevelParams(screenManager.getLevelParams());
+
+        /*try {
             loadLevel();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override
@@ -401,9 +402,9 @@ public class LevelScreen extends ObjectScreen {
     }
 
    //Считываем параметры уровней из файла
-    public void loadLevel() throws IOException {
-        FileHandle handle = Gdx.files.internal("levelparam.txt");
-        line = handle.readString();
+    public void readLevelParams(String line) {
+     /*   FileHandle handle = Gdx.files.internal("levelparam.txt");
+        line = handle.readString();*/
         levels = line.split("#");
         for (int i = 0; i < levels.length; i++) {
             levelString = levels[i].split(";");

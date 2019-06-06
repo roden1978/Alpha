@@ -65,4 +65,6 @@ public class ObjectScreen implements Screen {
     }
 
     public void setGameState(int state){}
+
+    public void setStringLevelParamsSave(Boolean stringLevelParamsSave) {}
 }
