@@ -1,6 +1,7 @@
 package com.gdx.alpha.actions;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -10,7 +11,7 @@ import com.gdx.alpha.entitys.Axe;
 import com.gdx.alpha.entitys.Bounds;
 
 /**
- * Created by Admin on 27.01.15.
+ * Created by Ro|)e|\| on 27.01.15.
  */
 public class Throw extends Actor{
     /*
@@ -33,11 +34,13 @@ public class Throw extends Actor{
     private Axe removedAxe = null;
     private TextureAtlas axeAtlas;
     private boolean throwing;
+    private Sound throwAxeSound;
 
     public Throw(int weaponType, Vector2 playerPosition, TextureAtlas axeAtlas){
         this.weaponType = weaponType;
         this.playerPosition = playerPosition;
         this.axeAtlas = axeAtlas;
+        throwAxeSound = Gdx.audio.newSound(Gdx.files.internal("sounds/axeThrow.mp3"));
         intervalDefault = 0.3f;
         throwing = true;
         updatePosition(playerPosition);
@@ -96,6 +99,7 @@ public class Throw extends Actor{
                 if (intervalDelta > interval){
                     axeArray.add(new Axe(new Vector2(playerPosition),axeAtlas));
                     intervalDelta = 0.0f;
+                    throwAxeSound.play();
                     //System.out.println("X: "+playerPosition.x  + " Y: " + playerPosition.y + " size " + axeArray.size);
                 }
          break;

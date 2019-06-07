@@ -1,10 +1,11 @@
 package com.gdx.alpha.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 
 public class AudioManager {
 
-    private Sound throwAxeSound;
+
     private Sound throwMaceSound;
     private Sound throwStoneSound;
     private Sound hitEnemySound;
@@ -17,6 +18,10 @@ public class AudioManager {
 
 
     public AudioManager() {
-        super();
+        blowEnemySound = Gdx.audio.newSound(Gdx.files.internal("sounds/blowEnemy.mp3"));
+    }
+
+    public Sound getBlowEnemySound() {
+        return blowEnemySound;
     }
 }

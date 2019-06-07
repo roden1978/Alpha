@@ -10,12 +10,14 @@ import com.gdx.alpha.entitys.ScoreCloud;
 class InteractionManager {
 
     private GameManager gameManager;
+    private AudioManager audioManager;
     private Bacteriophage bacteriophage;
     private HitParticleEffect hitParticleEffect;
     private ScoreCloud scoreCloud;
 
-    InteractionManager(GameManager gameManager) {
+    InteractionManager(GameManager gameManager, AudioManager audioManager) {
         this.gameManager = gameManager;
+        this.audioManager = audioManager;
         System.out.println("InteractionManager create");
     }
     //Ввад в игру бактериофага со случайными свойтвами
@@ -47,6 +49,7 @@ class InteractionManager {
         hitParticleEffect.setPositionEffect(gameManager.enemies.get(i).getPositionX() + gameManager.enemies.get(i).getBound().getBox().getWidth() / 2,
                 gameManager.enemies.get(i).getPositionY() + gameManager.enemies.get(i).getBound().getBox().getHeight() / 2);
         gameManager.hitParticleEffectArray.add(hitParticleEffect);
+        playBlowEnemySound();
     }
     //создание облака очко от столкновения игрока с врагом
      void createScoreCloudToPlayer(Integer i){
@@ -133,6 +136,10 @@ class InteractionManager {
                 gameManager.sperms.get(i).getPositionY() + gameManager.sperms.get(i).getBound().getBox().getHeight()/2),
                 gameManager.fontScoreCloudRed, 1,false);
         gameManager.scoreCloudArray.add(scoreCloud);
+    }
+    //Проигрывание звука уничтожениея врага
+    void playBlowEnemySound (){
+        audioManager.getBlowEnemySound().play();
     }
 
 

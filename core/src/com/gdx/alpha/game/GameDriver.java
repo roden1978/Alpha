@@ -21,6 +21,7 @@ public class GameDriver {
     private GameManager gameManager;
     private CollisionDetector collisionDetector;
     private InteractionManager interactionManager;
+    private AudioManager audioManager;
     private VirusBullet removedBullet = null;
     private Actor removedActor = null;
     private Axe removedAxe = null;
@@ -38,8 +39,10 @@ public class GameDriver {
         this.gameScreen = gameScreen;
         //Создаем экземпляр класса GameManager
         gameManager = new GameManager(level);
+        //Создаем AudioManager
+        audioManager = new AudioManager();
         //interaction manager
-        interactionManager = new InteractionManager(gameManager);
+        interactionManager = new InteractionManager(gameManager, audioManager);
         //Создаем экзкмпляр класса CollisionDetector и передаем в него экземпляр класса GameManager
         collisionDetector = new CollisionDetector(gameManager,interactionManager);
         //загружаем ресурсы игры (текстуры)

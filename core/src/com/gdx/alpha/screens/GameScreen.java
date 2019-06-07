@@ -12,11 +12,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -76,8 +78,8 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     private  Array<Integer> available;
     private String[] levels;
     private String[] levelString;
-    private String savedLine;
     private Boolean isStringLevelParamsSave;
+    private StringBuilder builder;
 
     // конструктор класса
     GameScreen(ScreenManager screenManager, int level){
@@ -100,8 +102,8 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         sperms = new Array<Integer>();
         complete = new Array<Integer>();
         available = new Array<Integer>();
-        savedLine = "";
         isStringLevelParamsSave = false;
+        builder = new StringBuilder();
 
         font = new BitmapFont(Gdx.files.internal("font/stonefont.fnt"));
         spriteBatch = new SpriteBatch();
@@ -116,8 +118,8 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         table = new Table();
         freeTypeFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("JFRocSol_rus.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 40;
-        parameter.characters="АБВГДЕЁЖЗИКЛМНОПРСТУФХЦШЩЬЫЪЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        parameter.size = 20;
+        parameter.characters="АБВГДЕЁЖЗИКЛМНОПРСТУФХЦШЩЬЫЪЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ()";
         bitmapFont = freeTypeFontGenerator.generateFont(parameter);
         freeTypeFontGenerator.dispose();
         textButtonStyle = new TextButton.TextButtonStyle();
@@ -294,14 +296,12 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         //обновляем состояние игровой сцены
         gameStage.act(delta);
         //обновляем состояние строки состояний
-        //uiStage.act(delta);
         gameDriver.gameDrive(delta);
 
     }
     //состояние паузы
     private void updatePause(){
         if (Gdx.input.justTouched() && state == RUNNING_STATE) {
-            //state = RUNNING_STATE;
             state = PAUSE_STATE;
         }
     }
@@ -383,7 +383,8 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
                     gameStage.getHeight()/2 - font.getBounds("TAP TO CONTINUE").height*2);
             font.draw(spriteBatch,"OR BACK (ESC) TO EXIT",gameStage.getWidth()/2 - font.getBounds("OR BACK (ESC) TO EXIT").width/2,
                     gameStage.getHeight()/2 - font.getBounds("OR BACK TO EXIT").height*3);
-
+            backButton.left().bottom();
+            backButton.draw(spriteBatch, 1.0f);
         spriteBatch.end();
     }
     //отрисовка состояния окончания уровная
@@ -483,7 +484,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         this.state = state;
     }
 
-    public void setLevelParams(String line) {
+    void setLevelParams(String line) {
         levels = line.split("#");
         for (int i = 0; i < levels.length; i++) {
             levelString = levels[i].split(";");
@@ -503,21 +504,25 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
        // if (levelNumber.size > level)
         available.set(level + 1, 1);
     }
-    public void createStringForSaveLevelParams(){
+    void createStringForSaveLevelParams(){
         for (int i =0; i < levelNumber.size; i++){
-            savedLine += levelNumber.get(i).toString()+";"+score.get(i).toString()+";"+
+           builder.append(levelNumber.get(i).toString()).append(";").append(score.get(i).toString()).append(";").
+                    append(sperms.get(i).toString()).append(";").append(complete.get(i).toString()).append(";").
+                    append(available.get(i).toString()).append("#");
+            /*savedLine += levelNumber.get(i).toString()+";"+score.get(i).toString()+";"+
                     sperms.get(i).toString()+";"+complete.get(i).toString()+";" +
-                    available.get(i).toString()+"#";
+                    available.get(i).toString()+"#";*/
         }
-        System.out.println("Line: "+savedLine);
+        //System.out.println("Line: "+builder.toString());
     }
 
     public void setStringLevelParamsSave(Boolean stringLevelParamsSave) {
         isStringLevelParamsSave = stringLevelParamsSave;
     }
-    public void saveLevelParamFile() throws IOException {
+    void saveLevelParamFile() throws IOException {
         FileHandle handle = Gdx.files.local("levelparam.txt");
-        handle.writeString(savedLine, false);
-        screenManager.setLevelParams(savedLine);
+        handle.writeString(builder.toString(), false);
+        screenManager.setLevelParams(builder.toString());
+        builder.delete(0, builder.length());
     }
 }
