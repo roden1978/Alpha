@@ -24,6 +24,8 @@ import com.gdx.alpha.entitys.ScoreCloud;
 import com.gdx.alpha.entitys.Sperm;
 import com.gdx.alpha.entitys.Sprinkle;
 import com.gdx.alpha.entitys.VirusBullet;
+import com.gdx.alpha.entitys.Weapon;
+
 import java.io.IOException;
 
 /**
@@ -47,7 +49,7 @@ public class GameManager {
     public TextureAtlas virusBulletAtlas;
     public TextureAtlas backgroundAtlas;
     //private TextureAtlas bactiaAtlas;
-    public TextureAtlas axeAtlas;
+    //public TextureAtlas axeAtlas;
     public TextureAtlas ovumAtlas;
     public TextureAtlas lifeAtlas;
     //public TextureAtlas lifeCountAtlas;
@@ -80,11 +82,11 @@ public class GameManager {
     //массив пуль врагов
     public Array<VirusBullet> bullets;
     //массив брошеных топоров игрока
-    public Array<Axe> axes;
+    public Array<Weapon> weapons;
     //массив сперматозоидов
     public Array<Sperm> sperms;
     //массив бактериофагов
-    public Array<Bacteriophage> bacteriophages;
+    private Array<Bacteriophage> bacteriophages;
     //объект "Яйцеклетка"
     public Ovum ovum;
     //объект "Игрок"
@@ -92,7 +94,7 @@ public class GameManager {
     //объект "Капля"
     public Sprinkle sprinkle;
     //действие бросок оружия
-    public Throw throwWeapon;
+    private Throw throwWeapon;
     //бактериофаги
     public Bacteriophage bacteriophage;
     //движущийся фон игры
@@ -123,13 +125,13 @@ public class GameManager {
 
     public Table uiTable;
 
-    public Lifes getLifes() {
+   /* //public Lifes getLifes() {
         return lifes;
-    }
+    }*/
 
-    private Lifes lifes;
+   // private Lifes lifes;
 
-    public GameManager(int level) {
+    GameManager(int level) {
         this.level = level;
         name = new Array<Integer>();
         posX = new Array<Float>();
@@ -140,7 +142,7 @@ public class GameManager {
 
         enemies = new Array<Microbe>(50);
         bullets = new Array<VirusBullet>(50);
-        axes = new Array<Axe>(20);
+        weapons = new Array<Weapon>(30);
         sperms = new Array<Sperm>(50);
         bacteriophages = new Array<Bacteriophage>(10);
 
@@ -149,7 +151,7 @@ public class GameManager {
         delta_time_particle_effect = 5.0f;
         ovum_effectStart = false;
 
-        line = new String();
+        line = "";
 
         level_end = false;
 
@@ -161,7 +163,7 @@ public class GameManager {
         System.out.println("GameManager create");
     }
 
-    public void loadLevel() throws IOException {
+    void loadLevel() throws IOException {
         FileHandle handle = Gdx.files.internal("level.txt");
         line = handle.readString();
         levels = line.split("#");
@@ -179,11 +181,11 @@ public class GameManager {
         }
     }
 
-    public void loadSources() {
+    void loadSources() {
         virusAtlas = new TextureAtlas(Gdx.files.internal("viruses/viruses.pack"));
         spermAtlas = new TextureAtlas(Gdx.files.internal("sperm/sperm.pack"));
         virusBulletAtlas = new TextureAtlas(Gdx.files.internal("bullets/bullets.pack"));
-        axeAtlas = new TextureAtlas(Gdx.files.internal("axe/axe.pack"));
+        //axeAtlas = new TextureAtlas(Gdx.files.internal("axe/axe.pack"));
         ovumAtlas = new TextureAtlas(Gdx.files.internal("ovum/ovum.pack"));
         backgroundAtlas = new TextureAtlas(Gdx.files.internal("background/background.pack"));
         uiAtlas = new TextureAtlas(Gdx.files.internal("uiGame/uiGameSrc.pack"));
@@ -209,9 +211,9 @@ public class GameManager {
         lifeCountAtlas = new TextureAtlas(Gdx.files.internal("caveman/cm_life.pack"));
     }
 
-    public void buildGeneralPlayers() {
+    void buildGeneralPlayers() {
         try {
-            player = new Player(new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2),
+            player = new Player(new Vector2(Gdx.graphics.getWidth() / 2.0f, Gdx.graphics.getHeight() / 2.0f),
                     cavemanAtlas, lifeScaleAtlas,lifeCountAtlas, caveman_newlifeAtlas);
         } catch (Exception e) {
             e.printStackTrace();
@@ -222,15 +224,15 @@ public class GameManager {
         ovum = new Ovum(ovumAtlas);
     }
 
-    public void buildActions() {
-        throwWeapon = new Throw(0, new Vector2(player.getPositionX(), player.getPositionY()), axeAtlas);
+    void buildActions() {
+        throwWeapon = new Throw(0, new Vector2(player.getPositionX(), player.getPositionY()));
     }
 
     public Integer getScoresAmount() {
         return scoresAmount;
     }
 
-    public void setScoresAmount(Integer scoresAmount) {
+    void setScoresAmount(Integer scoresAmount) {
         this.scoresAmount = scoresAmount;
     }
 
@@ -238,11 +240,11 @@ public class GameManager {
         return spermAmount;
     }
 
-    public void setSpermAmount(Integer spermAmount) {
+    void setSpermAmount(Integer spermAmount) {
         this.spermAmount = spermAmount;
     }
 
-    public void buildUiStateString() {
+    void buildUiStateString() {
         scoresAmount = 0;
         spermAmount = 0;
         scoreCountLabel = new Label("SC:", textSkin, "style36");
@@ -265,34 +267,41 @@ public class GameManager {
         uiTable.add(spermLabel).row();
     }
 
-    public void updateScoresAmount() {
+    void updateScoresAmount() {
         scoresLabel.setText(String.valueOf(scoresAmount));
     }
 
-    public void updateSpermAmount() {
+    void updateSpermAmount() {
         spermLabel.setText(String.valueOf(spermAmount));
     }
 
 
-    public void setLevelEnd(Boolean level_end){
+    void setLevelEnd(Boolean level_end){
         this.level_end = level_end;
     }
 
-    public Boolean getLevelEnd(){
+    Boolean getLevelEnd(){
         return this.level_end;
     }
 
-    public void setDeltaTimeParticleEffect(float delta_time_paricle_effect){
+    void setDeltaTimeParticleEffect(float delta_time_paricle_effect){
         this.delta_time_particle_effect = delta_time_paricle_effect;
     }
-    public float getDeltaTimeParticleEffect(){
+    float getDeltaTimeParticleEffect(){
         return this.delta_time_particle_effect;
     }
-    public void setOvumEffectStart(Boolean start){
+    void setOvumEffectStart(Boolean start){
         this.ovum_effectStart = start;
     }
-    public Boolean getOvumEffectStart(){
+    Boolean getOvumEffectStart(){
         return this.ovum_effectStart;
     }
 
+    public Array<Bacteriophage> getBacteriophages() {
+        return bacteriophages;
+    }
+
+    public Throw getThrowWeapon() {
+        return throwWeapon;
+    }
 }//end of class

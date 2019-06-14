@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -32,12 +33,14 @@ import com.gdx.alpha.entitys.BacteryA;
 import com.gdx.alpha.entitys.Player;
 import com.gdx.alpha.entitys.Sperm;
 
+import java.io.IOException;
+
 import javax.swing.Action;
 import javax.swing.GroupLayout;
 
 
 /**
- * Created by admin on 02.01.2015.
+ * Created by Ro|)e|\| on 02.01.2015.
  */
 public class MenuScreen extends ObjectScreen {
     private String NAME;
@@ -59,13 +62,9 @@ public class MenuScreen extends ObjectScreen {
     private Texture menu_back;
     private Image background, soundOnOff;
     private ScreenManager screenManager;
-    private Sperm sperm;
     private Array<Sperm> spermObject;
     private BacteryA bacteriaA;
     private Array<BacteryA> bacteriaAArray;
-    private Player player;
-    private Array<Player> playerArray;
-    private boolean sound;
     private Skin soundSkin;
 
 
@@ -75,9 +74,9 @@ public class MenuScreen extends ObjectScreen {
         time = 0.0f;
         spermObject = new Array <Sperm>();
         bacteriaAArray = new Array<BacteryA>();
-        playerArray = new Array<Player>();
+        //playerArray = new Array<Player>();
         this.screenManager = screenManager;
-        sound = true;
+        //sound = true;
 
         freeTypeFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("JFRocSol_rus.ttf"));
         parameter = new FreeTypeFontParameter();
@@ -99,7 +98,10 @@ public class MenuScreen extends ObjectScreen {
         Gdx.input.setInputProcessor(stage);
 
         background = new Image(menu_back);
-        soundOnOff = new Image(soundAtlas.findRegion("sound_on"));
+        if (screenManager.getOnoff())
+            soundOnOff = new Image(soundAtlas.findRegion("sound_on"));
+        else
+            soundOnOff = new Image(soundAtlas.findRegion("sound_off"));
         skin = new Skin(textureAtlas);
         soundSkin = new Skin(soundAtlas);
 
@@ -197,16 +199,35 @@ public class MenuScreen extends ObjectScreen {
         soundOnOff.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (sound){
+                if (screenManager.getOnoff()){
                     soundOnOff.setDrawable(soundSkin.getDrawable("sound_off"));
-                    sound = false;
+                    screenManager.setOnoff(false);
+                    if (screenManager.getScreenMusic().isPlaying())
+                        screenManager.getScreenMusic().stop();
+
+                    try {
+                        saveSoundParamFile(screenManager.getOnoff());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }else{
                     soundOnOff.setDrawable(soundSkin.getDrawable("sound_on"));
-                    sound = true;
+                    screenManager.setOnoff(true);
+                    screenManager.getScreenMusic().play();
+
+                    try {
+                        saveSoundParamFile(screenManager.getOnoff());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
+
+        screenManager.getScreenMusic().setLooping(true);
+        if (screenManager.getOnoff())
+            screenManager.getScreenMusic().play();
     }
 
     @Override
@@ -263,5 +284,13 @@ public class MenuScreen extends ObjectScreen {
     @Override
     public String getNAME() {
         return super.getNAME();
+    }
+
+    void saveSoundParamFile(Boolean onoff) throws IOException {
+        FileHandle handle = Gdx.files.local("gamesound.txt");
+        if (onoff)
+            handle.writeString("1", false);
+        else
+            handle.writeString("0", false);
     }
 }

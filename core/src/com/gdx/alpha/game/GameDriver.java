@@ -9,6 +9,7 @@ import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.ScoreCloud;
 import com.gdx.alpha.entitys.Virus;
 import com.gdx.alpha.entitys.VirusBullet;
+import com.gdx.alpha.entitys.Weapon;
 import com.gdx.alpha.screens.GameScreen;
 import com.gdx.alpha.screens.ObjectScreen;
 
@@ -24,7 +25,7 @@ public class GameDriver {
     private AudioManager audioManager;
     private VirusBullet removedBullet = null;
     private Actor removedActor = null;
-    private Axe removedAxe = null;
+    private Weapon removedAxe = null;
     private Float removedTime = null;
     private HitParticleEffect removedHPE = null;
     private ScoreCloud removedScoreCloud=null;
@@ -34,6 +35,7 @@ public class GameDriver {
     public GameManager getGameManager() {
         return gameManager;
     }
+    public AudioManager getAudioManager(){return audioManager;}
 
     public GameDriver(GameScreen gameScreen, int level){
         this.gameScreen = gameScreen;
@@ -65,7 +67,7 @@ public class GameDriver {
         addEnemiesToGame(delta);
         addBulletsToArray();
         addBulletsToGame();
-        addAxesToGame();
+        addWeaponToGame();
         addSpermsToGame();
         addHitParticleEffectToGame();
         addScoreCloudToGame();
@@ -87,7 +89,7 @@ public class GameDriver {
         // и удаления если объекты покинули пределы игровой сцены
         controlEnemiesPosition();
         controlBulletPosition();
-        controlAxePosition();
+        controlWeaponPosition();
         controlHitParticleEffect();
         controlScoreCloud();
         controlLifeScale();
@@ -103,7 +105,7 @@ public class GameDriver {
         gameScreen.getGameStage().addActor(gameManager.backgroundLayer00);
         gameScreen.getGameStage().addActor(gameManager.sprinkle);
         gameScreen.getGameStage().addActor(gameManager.uiTable);
-        gameScreen.getGameStage().addActor(gameManager.throwWeapon);
+        gameScreen.getGameStage().addActor(gameManager.getThrowWeapon());
         gameScreen.getGameStage().addActor(gameManager.player);
     }
     //Функция ввода в игру "врагов"
@@ -190,27 +192,27 @@ public class GameDriver {
             }
         }
     }
-    void addAxesToGame(){
+    void addWeaponToGame(){
         //вводим массив топоров для дальнейшей обработки
-        for (int i = 0; i < gameManager.throwWeapon.getAxeArray().size; i++){
-            if (gameManager.throwWeapon.getAxeArray().get(i) != null){
-                gameManager.axes.add(gameManager.throwWeapon.getAxeArray().get(i));
+        for (int i = 0; i < gameManager.getThrowWeapon().getAxeArray().size; i++){
+            if (gameManager.getThrowWeapon().getAxeArray().get(i) != null){
+                gameManager.weapons.add(gameManager.getThrowWeapon().getAxeArray().get(i));
             }
         }
-        gameManager.throwWeapon.getAxeArray().clear();
+        gameManager.getThrowWeapon().getAxeArray().clear();
         //выводим массив топоров на игровую сцену
-        for (int i = 0; i < gameManager.axes.size; i++){
-            if (gameManager.axes.get(i) != null){
-                gameScreen.getGameStage().addActor(gameManager.axes.get(i));
+        for (int i = 0; i < gameManager.weapons.size; i++){
+            if (gameManager.weapons.get(i) != null){
+                gameScreen.getGameStage().addActor(gameManager.weapons.get(i));
             }
         }
     }
-    void controlAxePosition(){
-        for (int i = 0; i < gameManager.axes.size; i++){
-            if (gameManager.axes.get(i) != null){
-                if(gameManager.axes.get(i).getPositionX() < 50) {
-                    if (gameManager.axes.get(i).remove()) {
-                        removedAxe = gameManager.axes.removeIndex(i);
+    void controlWeaponPosition(){
+        for (int i = 0; i < gameManager.weapons.size; i++){
+            if (gameManager.weapons.get(i) != null){
+                if(gameManager.weapons.get(i).getPositionX() < 50) {
+                    if (gameManager.weapons.get(i).remove()) {
+                        removedAxe = gameManager.weapons.removeIndex(i);
                         removedAxe = null;
                     }
                 }
@@ -270,9 +272,9 @@ public class GameDriver {
             gameScreen.setGameState(4); //Game over
     }
     void addBacteriophageToGame(){
-        for (int i = 0; i < gameManager.bacteriophages.size; i++) {
-            if (gameManager.bacteriophages.get(i) != null)
-                gameScreen.getGameStage().addActor(gameManager.bacteriophages.get(i));
+        for (int i = 0; i < gameManager.getBacteriophages().size; i++) {
+            if (gameManager.getBacteriophages().get(i) != null)
+                gameScreen.getGameStage().addActor(gameManager.getBacteriophages().get(i));
         }
     }
     void addOvumToGame(){

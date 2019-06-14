@@ -13,6 +13,7 @@ import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.ScoreCloud;
 import com.gdx.alpha.entitys.Sperm;
 import com.gdx.alpha.entitys.VirusBullet;
+import com.gdx.alpha.entitys.Weapon;
 
 /**
  * Created by Admin on 04.02.15.
@@ -23,7 +24,7 @@ public class CollisionDetector {
     private InteractionManager interactionManager;
     private Microbe removedMicrobe;
     private VirusBullet removedBullet;
-    private Axe removedAxe;
+    private Weapon removedWeapon;
     private Sperm removedSperm;
     private Float removedIndex;
     private Bacteriophage bacRemoved;
@@ -41,7 +42,7 @@ public class CollisionDetector {
     private Rectangle playerRect;
     private Rectangle enemyRect;
     private Rectangle bulletRect;
-    private Rectangle axeRect;
+    private Rectangle weaponRect;
     private Rectangle spermRect;
     private Rectangle bacRect;
     private Rectangle ovumRect;
@@ -52,13 +53,13 @@ public class CollisionDetector {
         playerRect = new Rectangle();
         enemyRect = new Rectangle();
         bulletRect = new Rectangle();
-        axeRect = new Rectangle();
+        weaponRect = new Rectangle();
         spermRect = new Rectangle();
         ovumRect = new Rectangle();
 
         removedMicrobe = null;
         removedBullet = null;
-        removedAxe = null;
+        removedWeapon = null;
         removedSperm = null;
         removedIndex = null;
         bacRemoved = null;
@@ -116,17 +117,18 @@ public class CollisionDetector {
             }
         }
         //обработка столкновений игрока с бактериофагами
-        if (gameManager.bacteriophages.size > 0) {
-            for (int i = 0; i < gameManager.bacteriophages.size; i++) {
-                if (gameManager.player != null && gameManager.bacteriophages.get(i) != null) {
+        if (gameManager.getBacteriophages().size > 0) {
+            for (int i = 0; i < gameManager.getBacteriophages().size; i++) {
+                if (gameManager.player != null && gameManager.getBacteriophages().get(i) != null) {
                     playerRect = gameManager.player.getBound().getBox();
-                    bacRect = gameManager.bacteriophages.get(i).getBound().getBox();
+                    bacRect = gameManager.getBacteriophages().get(i).getBound().getBox();
                     if (playerRect.contains(bacRect) || playerRect.overlaps(bacRect)) {
-                        gameManager.player.setHealth(gameManager.player.getHealth() + gameManager.bacteriophages.get(i).health);
-                        if (gameManager.player.getHealth() > 300)
-                            gameManager.player.setHealth(300);
-                        gameManager.bacteriophages.get(i).remove();
-                        bacRemoved = gameManager.bacteriophages.removeIndex(i);
+                        interactionManager.useBacteriophage(i);
+                        //gameManager.player.setHealth(gameManager.player.getHealth() + gameManager.bacteriophages.get(i).health);
+                       /* if (gameManager.player.getHealth() > 300)
+                            gameManager.player.setHealth(300);*/
+                        gameManager.getBacteriophages().get(i).remove();
+                        bacRemoved = gameManager.getBacteriophages().removeIndex(i);
                         bacRemoved = null;
                     }
                 }
@@ -136,16 +138,16 @@ public class CollisionDetector {
 
 
     public void detectBacteriophageEnemyCollisions(){
-        if (gameManager.bacteriophages.size > 0) {
-            for (int i = 0; i < gameManager.bacteriophages.size; i++) {
+        if (gameManager.getBacteriophages().size > 0) {
+            for (int i = 0; i < gameManager.getBacteriophages().size; i++) {
                 if (gameManager.enemies.size > 0) {
                     for (int j = 0; j < gameManager.enemies.size; j++) {
-                        if (gameManager.bacteriophages.get(i) != null && gameManager.enemies.get(j) != null) {
-                            bacRect = gameManager.bacteriophages.get(i).getBound().getBox();
+                        if (gameManager.getBacteriophages().get(i) != null && gameManager.enemies.get(j) != null) {
+                            bacRect = gameManager.getBacteriophages().get(i).getBound().getBox();
                             enemyRect = gameManager.enemies.get(j).getBound().getBox();
                             if (enemyRect.overlaps(bacRect) || enemyRect.contains(bacRect)) {
                                 gameManager.enemies.get(j).remove();
-                                gameManager.bacteriophages.get(i).remove();
+                                gameManager.getBacteriophages().get(i).remove();
                                 deleteBac = i;
                                 overlap = true;
                                 interactionManager.createParticleEffectBlow(j);
@@ -158,8 +160,8 @@ public class CollisionDetector {
 
             }
         }
-        if (overlap && gameManager.bacteriophages.size > 0 && deleteBac != -1) {
-            bacRemoved = gameManager.bacteriophages.removeIndex(deleteBac);
+        if (overlap && gameManager.getBacteriophages().size > 0 && deleteBac != -1) {
+            bacRemoved = gameManager.getBacteriophages().removeIndex(deleteBac);
 
             bacRemoved = null;
             overlap = false;
@@ -172,21 +174,21 @@ public class CollisionDetector {
     public void detectWeaponEnemyCollisions() {
         if (gameManager.enemies.size > 0) {
             for (int i = 0; i < gameManager.enemies.size; i++) {
-                if (gameManager.axes.size > 0) {
-                    for (int j = 0; j < gameManager.axes.size; j++) {
-                        if (gameManager.axes.get(j) != null && gameManager.enemies.get(i) != null) {
-                            axeRect = gameManager.axes.get(j).getBounds().getBox();
+                if (gameManager.weapons.size > 0) {
+                    for (int j = 0; j < gameManager.weapons.size; j++) {
+                        if (gameManager.weapons.get(j) != null && gameManager.enemies.get(i) != null) {
+                            weaponRect = gameManager.weapons.get(j).getBounds().getBox();
                             enemyRect = gameManager.enemies.get(i).getBound().getBox();
                             //определение столкновения врага с топором
-                            if (enemyRect.overlaps(axeRect) || enemyRect.contains(axeRect)) {
+                            if (enemyRect.overlaps(weaponRect) || enemyRect.contains(weaponRect)) {
                                 //выводим эффект в массив эффектов
                                 interactionManager.createParticleEffectHit(j);
                                 //уменьшаем здоровье врага на величину здоровья оружия
                                 interactionManager.changeEnemiesHealth(i,j);
                                 //удаляем оружие со сцены
-                                gameManager.axes.get(j).remove();
-                                removedAxe = gameManager.axes.removeIndex(j);
-                                removedAxe = null;
+                                gameManager.weapons.get(j).remove();
+                                removedWeapon = gameManager.weapons.removeIndex(j);
+                                removedWeapon = null;
                                 //определение обнуления здоровья врага
                                 if (gameManager.enemies.get(i).health < 0) {
                                     gameManager.enemies.get(i).remove();
@@ -200,7 +202,7 @@ public class CollisionDetector {
                                     interactionManager.createScoreCloudToEnemies(i);
                                     //Добавление бактериофага в игру
                                     if (interactionManager.randomizeBacteriophages(i) != null)
-                                        gameManager.bacteriophages.add(interactionManager.randomizeBacteriophages(i));
+                                        gameManager.getBacteriophages().add(interactionManager.randomizeBacteriophages(i));
                                   }
                             }
                         }
@@ -217,19 +219,19 @@ public class CollisionDetector {
     }
     //Обработка столкновений оружия с пулями
     public void detectWeaponBulletCollision() {
-        if (gameManager.axes.size > 0)
-            for (int i = 0; i < gameManager.axes.size; i++) {
+        if (gameManager.weapons.size > 0)
+            for (int i = 0; i < gameManager.weapons.size; i++) {
                 if (gameManager.bullets.size > 0)
                     for (int j = 0; j < gameManager.bullets.size; j++) {
-                        if (gameManager.axes.get(i) != null && gameManager.bullets.get(j) != null) {
-                            axeRect = gameManager.axes.get(i).getBounds().getBox();
+                        if (gameManager.weapons.get(i) != null && gameManager.bullets.get(j) != null) {
+                            weaponRect = gameManager.weapons.get(i).getBounds().getBox();
                             bulletRect = gameManager.bullets.get(j).getBound().getBox();
                         }
-                        if (bulletRect.overlaps(axeRect) || bulletRect.contains(axeRect)) {
+                        if (bulletRect.overlaps(weaponRect) || bulletRect.contains(weaponRect)) {
                             deleteAxe = i;
                             //Выводим эффект взрыва
                             interactionManager.createParticleEffectBlowSmall(j);
-                            gameManager.axes.get(i).remove();
+                            gameManager.weapons.get(i).remove();
                             gameManager.bullets.get(j).remove();
                             //Изменяем счетчик очков на велечину вознаграждения за поражение пули врага
                             interactionManager.changeScoreAmountUIBulletsKill(j);
@@ -241,9 +243,9 @@ public class CollisionDetector {
                         }
                     }
             }
-        if (overlap && gameManager.axes.size > 0 && deleteAxe != -1) {
-            removedAxe = gameManager.axes.removeIndex(deleteAxe);
-            removedAxe = null;
+        if (overlap && gameManager.weapons.size > 0 && deleteAxe != -1) {
+            removedWeapon = gameManager.weapons.removeIndex(deleteAxe);
+            removedWeapon = null;
             overlap = false;
         }
         deleteAxe = -1;

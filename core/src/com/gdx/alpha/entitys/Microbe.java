@@ -81,6 +81,7 @@ public class Microbe extends Actor {
     public void setHealth(int health){
         this.health = health;
     }
+    public int getHealth(){return health;}
     public Array<VirusBullet> getBulletsArray(){
         return null;
     }

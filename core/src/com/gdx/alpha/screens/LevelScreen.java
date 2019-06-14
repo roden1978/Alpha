@@ -135,6 +135,8 @@ public class LevelScreen extends ObjectScreen {
         sperm = new Label(spermAmount,skin,"style36");
 
         readLevelParams(screenManager.getLevelParams());
+        if (!screenManager.getScreenMusic().isPlaying())
+            screenManager.getScreenMusic().play();
 
         /*try {
             loadLevel();

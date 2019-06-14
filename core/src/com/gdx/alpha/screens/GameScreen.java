@@ -81,6 +81,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     private Boolean isStringLevelParamsSave;
     private StringBuilder builder;
 
+
     // конструктор класса
     GameScreen(ScreenManager screenManager, int level){
         NAME = "GameScreen";
@@ -136,6 +137,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         gameStage = new Stage();
         //создаем сцену со строкой состояния
         //uiStage = new Stage();
+        screenManager.getScreenMusic().stop();
 
     }
 
@@ -176,11 +178,13 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         //System.out.println("Y: " + screenY);
         //System.out.println("State in: " + state);
         //Отлеживание продолжения игрового процесса после нажатия на экране паузы
-        if (state == PAUSE_STATE)
+        if (state == PAUSE_STATE){
             state = RUNNING_STATE;
+            gameDriver.getAudioManager().getBackgroundGameMusic().play();
+        }
         //Бросание оружия при одиночном клике по экрану
         gameDriver.getGameManager().player.setThrowing(true);
-        gameDriver.getGameManager().throwWeapon.setThrowing(true);
+        gameDriver.getGameManager().getThrowWeapon().setThrowing(true);
         //System.out.println("X >: " + (int)gameDriver.gameManager.pauseImage.getImageX() +
         //        " X <: " + (int)(gameStage.getWidth() - (gameStage.getWidth() - gameDriver.gameManager.pauseImage.getImageWidth()))+
         //        " Y <: " + (int)(gameStage.getHeight() - (gameStage.getHeight() - gameDriver.gameManager.pauseImage.getImageHeight())) +
@@ -196,8 +200,12 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
             //System.out.println("State out: " + state);
         }
         //Если уровень заокнчен по клику переходим к экрану выбора уровня
-        if(state == LEVEL_END_STATE)
+        if(state == LEVEL_END_STATE){
+            gameDriver.getAudioManager().getBackgroundGameMusic().stop();
+            gameDriver.getAudioManager().getBackgroundGameMusic().dispose();
             state = END_STATE;
+        }
+
         return true;
     }
 
@@ -206,7 +214,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         //Остановка процесса бросания оружия при отсутствии нажания экрана или удержания кнопки мыши
        // if(!gameDriver.getGameManager().player.getNewlife()) {
             gameDriver.getGameManager().player.setThrowing(false);
-            gameDriver.getGameManager().throwWeapon.setThrowing(false);
+            gameDriver.getGameManager().getThrowWeapon().setThrowing(false);
        // }
         return true;
     }
@@ -216,7 +224,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         //Бросание оружия при удержании нажания на экране или левой кнопки мыши в игровом процессе
         if (!gameDriver.getGameManager().player.getThrowing()) {
             gameDriver.getGameManager().player.setThrowing(true);
-            gameDriver.getGameManager().throwWeapon.setThrowing(true);
+            gameDriver.getGameManager().getThrowWeapon().setThrowing(true);
         }
 
         if(screenX < gameStage.getWidth() &&
@@ -227,7 +235,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
             playerPosition.x = screenX - gameDriver.getGameManager().player.getSpriteRegionWidth()*3 - gameDriver.getGameManager().player.getSpriteRegionWidth() / 10;
             playerPosition.y = (gameStage.getHeight() - screenY) - gameDriver.getGameManager().player.getSpriteRegionHeight() / 2;
             gameDriver.getGameManager().player.setPosition(playerPosition);
-            gameDriver.getGameManager().throwWeapon.updatePosition(playerPosition);
+            gameDriver.getGameManager().getThrowWeapon().updatePosition(playerPosition);
         }
         //System.out.println("X: " + player.getPosition().x + " Y: " + player.getPosition().y);
         //System.out.println("X: " + screenX + " Y: " + screenY);
@@ -252,6 +260,9 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
 
             gameDriver = new GameDriver(this, level);
             gameDriver.addGeneralActorsToScene();
+            //Запускаем музыку игрового процесса
+            gameDriver.getAudioManager().getBackgroundGameMusic().setLooping(true);
+            gameDriver.getAudioManager().getBackgroundGameMusic().play();
 
 }
 
@@ -371,6 +382,9 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
 
         Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        //Останавливаем пузыку во время паузы
+        if (gameDriver.getAudioManager().getBackgroundGameMusic().isPlaying())
+            gameDriver.getAudioManager().getBackgroundGameMusic().pause();
         spriteBatch.begin();
        // table.clear();
         //table.setFillParent(true);
@@ -484,7 +498,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         this.state = state;
     }
 
-    void setLevelParams(String line) {
+    private void setLevelParams(String line) {
         levels = line.split("#");
         for (int i = 0; i < levels.length; i++) {
             levelString = levels[i].split(";");
@@ -504,7 +518,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
        // if (levelNumber.size > level)
         available.set(level + 1, 1);
     }
-    void createStringForSaveLevelParams(){
+   private void createStringForSaveLevelParams(){
         for (int i =0; i < levelNumber.size; i++){
            builder.append(levelNumber.get(i).toString()).append(";").append(score.get(i).toString()).append(";").
                     append(sperms.get(i).toString()).append(";").append(complete.get(i).toString()).append(";").
@@ -519,7 +533,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     public void setStringLevelParamsSave(Boolean stringLevelParamsSave) {
         isStringLevelParamsSave = stringLevelParamsSave;
     }
-    void saveLevelParamFile() throws IOException {
+    private void saveLevelParamFile() throws IOException {
         FileHandle handle = Gdx.files.local("levelparam.txt");
         handle.writeString(builder.toString(), false);
         screenManager.setLevelParams(builder.toString());

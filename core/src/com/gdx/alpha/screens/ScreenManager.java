@@ -1,6 +1,7 @@
 package com.gdx.alpha.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 
 import java.io.IOException;
@@ -11,6 +12,9 @@ import java.io.IOException;
 public class ScreenManager {
     private static ObjectScreen currentScreen;
     private String line;
+    private String soundParam;
+    private Music screenMusic;
+    private Boolean onoff;
 
     public ScreenManager(){
         currentScreen = null;
@@ -19,6 +23,19 @@ public class ScreenManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try {
+            loadSoundParamFile();
+            if (Integer.valueOf(soundParam.trim()) == 1){
+                onoff = true;
+            }
+            else{
+                onoff = false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        screenMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/backgroundMenuMusic.mp3"));
     }
 
     public ObjectScreen getCurrentScreen(){
@@ -41,7 +58,25 @@ public class ScreenManager {
         FileHandle handle = Gdx.files.internal("levelparam.txt");
         line = handle.readString();
     }
+
+    public void loadSoundParamFile() throws IOException{
+        FileHandle handle = Gdx.files.internal("gamesound.txt");
+        soundParam = handle.readString();
+    }
+
     public String getLevelParams(){return line;}
 
     public void setLevelParams(String line){this.line = line;}
+
+    public Music getScreenMusic() {
+        return screenMusic;
+    }
+
+    public Boolean getOnoff() {
+        return onoff;
+    }
+
+    public void setOnoff(Boolean onoff) {
+        this.onoff = onoff;
+    }
 }//end of class

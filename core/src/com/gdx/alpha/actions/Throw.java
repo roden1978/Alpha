@@ -3,12 +3,13 @@ package com.gdx.alpha.actions;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.gdx.alpha.entitys.Axe;
-import com.gdx.alpha.entitys.Bounds;
+import com.gdx.alpha.entitys.Mace;
+import com.gdx.alpha.entitys.Stone;
+import com.gdx.alpha.entitys.Weapon;
 
 /**
  * Created by Ro|)e|\| on 27.01.15.
@@ -20,45 +21,38 @@ public class Throw extends Actor{
      1 - камень;
      2 - дубина
      */
-    private Vector2 position;
-    private float speed;
-    private static final float SCREEN_WIDTH = Gdx.graphics.getWidth();
-    private static final float SCREEN_HEIGHT = Gdx.graphics.getHeight();
+       //private static final float SCREEN_WIDTH = Gdx.graphics.getWidth();
+    //private static final float SCREEN_HEIGHT = Gdx.graphics.getHeight();
     private float interval;
     private float intervalDefault;
-    private float intervalCurrent;
     private float intervalDelta;
-    private Array<Axe> axeArray;
+    private float weaponInterval;
+    private Array<Weapon> weaponArray;
     private int weaponType;
     private Vector2 playerPosition;
-    private Axe removedAxe = null;
-    private TextureAtlas axeAtlas;
+    //private Axe removedAxe;
+    //private TextureAtlas axeAtlas;
     private boolean throwing;
     private Sound throwAxeSound;
+    private float weaponDelay;
+    private Boolean isDelay;
 
-    public Throw(int weaponType, Vector2 playerPosition, TextureAtlas axeAtlas){
+    public Throw(int weaponType, Vector2 playerPosition){
         this.weaponType = weaponType;
         this.playerPosition = playerPosition;
-        this.axeAtlas = axeAtlas;
+        //this.axeAtlas = axeAtlas;
         throwAxeSound = Gdx.audio.newSound(Gdx.files.internal("sounds/axeThrow.mp3"));
         intervalDefault = 0.3f;
+        weaponInterval = 6.0f;
         throwing = true;
         updatePosition(playerPosition);
-        switch(weaponType){
-            case 0:
-                interval = intervalDefault;  //скорость бросания оружия
-                intervalCurrent = interval;
-                intervalDelta = 0.0f;
-                axeArray = new Array<Axe>();
-                //removedAxe = new Axe();
-                break;
-            case 1:
-                //
-                break;
-            case 2:
-                //
-                break;
-        }
+        interval = intervalDefault;  //скорость бросания оружия
+        //float intervalCurrent = interval;
+        intervalDelta = 0.0f;
+        weaponDelay = 0.0f;
+        isDelay = false;
+        weaponArray = new Array<Weapon>();
+
 
     }
 
@@ -94,24 +88,45 @@ public class Throw extends Actor{
         else
             intervalDelta = 0.0f;
 
+        delayWeaponChange(delta);
+
+       /* if (!isDelay)
+            weaponType = 0;*/
+
+        Weapon weapon;
         switch(weaponType){
-            case 0:
+            case 1:
                 if (intervalDelta > interval){
-                    axeArray.add(new Axe(new Vector2(playerPosition),axeAtlas));
+                    weapon = new Mace(new Vector2(playerPosition));
+                    setInterval(weapon.getInterval());
+                    weaponArray.add(weapon);
                     intervalDelta = 0.0f;
                     throwAxeSound.play();
+                    isDelay = true;
                     //System.out.println("X: "+playerPosition.x  + " Y: " + playerPosition.y + " size " + axeArray.size);
                 }
-         break;
-            case 1:
-                //
                 break;
             case 2:
-                //
+                if (intervalDelta > interval) {
+                    weapon = new Stone(new Vector2(playerPosition));
+                    setInterval(weapon.getInterval());
+                    weaponArray.add(weapon);
+                    intervalDelta = 0.0f;
+                    throwAxeSound.play();
+                    isDelay = true;
+                }
+                    //System.out.println("X: "+playerPosition.x  + " Y: " + playerPosition.y + " size " + axeArray.size);
+                break;
+                default:
+                if (intervalDelta > interval){
+                    weaponArray.add(new Axe(new Vector2(playerPosition)));
+                    intervalDelta = 0.0f;
+                    throwAxeSound.play();
+                    isDelay = false;
+                    //System.out.println("X: "+playerPosition.x  + " Y: " + playerPosition.y + " size " + axeArray.size);
+                }
                 break;
         }
-
-
     }
 
     public void updatePosition(Vector2 playerPosition){
@@ -119,24 +134,37 @@ public class Throw extends Actor{
         this.playerPosition.y = playerPosition.y + 70.0f;
     }
 
-    public Array<Axe> getAxeArray(){
-        return axeArray;
+    public Array<Weapon> getAxeArray(){
+        return weaponArray;
     }
 
-    public void setInterval(float interval){
+    private void setInterval(float interval){
         this.interval = interval;
     }
-    public void restoreDefaultInterval(){
+    private void restoreDefaultInterval(){
         this.interval = intervalDefault;
     }
-    public void restoreIntervalCurrent(){
+   /* public void restoreIntervalCurrent(){
         this.interval = intervalCurrent;
     }
     public float getIntervalCurrent(){
         return interval;
-    }
+    }*/
     public void setThrowing(boolean throwing){
         this.throwing = throwing;
     }
-    public Boolean getThrowing(){return throwing;}
+    /*public Boolean getThrowing(){return throwing;}*/
+
+
+    private void delayWeaponChange(float delta){ //Задержка до того как оружие сменится на оружие по умолчанию (топор)
+        if (isDelay && weaponType != 0)
+            weaponDelay += delta;
+        if (weaponInterval < weaponDelay && isDelay) {
+            weaponType = 0;
+            restoreDefaultInterval();
+            isDelay = false;
+           weaponDelay = 0;
+        }
+        //System.out.println("XDelta: "+delta  + " WeaponDelay: " + weaponDelay);
+    }
 }

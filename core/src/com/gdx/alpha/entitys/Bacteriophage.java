@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Created by admin on 01.03.2015.
+ * Created by Ro|)e|\| on 01.03.2015.
  */
 public class Bacteriophage extends Microbe {
     private TextureAtlas bacteriophageAtlas;
@@ -17,10 +17,13 @@ public class Bacteriophage extends Microbe {
     private float boundWidth;
     private float boundHeight;
     private String name_region;
-    private static final int TYPE_HEALTH = 0;
-    private static final int TYPE_WEAPON = 1;
+    private static final int HEALTH = 0;
+    private static final int WEAPON_AXE = 1;
+    private static final int WEAPON_MACE = 2;
+    private static final int WEAPON_STONE = 3;
+    private Integer typeBacteriophage;
 
-    public Bacteriophage(Vector2 position, float speed, TextureAtlas bacteriophageAtlas, String name_region) {
+    public Bacteriophage(Vector2 position, float speed, TextureAtlas bacteriophageAtlas, String name_region, Integer type) {
         super(position, speed);
         this.bacteriophageAtlas = bacteriophageAtlas;
         this.name_region = name_region;
@@ -29,6 +32,7 @@ public class Bacteriophage extends Microbe {
         boundHeight = this.bacteriophageAtlas.findRegion(name_region).getRegionHeight();
         bacBound = new Bounds(position.x, position.y, boundWidth, boundHeight);
         stateTime = 0.0f;
+        this.typeBacteriophage = type;
         setHealth(50);
     }
 
@@ -50,7 +54,7 @@ public class Bacteriophage extends Microbe {
         return bacBound;
     }
 
-    public int getTypeWeapon() {return TYPE_WEAPON;}
+    public int getType() {return typeBacteriophage;}
 
-    public int getTypeHealth() {return TYPE_HEALTH;}
+    //public int getTypeHealth() {return TYPE_HEALTH;}
 }

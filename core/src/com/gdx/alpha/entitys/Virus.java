@@ -1,7 +1,5 @@
 package com.gdx.alpha.entitys;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,8 +16,7 @@ public class Virus extends Microbe {
     private TextureAtlas bulletTextureAtlas;
     private TextureAtlas lifeScaleAtlas;
     private TextureRegion virusTextureRegion;
-    private static Player player = null;
-    private VirusBullet bullet=null;
+    private Player player;
     private Array<VirusBullet> bulletsArray;
     private int weight;
     private int maxHealth;
@@ -49,7 +46,7 @@ public class Virus extends Microbe {
         maxHealth = health;
     }
 
-    public void init(){
+    private void init(){
         intervalDelta = 0.0f;
         bulletsArray = new Array<VirusBullet>();
         setVirusParameters(weight);
@@ -60,8 +57,8 @@ public class Virus extends Microbe {
         intervalDelta += delta;
 
         if (intervalDelta > interval){//изменить тип пуль
-            bullet = new VirusBullet(this.virus_type,new Vector2 (player.getPositionX(),
-                    player.getPositionY() + player.getSpriteRegionHeight()/2.0f),bulletTextureAtlas);
+            VirusBullet bullet = new VirusBullet(this.virus_type, new Vector2(player.getPositionX(),
+                    player.getPositionY() + player.getSpriteRegionHeight() / 2.0f), bulletTextureAtlas);
             bullet.setPosition(position.x + virusTextureRegion.getRegionWidth(),
                     position.y + virusTextureRegion.getRegionWidth() / 2.0f - bullet.getWidth() / 2.0f);
             bullet.setSpeed(interval * 8);

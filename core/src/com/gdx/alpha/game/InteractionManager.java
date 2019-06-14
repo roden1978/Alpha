@@ -22,22 +22,22 @@ class InteractionManager {
     }
     //Ввад в игру бактериофага со случайными свойтвами
     Bacteriophage randomizeBacteriophages(Integer i) {
-        if (MathUtils.random(100) > 70) {
+        if (MathUtils.random(100) > 85) { //////////////////////
             bacteriophage=null;
-            int weapon_type_bacteriophage = MathUtils.random(0, 2);
+            int weapon_type_bacteriophage = MathUtils.random(0, 2); //////////////
             //System.out.println("Weapon type: "+ weapon_type_bacteriophage);
             switch (weapon_type_bacteriophage) {
                 case 0:
                     bacteriophage = new Bacteriophage(new Vector2(gameManager.enemies.get(i).getPosition()),
-                            0.0f, gameManager.bacteriophageAtlas, "h001");
+                            0.0f, gameManager.bacteriophageAtlas, "h001",0);
                     break;
                 case 1:
                     bacteriophage = new Bacteriophage(new Vector2(gameManager.enemies.get(i).getPosition()),
-                            0.0f, gameManager.bacteriophage_weapon_maceAtlas, "m001");
+                            0.0f, gameManager.bacteriophage_weapon_maceAtlas, "m001",1);
                     break;
                 case 2:
                     bacteriophage = new Bacteriophage(new Vector2(gameManager.enemies.get(i).getPosition()),
-                            0.0f, gameManager.bacteriophage_weapon_stoneAtlas, "s001");
+                            0.0f, gameManager.bacteriophage_weapon_stoneAtlas, "s001",2);
                     break;
             }
         }
@@ -75,8 +75,8 @@ class InteractionManager {
     //Создание эффекта взрыва от столкновения с оружием
     void createParticleEffectHit(Integer j){
         hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.hit), 0.2f);
-        hitParticleEffect.setPositionEffect(gameManager.axes.get(j).getPositionX(),
-                gameManager.axes.get(j).getPositionY() + gameManager.axes.get(j).getBounds().getBox().getHeight() / 2);
+        hitParticleEffect.setPositionEffect(gameManager.weapons.get(j).getPositionX(),
+                gameManager.weapons.get(j).getPositionY() + gameManager.weapons.get(j).getBounds().getBox().getHeight() / 2);
         gameManager.hitParticleEffectArray.add(hitParticleEffect);
 
        //return hitParticleEffect;
@@ -96,7 +96,7 @@ class InteractionManager {
     }
     //уменьшаем здоровье врага на величину силы оружия
     void changeEnemiesHealth(Integer i, Integer j){
-        gameManager.enemies.get(i).changeHealth(gameManager.axes.get(j).health);
+        gameManager.enemies.get(i).changeHealth(gameManager.weapons.get(j).getHealth());
     }
     //Изменение счетчика очков на величину вознаграждения за поражение врага
     void changeScoreAmountUIEnemiesKill(Integer i){
@@ -140,6 +140,24 @@ class InteractionManager {
     //Проигрывание звука уничтожениея врага
     void playBlowEnemySound (){
         audioManager.getBlowEnemySound().play();
+    }
+
+    //Подбор бектериофага
+    void useBacteriophage(int i){
+        //int type = gameManager.getBacteriophages().get(i).getType();
+        switch (gameManager.getBacteriophages().get(i).getType()){
+            case 0:
+                gameManager.player.setHealth(gameManager.player.getHealth() + gameManager.getBacteriophages().get(i).getHealth());
+                if (gameManager.player.getHealth() > 300)
+                    gameManager.player.setHealth(300);
+                break;
+            case 1:
+                gameManager.getThrowWeapon().changeType(1);
+                break;
+            case 2:
+                gameManager.getThrowWeapon().changeType(2);
+                break;
+        }
     }
 
 

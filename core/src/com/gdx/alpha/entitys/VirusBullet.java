@@ -1,14 +1,12 @@
 package com.gdx.alpha.entitys;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
- * Created by admin on 01.02.2015.
+ * Created by Ro|)e|\| on 01.02.2015.
  */
 public class VirusBullet extends Microbe {
     private TextureAtlas virusBulletsAtlas;
@@ -19,7 +17,7 @@ public class VirusBullet extends Microbe {
     private float boundWidth;
     private float boundHeight;
 
-    public VirusBullet(int bulletType, Vector2 direction, TextureAtlas virusBulletsAtlas) {
+    VirusBullet(int bulletType, Vector2 direction, TextureAtlas virusBulletsAtlas) {
         this.direction = direction;
         this.virusBulletsAtlas = virusBulletsAtlas;
         init(bulletType);
@@ -29,7 +27,7 @@ public class VirusBullet extends Microbe {
         setPrice(10);
     }
 
-    public VirusBullet(Vector2 position, float speed, int bulletType, Vector2 direction, TextureAtlas virusBulletsAtlas) {
+   /* VirusBullet(Vector2 position, float speed, int bulletType, Vector2 direction, TextureAtlas virusBulletsAtlas) {
         super(position, speed);
         this.direction = direction;
         this.virusBulletsAtlas = virusBulletsAtlas;
@@ -37,9 +35,9 @@ public class VirusBullet extends Microbe {
         boundWidth = virusBulletTexture.getRegionWidth();
         boundHeight = virusBulletTexture.getRegionHeight();
         bulletBound = new Bounds(position.x, position.y, boundWidth, boundHeight);
-    }
+    }*/
 
-    public VirusBullet(float x, float y, float speed, int bulletType, Vector2 direction, TextureAtlas virusBulletsAtlas) {
+   /* public VirusBullet(float x, float y, float speed, int bulletType, Vector2 direction, TextureAtlas virusBulletsAtlas) {
         super(x, y, speed);
         this.direction = direction;
         this.virusBulletsAtlas = virusBulletsAtlas;
@@ -47,9 +45,9 @@ public class VirusBullet extends Microbe {
         boundWidth = virusBulletTexture.getRegionWidth();
         boundHeight = virusBulletTexture.getRegionHeight();
         bulletBound = new Bounds(position.x, position.y, boundWidth, boundHeight);
-    }
+    }*/
 
-    public void init(int bulletType){
+    private void init(int bulletType){
         switch (bulletType){
             case 0:
                 virusBulletTexture = new TextureRegion(virusBulletsAtlas.findRegion("vir001_bullet"));
@@ -103,7 +101,7 @@ public class VirusBullet extends Microbe {
         return bulletBound;
     }
 
-    public void updateAngel(){
+    void updateAngel(){
         angel = Math.atan2(direction.y - position.y, direction.x - position.x);
     }
 }

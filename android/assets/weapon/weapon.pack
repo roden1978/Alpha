@@ -1,0 +1,33 @@
+
+weapon.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+axe
+  rotate: false
+  xy: 1, 38
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+cudgel
+  rotate: false
+  xy: 1, 1
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+mace
+  rotate: false
+  xy: 38, 38
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+stone
+  rotate: false
+  xy: 38, 1
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
