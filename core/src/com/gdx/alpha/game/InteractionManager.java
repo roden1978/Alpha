@@ -39,6 +39,7 @@ class InteractionManager {
                     bacteriophage = new Bacteriophage(new Vector2(gameManager.enemies.get(i).getPosition()),
                             0.0f, gameManager.bacteriophage_weapon_stoneAtlas, "s001",2);
                     break;
+                    //бактериофаг с булавой
             }
         }
         return bacteriophage;

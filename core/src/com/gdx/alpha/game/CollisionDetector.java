@@ -47,7 +47,7 @@ public class CollisionDetector {
     private Rectangle bacRect;
     private Rectangle ovumRect;
 
-    public CollisionDetector(GameManager gameManager, InteractionManager interactionManager) {
+    CollisionDetector(GameManager gameManager, InteractionManager interactionManager) {
         this.gameManager = gameManager;
         this.interactionManager = interactionManager;
         playerRect = new Rectangle();

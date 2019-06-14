@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.gdx.alpha.entitys.Axe;
+import com.gdx.alpha.entitys.Cudgel;
 import com.gdx.alpha.entitys.Mace;
 import com.gdx.alpha.entitys.Stone;
 import com.gdx.alpha.entitys.Weapon;
@@ -116,6 +117,17 @@ public class Throw extends Actor{
                     isDelay = true;
                 }
                     //System.out.println("X: "+playerPosition.x  + " Y: " + playerPosition.y + " size " + axeArray.size);
+                break;
+            case 3:
+                if (intervalDelta > interval) {
+                    weapon = new Cudgel(new Vector2(playerPosition));
+                    setInterval(weapon.getInterval());
+                    weaponArray.add(weapon);
+                    intervalDelta = 0.0f;
+                    throwAxeSound.play();
+                    isDelay = true;
+                }
+                //System.out.println("X: "+playerPosition.x  + " Y: " + playerPosition.y + " size " + axeArray.size);
                 break;
                 default:
                 if (intervalDelta > interval){
