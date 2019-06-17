@@ -5,7 +5,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -14,9 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.gdx.alpha.actions.Throw;
 import com.gdx.alpha.effects.HitParticleEffect;
-import com.gdx.alpha.entitys.Axe;
 import com.gdx.alpha.entitys.Bacteriophage;
-import com.gdx.alpha.entitys.Lifes;
 import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.Ovum;
 import com.gdx.alpha.entitys.Player;
@@ -29,7 +26,7 @@ import com.gdx.alpha.entitys.Weapon;
 import java.io.IOException;
 
 /**
- * Created by Admin on 21.01.15.
+ * Created by Ro|)e|\| on 21.01.15.
  */
 public class GameManager {
 
@@ -56,6 +53,7 @@ public class GameManager {
     public TextureAtlas bacteriophageAtlas;
     public TextureAtlas bacteriophage_weapon_maceAtlas;
     public TextureAtlas bacteriophage_weapon_stoneAtlas;
+    private TextureAtlas bacteriophage_weapon_cudgelAtlas;
 
     private TextureAtlas cavemanAtlas;
     private TextureAtlas caveman_newlifeAtlas;
@@ -78,7 +76,7 @@ public class GameManager {
 
     //массивы объектов взаимодействия при столкновениях
     //массив врагов
-    public Array<Microbe> enemies;
+    private Array<Microbe> enemies;
     //массив пуль врагов
     public Array<VirusBullet> bullets;
     //массив брошеных топоров игрока
@@ -205,6 +203,7 @@ public class GameManager {
         bacteriophageAtlas = new TextureAtlas(Gdx.files.internal("bacteriophage/health.pack"));
         bacteriophage_weapon_maceAtlas = new TextureAtlas(Gdx.files.internal("bacteriophage/mace.pack"));
         bacteriophage_weapon_stoneAtlas = new TextureAtlas(Gdx.files.internal("bacteriophage/stone.pack"));
+        bacteriophage_weapon_cudgelAtlas = new TextureAtlas(Gdx.files.internal("bacteriophage/cudgel.pack"));
         cavemanAtlas = new TextureAtlas(Gdx.files.internal("caveman/caveman.pack"));
         caveman_newlifeAtlas = new TextureAtlas(Gdx.files.internal("caveman/newlife.pack"));
         lifeScaleAtlas = new TextureAtlas(Gdx.files.internal("uiGame/lifescale.pack"));
@@ -297,11 +296,19 @@ public class GameManager {
         return this.ovum_effectStart;
     }
 
-    public Array<Bacteriophage> getBacteriophages() {
+    Array<Bacteriophage> getBacteriophages() {
         return bacteriophages;
     }
 
     public Throw getThrowWeapon() {
         return throwWeapon;
+    }
+
+    public TextureAtlas getBacteriophage_weapon_cudgelAtlas() {
+        return bacteriophage_weapon_cudgelAtlas;
+    }
+
+    public Array<Microbe> getEnemies() {
+        return enemies;
     }
 }//end of class

@@ -1,0 +1,68 @@
+
+cudgel.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+000
+  rotate: false
+  xy: 1, 205
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+001
+  rotate: false
+  xy: 1, 103
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+002
+  rotate: false
+  xy: 70, 205
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+003
+  rotate: false
+  xy: 1, 1
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+004
+  rotate: false
+  xy: 70, 103
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+005
+  rotate: false
+  xy: 139, 205
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+006
+  rotate: false
+  xy: 70, 1
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+007
+  rotate: false
+  xy: 139, 103
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1
+008
+  rotate: false
+  xy: 139, 1
+  size: 67, 100
+  orig: 67, 100
+  offset: 0, 0
+  index: -1

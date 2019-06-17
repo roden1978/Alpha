@@ -146,7 +146,7 @@ public class Throw extends Actor{
         this.playerPosition.y = playerPosition.y + 70.0f;
     }
 
-    public Array<Weapon> getAxeArray(){
+    public Array<Weapon> getWeaponArray(){
         return weaponArray;
     }
 

@@ -22,24 +22,32 @@ class InteractionManager {
     }
     //Ввад в игру бактериофага со случайными свойтвами
     Bacteriophage randomizeBacteriophages(Integer i) {
-        if (MathUtils.random(100) > 85) { //////////////////////
+        if (MathUtils.random(100) > 55) { //////////////////////
             bacteriophage=null;
-            int weapon_type_bacteriophage = MathUtils.random(0, 2); //////////////
+            int weapon_type_bacteriophage = MathUtils.random(0, 3); //////////////
             //System.out.println("Weapon type: "+ weapon_type_bacteriophage);
             switch (weapon_type_bacteriophage) {
                 case 0:
-                    bacteriophage = new Bacteriophage(new Vector2(gameManager.enemies.get(i).getPosition()),
+                    bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
                             0.0f, gameManager.bacteriophageAtlas, "h001",0);
+                    System.out.println("Pos Bacteriophage + X: "+ gameManager.getEnemies().get(i).getPosition().x +" Y: " + gameManager.getEnemies().get(i).getPosition().y);
                     break;
                 case 1:
-                    bacteriophage = new Bacteriophage(new Vector2(gameManager.enemies.get(i).getPosition()),
+                    bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
                             0.0f, gameManager.bacteriophage_weapon_maceAtlas, "m001",1);
+                    System.out.println("Pos Bacteriophage mace X: "+ gameManager.getEnemies().get(i).getPosition().x +" Y: " + gameManager.getEnemies().get(i).getPosition().y);
                     break;
                 case 2:
-                    bacteriophage = new Bacteriophage(new Vector2(gameManager.enemies.get(i).getPosition()),
+                    bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
                             0.0f, gameManager.bacteriophage_weapon_stoneAtlas, "s001",2);
+                    System.out.println("Pos Bacteriophage stone X: "+ gameManager.getEnemies().get(i).getPosition().x +" Y: " + gameManager.getEnemies().get(i).getPosition().y);
                     break;
-                    //бактериофаг с булавой
+                case 3:
+                    bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
+                            0.0f, gameManager.getBacteriophage_weapon_cudgelAtlas(), "000",3);
+                    System.out.println("Pos Bacteriophage cudgel X: "+ gameManager.getEnemies().get(i).getPosition().x +" Y: " + gameManager.getEnemies().get(i).getPosition().y);
+                    break;
+
             }
         }
         return bacteriophage;
@@ -47,8 +55,8 @@ class InteractionManager {
     //Создание эффекта взрыва от столкновения  с врагом
     void createParticleEffectBlow(Integer i){
         hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.blow), 0.5f);
-        hitParticleEffect.setPositionEffect(gameManager.enemies.get(i).getPositionX() + gameManager.enemies.get(i).getBound().getBox().getWidth() / 2,
-                gameManager.enemies.get(i).getPositionY() + gameManager.enemies.get(i).getBound().getBox().getHeight() / 2);
+        hitParticleEffect.setPositionEffect(gameManager.getEnemies().get(i).getPositionX() + gameManager.getEnemies().get(i).getBound().getBox().getWidth() / 2,
+                gameManager.getEnemies().get(i).getPositionY() + gameManager.getEnemies().get(i).getBound().getBox().getHeight() / 2);
         gameManager.hitParticleEffectArray.add(hitParticleEffect);
         playBlowEnemySound();
     }
@@ -56,12 +64,12 @@ class InteractionManager {
      void createScoreCloudToPlayer(Integer i){
         scoreCloud = new ScoreCloud(new Vector2(gameManager.player.getPositionX() + gameManager.player.getBound().getBox().getWidth() / 2,
                 gameManager.player.getPositionY() + gameManager.player.getBound().getBox().getHeight() / 2),
-                gameManager.fontScoreCloudRed, gameManager.enemies.get(i).getPrice(), false);
+                gameManager.fontScoreCloudRed, gameManager.getEnemies().get(i).getPrice(), false);
         gameManager.scoreCloudArray.add(scoreCloud);
     }
     //Изменение уровня жизни игрока от столкновения с врагом
     void changePlayerHealthEnemies(Integer i){
-        gameManager.player.setHealth(gameManager.player.getHealth() - gameManager.enemies.get(i).getPrice());
+        gameManager.player.setHealth(gameManager.player.getHealth() - gameManager.getEnemies().get(i).getPrice());
     }
 
     //Создание эффекта взрыва от столкновения  с пулями
@@ -97,11 +105,11 @@ class InteractionManager {
     }
     //уменьшаем здоровье врага на величину силы оружия
     void changeEnemiesHealth(Integer i, Integer j){
-        gameManager.enemies.get(i).changeHealth(gameManager.weapons.get(j).getHealth());
+        gameManager.getEnemies().get(i).changeHealth(gameManager.weapons.get(j).getHealth());
     }
     //Изменение счетчика очков на величину вознаграждения за поражение врага
     void changeScoreAmountUIEnemiesKill(Integer i){
-        gameManager.setScoresAmount(gameManager.getScoresAmount()+ gameManager.enemies.get(i).getPrice());
+        gameManager.setScoresAmount(gameManager.getScoresAmount()+ gameManager.getEnemies().get(i).getPrice());
         gameManager.updateScoresAmount();
     }
 
@@ -119,9 +127,9 @@ class InteractionManager {
     }
     //Создание облака очков от столкновения врагов с оружием
     void createScoreCloudToEnemies(Integer i){
-        scoreCloud = new ScoreCloud(new Vector2(gameManager.enemies.get(i).getPositionX() + gameManager.enemies.get(i).getBound().getBox().getWidth() / 2,
-                gameManager.enemies.get(i).getPositionY() + gameManager.enemies.get(i).getBound().getBox().getHeight() / 2),
-                gameManager.fontScoreCloudGreen, gameManager.enemies.get(i).getPrice(), true);
+        scoreCloud = new ScoreCloud(new Vector2(gameManager.getEnemies().get(i).getPositionX() + gameManager.getEnemies().get(i).getBound().getBox().getWidth() / 2,
+                gameManager.getEnemies().get(i).getPositionY() + gameManager.getEnemies().get(i).getBound().getBox().getHeight() / 2),
+                gameManager.fontScoreCloudGreen, gameManager.getEnemies().get(i).getPrice(), true);
         gameManager.scoreCloudArray.add(scoreCloud);
     }
     //Создание облака очков для пуль
@@ -139,7 +147,7 @@ class InteractionManager {
         gameManager.scoreCloudArray.add(scoreCloud);
     }
     //Проигрывание звука уничтожениея врага
-    void playBlowEnemySound (){
+    private void playBlowEnemySound (){
         audioManager.getBlowEnemySound().play();
     }
 
@@ -157,6 +165,9 @@ class InteractionManager {
                 break;
             case 2:
                 gameManager.getThrowWeapon().changeType(2);
+                break;
+            case 3:
+                gameManager.getThrowWeapon().changeType(3);
                 break;
         }
     }

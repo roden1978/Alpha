@@ -75,11 +75,11 @@ public class CollisionDetector {
 
     public void detectPlayerCollisions() {
         //обработка столкновений игрока с врагами
-        if (gameManager.enemies.size > 0) {
-            for (int i = 0; i < gameManager.enemies.size; i++) {
-                if (gameManager.player != null && gameManager.enemies.get(i) != null) {
+        if (gameManager.getEnemies().size > 0) {
+            for (int i = 0; i < gameManager.getEnemies().size; i++) {
+                if (gameManager.player != null && gameManager.getEnemies().get(i) != null) {
                     playerRect = gameManager.player.getBound().getBox();
-                    enemyRect = gameManager.enemies.get(i).getBound().getBox();
+                    enemyRect = gameManager.getEnemies().get(i).getBound().getBox();
                     if (playerRect.overlaps(enemyRect) || playerRect.contains(enemyRect)) {
 
                         //Создаем эффект взрыва от столкновения игрока с врагом
@@ -89,8 +89,8 @@ public class CollisionDetector {
                         //Создаем облако очков от столкновения игрока с врагом
                         interactionManager.createScoreCloudToPlayer(i);
 
-                        gameManager.enemies.get(i).remove();
-                        removedMicrobe = gameManager.enemies.removeIndex(i);
+                        gameManager.getEnemies().get(i).remove();
+                        removedMicrobe = gameManager.getEnemies().removeIndex(i);
                         removedMicrobe = null;
                     }
                 }
@@ -140,18 +140,18 @@ public class CollisionDetector {
     public void detectBacteriophageEnemyCollisions(){
         if (gameManager.getBacteriophages().size > 0) {
             for (int i = 0; i < gameManager.getBacteriophages().size; i++) {
-                if (gameManager.enemies.size > 0) {
-                    for (int j = 0; j < gameManager.enemies.size; j++) {
-                        if (gameManager.getBacteriophages().get(i) != null && gameManager.enemies.get(j) != null) {
+                if (gameManager.getEnemies().size > 0) {
+                    for (int j = 0; j < gameManager.getEnemies().size; j++) {
+                        if (gameManager.getBacteriophages().get(i) != null && gameManager.getEnemies().get(j) != null) {
                             bacRect = gameManager.getBacteriophages().get(i).getBound().getBox();
-                            enemyRect = gameManager.enemies.get(j).getBound().getBox();
+                            enemyRect = gameManager.getEnemies().get(j).getBound().getBox();
                             if (enemyRect.overlaps(bacRect) || enemyRect.contains(bacRect)) {
-                                gameManager.enemies.get(j).remove();
+                                gameManager.getEnemies().get(j).remove();
                                 gameManager.getBacteriophages().get(i).remove();
                                 deleteBac = i;
                                 overlap = true;
                                 interactionManager.createParticleEffectBlow(j);
-                                removedMicrobe = gameManager.enemies.removeIndex(j);
+                                removedMicrobe = gameManager.getEnemies().removeIndex(j);
                                 removedMicrobe = null;
                             }
                         }
@@ -172,13 +172,13 @@ public class CollisionDetector {
 
 //Обработка столкновений оружия с врагами
     public void detectWeaponEnemyCollisions() {
-        if (gameManager.enemies.size > 0) {
-            for (int i = 0; i < gameManager.enemies.size; i++) {
+        if (gameManager.getEnemies().size > 0) {
+            for (int i = 0; i < gameManager.getEnemies().size; i++) {
                 if (gameManager.weapons.size > 0) {
                     for (int j = 0; j < gameManager.weapons.size; j++) {
-                        if (gameManager.weapons.get(j) != null && gameManager.enemies.get(i) != null) {
+                        if (gameManager.weapons.get(j) != null && gameManager.getEnemies().get(i) != null) {
                             weaponRect = gameManager.weapons.get(j).getBounds().getBox();
-                            enemyRect = gameManager.enemies.get(i).getBound().getBox();
+                            enemyRect = gameManager.getEnemies().get(i).getBound().getBox();
                             //определение столкновения врага с топором
                             if (enemyRect.overlaps(weaponRect) || enemyRect.contains(weaponRect)) {
                                 //выводим эффект в массив эффектов
@@ -190,8 +190,8 @@ public class CollisionDetector {
                                 removedWeapon = gameManager.weapons.removeIndex(j);
                                 removedWeapon = null;
                                 //определение обнуления здоровья врага
-                                if (gameManager.enemies.get(i).health < 0) {
-                                    gameManager.enemies.get(i).remove();
+                                if (gameManager.getEnemies().get(i).getHealth() < 0) {
+                                    gameManager.getEnemies().get(i).remove();
                                     overlap = true;
                                     deleteMicrobe = i;
                                     //Создаем еффект взрыва
@@ -209,8 +209,8 @@ public class CollisionDetector {
                     }
                 }
             }
-            if (overlap && gameManager.enemies.size > 0 && deleteMicrobe != -1) {
-                removedMicrobe = gameManager.enemies.removeIndex(deleteMicrobe);
+            if (overlap && gameManager.getEnemies().size > 0 && deleteMicrobe != -1) {
+                removedMicrobe = gameManager.getEnemies().removeIndex(deleteMicrobe);
                 removedMicrobe = null;
                 overlap = false;
             }
@@ -253,10 +253,10 @@ public class CollisionDetector {
 
     public void detectSpermCollisions() {
         for (int i = 0; i < gameManager.sperms.size; i++) {
-            for (int j = 0; j < gameManager.enemies.size; j++) {
-                if (gameManager.sperms.get(i) != null && gameManager.enemies.get(j) != null) {
+            for (int j = 0; j < gameManager.getEnemies().size; j++) {
+                if (gameManager.sperms.get(i) != null && gameManager.getEnemies().get(j) != null) {
                     spermRect = gameManager.sperms.get(i).getBound().getBox();
-                    enemyRect = gameManager.enemies.get(j).getBound().getBox();
+                    enemyRect = gameManager.getEnemies().get(j).getBound().getBox();
                     if (enemyRect.contains(spermRect) || enemyRect.overlaps(spermRect)) {
                         gameManager.sperms.get(i).remove();
                         gameManager.setSpermAmount(gameManager.getSpermAmount() - 1);
@@ -265,10 +265,10 @@ public class CollisionDetector {
                         interactionManager.createParticleEffectBlow(j);
                        //Создаем облако очков для сперм
                         interactionManager.createScoreCloudToSperms(i);
-                        gameManager.enemies.get(j).remove();
+                        gameManager.getEnemies().get(j).remove();
                         deleteSperm = i;
                         overlap = true;
-                        removedMicrobe = gameManager.enemies.removeIndex(j);
+                        removedMicrobe = gameManager.getEnemies().removeIndex(j);
                         removedMicrobe = null;
                     }
                 }

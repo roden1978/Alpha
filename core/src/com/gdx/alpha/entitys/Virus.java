@@ -28,13 +28,15 @@ public class Virus extends Microbe {
     private float boundHeight;
     private float degree;
     private Integer virus_type;
+    private Vector2 position;
 
     public Virus(Vector2 position, float speed, int weight, Player player,
                   TextureAtlas virusTextureAtlas, TextureAtlas bulletTextureAtlas, TextureAtlas lifeScaleAtlas) {
         super(position, speed);
         this.weight = weight;
         this.player = player;
-        degree = 0;
+        this.position = position;
+        this.degree = 0.0f;
         this.virusTextureAtlas = virusTextureAtlas;
         this.bulletTextureAtlas = bulletTextureAtlas;
         this.lifeScaleAtlas = lifeScaleAtlas;
@@ -61,7 +63,7 @@ public class Virus extends Microbe {
                     player.getPositionY() + player.getSpriteRegionHeight() / 2.0f), bulletTextureAtlas);
             bullet.setPosition(position.x + virusTextureRegion.getRegionWidth(),
                     position.y + virusTextureRegion.getRegionWidth() / 2.0f - bullet.getWidth() / 2.0f);
-            bullet.setSpeed(interval * 8);
+            bullet.setSpeed(interval * 8.0f);
             bullet.updateAngel();
             bulletsArray.add(bullet);
             intervalDelta = 0.0f;
@@ -100,6 +102,16 @@ public class Virus extends Microbe {
     @Override
     public Array<VirusBullet> getBulletsArray() {
         return bulletsArray;
+    }
+
+    @Override
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    @Override
+    public void setPosition(Vector2 position) {
+        this.position = position;
     }
 
     private void setVirusParameters(int weight){

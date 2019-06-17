@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.gdx.alpha.effects.HitParticleEffect;
-import com.gdx.alpha.entitys.Axe;
 import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.ScoreCloud;
 import com.gdx.alpha.entitys.Virus;
@@ -131,20 +130,20 @@ public class GameDriver {
             microbe = new Virus(new Vector2(gameManager.posX.get(i),gameManager.posY.get(i) * Gdx.graphics.getHeight()),gameManager.speed.get(i),
                     gameManager.weight.get(i),gameManager.player,gameManager.virusAtlas, gameManager.virusBulletAtlas, gameManager.lifeAtlas);
            // if (null != microbe){
-                gameManager.enemies.add(microbe);
+                gameManager.getEnemies().add(microbe);
                 gameScreen.getGameStage().addActor(microbe);
           //  }
     }
     private void controlEnemiesPosition(){
         //отслеживание позиции врагов и удаление их со сцены если они вышли за пределы экрана
-        for (int i = 0; i < gameManager.enemies.size; i++){
-            if (gameManager.enemies.get(i) != null){
-                if (gameManager.enemies.get(i).getPositionX() > gameScreen.getGameStage().getWidth()
-                        || gameManager.enemies.get(i).getPositionX() < 0
-                        || gameManager.enemies.get(i).getPositionY() > gameScreen.getGameStage().getHeight()
-                        || gameManager.enemies.get(i).getPositionY() < 0) {
-                    if (gameManager.enemies.get(i).remove()) {              //удаляем объект(Actor) с индексом i из сцены
-                        removedActor = gameManager.enemies.removeIndex(i);  //удаляет объект с индексом i из массива и возвращает объект
+        for (int i = 0; i < gameManager.getEnemies().size; i++){
+            if (gameManager.getEnemies().get(i) != null){
+                if (gameManager.getEnemies().get(i).getPositionX() > gameScreen.getGameStage().getWidth()
+                        || gameManager.getEnemies().get(i).getPositionX() < 0
+                        || gameManager.getEnemies().get(i).getPositionY() > gameScreen.getGameStage().getHeight()
+                        || gameManager.getEnemies().get(i).getPositionY() < 0) {
+                    if (gameManager.getEnemies().get(i).remove()) {              //удаляем объект(Actor) с индексом i из сцены
+                        removedActor = gameManager.getEnemies().removeIndex(i);  //удаляет объект с индексом i из массива и возвращает объект
                         removedActor = null; // присваиваем объекту null чтобы его уничтожил сборщик мусора (в Java не нужно самому удалять объекты из памяти)
                         //такой принцип применяем для всех игровых объектов
                     }
@@ -157,13 +156,13 @@ public class GameDriver {
         //затем массивы пуль каждого врага очищаем
         //отдельный массив пуль нуже для того чтобы пули не были привязаны к врагам и не уничтожались при уничтожении врага,
         //а прожили свой жизненный цикл
-        for (int i = 0; i < gameManager.enemies.size; i++) {
-            if (gameManager.enemies.get(i) != null) {
-                for (int j = 0; j < gameManager.enemies.get(i).getBulletsArray().size; j++) {
-                    if (gameManager.enemies.get(i).getBulletsArray().get(j) != null)
-                        gameManager.bullets.add(gameManager.enemies.get(i).getBulletsArray().get(j));
+        for (int i = 0; i < gameManager.getEnemies().size; i++) {
+            if (gameManager.getEnemies().get(i) != null) {
+                for (int j = 0; j < gameManager.getEnemies().get(i).getBulletsArray().size; j++) {
+                    if (gameManager.getEnemies().get(i).getBulletsArray().get(j) != null)
+                        gameManager.bullets.add(gameManager.getEnemies().get(i).getBulletsArray().get(j));
                 }
-                gameManager.enemies.get(i).getBulletsArray().clear();
+                gameManager.getEnemies().get(i).getBulletsArray().clear();
             }
         }
     }
@@ -193,12 +192,12 @@ public class GameDriver {
     }
     private void addWeaponToGame(){
         //вводим массив топоров для дальнейшей обработки
-        for (int i = 0; i < gameManager.getThrowWeapon().getAxeArray().size; i++){
-            if (gameManager.getThrowWeapon().getAxeArray().get(i) != null){
-                gameManager.weapons.add(gameManager.getThrowWeapon().getAxeArray().get(i));
+        for (int i = 0; i < gameManager.getThrowWeapon().getWeaponArray().size; i++){
+            if (gameManager.getThrowWeapon().getWeaponArray().get(i) != null){
+                gameManager.weapons.add(gameManager.getThrowWeapon().getWeaponArray().get(i));
             }
         }
-        gameManager.getThrowWeapon().getAxeArray().clear();
+        gameManager.getThrowWeapon().getWeaponArray().clear();
         //выводим массив топоров на игровую сцену
         for (int i = 0; i < gameManager.weapons.size; i++){
             if (gameManager.weapons.get(i) != null){
