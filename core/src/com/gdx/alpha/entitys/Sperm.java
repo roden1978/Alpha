@@ -17,7 +17,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 public class Sperm extends Actor {
     private TextureAtlas spermAtlas;
     private Vector2 position;
-    private Vector2 direction;
+    //private Vector2 direction;
     private float speed;
     private Animation sprites;
     private float stateTime;
@@ -25,9 +25,9 @@ public class Sperm extends Actor {
     private float boundWidth;
     private float boundHeight;
 
-    public Sperm(Vector2 position, Vector2 direction, float speed, TextureAtlas spermAtlas){
+    public Sperm(Vector2 position, float speed, TextureAtlas spermAtlas){
         this.position = position;
-        this.direction = direction;
+        //this.direction = direction;
         this.speed = speed;
         stateTime = 0.0f;
         this.spermAtlas = spermAtlas;
@@ -70,7 +70,7 @@ public class Sperm extends Actor {
         return position.y;
     }
 
-    public Vector2 getDirection() {
+   /* public Vector2 getDirection() {
         return direction;
     }
 
@@ -80,7 +80,7 @@ public class Sperm extends Actor {
     public void setDirection(float x, float y){
         this.direction.x = x;
         this.direction.y = y;
-    }
+    }*/
 
     public Bounds getBound(){
         return spermBound;

@@ -101,7 +101,7 @@ public class GameDriver {
     public void addGeneralActorsToScene(){
         gameScreen.getGameStage().addActor(gameManager.backgroundLayer01);
         gameScreen.getGameStage().addActor(gameManager.backgroundLayer00);
-        gameScreen.getGameStage().addActor(gameManager.sprinkle);
+        gameScreen.getGameStage().addActor(gameManager.getSprinkle());
         gameScreen.getGameStage().addActor(gameManager.uiTable);
         gameScreen.getGameStage().addActor(gameManager.getThrowWeapon());
         gameScreen.getGameStage().addActor(gameManager.player);
@@ -219,12 +219,12 @@ public class GameDriver {
     }
     private void addSpermsToGame(){
         //вводим массив сперматозоидов для дальнейшей обработки
-        for (int i = 0; i < gameManager.sprinkle.getSpermArray().size; i++){
-            if (gameManager.sprinkle.getSpermArray().get(i) != null){
-                gameManager.sperms.add(gameManager.sprinkle.getSpermArray().get(i));
+        for (int i = 0; i < gameManager.getSprinkle().getSpermArray().size; i++){
+            if (gameManager.getSprinkle().getSpermArray().get(i) != null){
+                gameManager.sperms.add(gameManager.getSprinkle().getSpermArray().get(i));
             }
         }
-        gameManager.sprinkle.getSpermArray().clear();
+        gameManager.getSprinkle().getSpermArray().clear();
         //выводим массив сперматозоидов на игровую сцену
         gameManager.setSpermAmount(gameManager.sperms.size);
         gameManager.updateSpermAmount();

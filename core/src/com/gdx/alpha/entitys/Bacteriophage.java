@@ -30,7 +30,7 @@ public class Bacteriophage extends Microbe {
         //this.name_region = name_region;
         this.position = position;
         this.speed = speed;
-        bacAnimation = new Animation(1/60f, bacteriophageAtlas.getRegions());
+        bacAnimation = new Animation(1/30f, bacteriophageAtlas.getRegions());
         boundWidth = bacteriophageAtlas.findRegion(name_region).getRegionWidth();
         boundHeight = bacteriophageAtlas.findRegion(name_region).getRegionHeight();
         bacBound = new Bounds(position.x, position.y, boundWidth, boundHeight);

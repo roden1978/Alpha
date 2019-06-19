@@ -73,7 +73,7 @@ public class Virus extends Microbe {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
+        //super.draw(batch, parentAlpha);
         batch.draw(virusTextureRegion, this.position.x, this.position.y,virusTextureRegion.getRegionWidth()/2.00f,
                 virusTextureRegion.getRegionHeight()/2.00f,virusTextureRegion.getRegionWidth(),virusTextureRegion.getRegionHeight(),
                 1.0f,1.0f,degree);
@@ -82,7 +82,7 @@ public class Virus extends Microbe {
 
     @Override
     public void act(float delta) {
-        super.act(delta);
+        //super.act(delta);
         shot(delta);
         this.position.x += speed;
         if (degree < -359.0f)

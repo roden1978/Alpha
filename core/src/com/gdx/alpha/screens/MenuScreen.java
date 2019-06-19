@@ -152,7 +152,7 @@ public class MenuScreen extends ObjectScreen {
 
         for (int i = 0; i < 10; i++){
             spermObject.add(new Sperm(new Vector2(stage.getWidth(), MathUtils.random(50, stage.getHeight() - 50)),
-                    new Vector2(0,stage.getHeight()),MathUtils.random(10),spermAtlas));
+                    MathUtils.random(10),spermAtlas)); //new Vector2(0,stage.getHeight()),
             stage.addActor(spermObject.get(i));
         }
 

@@ -90,7 +90,7 @@ public class GameManager {
     //объект "Игрок"
     public Player player;
     //объект "Капля"
-    public Sprinkle sprinkle;
+    private Sprinkle sprinkle;
     //действие бросок оружия
     private Throw throwWeapon;
     //бактериофаги
@@ -311,4 +311,6 @@ public class GameManager {
     public Array<Microbe> getEnemies() {
         return enemies;
     }
+
+    public Sprinkle getSprinkle() {return sprinkle;}
 }//end of class
