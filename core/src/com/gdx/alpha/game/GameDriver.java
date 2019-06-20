@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.gdx.alpha.effects.HitParticleEffect;
+import com.gdx.alpha.entitys.BacteriasColony;
 import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.ScoreCloud;
 import com.gdx.alpha.entitys.Virus;
@@ -27,6 +28,8 @@ public class GameDriver {
     private Float removedTime;
     private HitParticleEffect removedHPE;
     private ScoreCloud removedScoreCloud;
+    private Microbe microbe;
+    private BacteriasColony colony;
 
     private float gameTime = 0.0f;
 
@@ -114,7 +117,7 @@ public class GameDriver {
             if ((int)gameTime == gameManager.time.get(i)){
                 buildEnemies(i);
                 gameManager.time.removeIndex(i);
-                //ameManager.name.removeIndex(i);
+                gameManager.typeEnemie.removeIndex(i);
                 gameManager.posX.removeIndex(i);
                 gameManager.posY.removeIndex(i);
                 gameManager.weight.removeIndex(i);
@@ -125,13 +128,21 @@ public class GameDriver {
     //Функция создания классов "врагов"
     private void buildEnemies(int i){
             //String s = gameManager.name.get(i);
-            Microbe microbe;
+
         //System.out.println("Height: "+gameManager.virusAtlas);
+        if(gameManager.typeEnemie.get(i).trim().equals("v")){
             microbe = new Virus(new Vector2(gameManager.posX.get(i),gameManager.posY.get(i) * Gdx.graphics.getHeight()),gameManager.speed.get(i),
                     gameManager.weight.get(i),gameManager.player,gameManager.virusAtlas, gameManager.virusBulletAtlas, gameManager.lifeAtlas);
+            gameManager.getEnemies().add(microbe);
+            gameScreen.getGameStage().addActor(microbe);
+        }
+        else
+        {
+            colony = new BacteriasColony(new Vector2(gameManager.posX.get(i),gameManager.posY.get(i) * Gdx.graphics.getHeight()), gameManager.getBacteriumAtlas());
+            gameManager.getBacteriasColonys().add(colony);
+        }
            // if (null != microbe){
-                gameManager.getEnemies().add(microbe);
-                gameScreen.getGameStage().addActor(microbe);
+
           //  }
     }
     private void controlEnemiesPosition(){
@@ -217,6 +228,7 @@ public class GameDriver {
             }
         }
     }
+    //ВВод сперматозоидов в игру
     private void addSpermsToGame(){
         //вводим массив сперматозоидов для дальнейшей обработки
         for (int i = 0; i < gameManager.getSprinkle().getSpermArray().size; i++){
@@ -231,6 +243,16 @@ public class GameDriver {
         for (int i = 0; i < gameManager.sperms.size; i++){
             if (gameManager.sperms.get(i) != null){
                 gameScreen.getGameStage().addActor(gameManager.sperms.get(i));
+            }
+        }
+    }
+    //Ввод колонии бактерий в игру
+    private void addBacteriumToGame(){
+        if (gameManager.getBacteriasColony() != null) {
+            for (int i = 0; i < gameManager.getBacteriasColony().getBacteriumArray().size; i++) {
+                if(gameManager.getBacteriasColony().getBacteriumArray().get(i) != null)
+                    gameManager.getEnemies().add(gameManager.getBacteriasColony().getBacteriumArray().get(i));
+                    gameScreen.getGameStage().addActor(gameManager.getBacteriasColony().getBacteriumArray().get(i));
             }
         }
     }

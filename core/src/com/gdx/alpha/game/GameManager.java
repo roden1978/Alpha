@@ -13,7 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.gdx.alpha.actions.Throw;
 import com.gdx.alpha.effects.HitParticleEffect;
+import com.gdx.alpha.entitys.BacteriasColony;
 import com.gdx.alpha.entitys.Bacteriophage;
+import com.gdx.alpha.entitys.Bacterium;
 import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.Ovum;
 import com.gdx.alpha.entitys.Player;
@@ -34,7 +36,7 @@ public class GameManager {
     private String[] levels;
     private String[] levelString;
     private String[] param;
-    public Array<Integer> name;
+    public Array<String> typeEnemie;
     public Array<Float> posX;
     public Array<Float> posY;
     public Array<Integer> weight;
@@ -54,6 +56,8 @@ public class GameManager {
     public TextureAtlas bacteriophage_weapon_maceAtlas;
     public TextureAtlas bacteriophage_weapon_stoneAtlas;
     private TextureAtlas bacteriophage_weapon_cudgelAtlas;
+
+    private TextureAtlas bacteriumAtlas;
 
     private TextureAtlas cavemanAtlas;
     private TextureAtlas caveman_newlifeAtlas;
@@ -91,6 +95,8 @@ public class GameManager {
     public Player player;
     //объект "Капля"
     private Sprinkle sprinkle;
+    //Объект "Колония бактерий"
+    private Array<BacteriasColony> colonys;
     //действие бросок оружия
     private Throw throwWeapon;
     //бактериофаги
@@ -131,7 +137,7 @@ public class GameManager {
 
     GameManager(int level) {
         this.level = level;
-        name = new Array<Integer>();
+        typeEnemie = new Array<String>();
         posX = new Array<Float>();
         posY = new Array<Float>();
         weight = new Array<Integer>();
@@ -169,12 +175,12 @@ public class GameManager {
             levelString = levels[i].split(":");
             if (Integer.valueOf(levelString[0].trim()) == level) {
                 param = levelString[1].split(";");
-                //name.add(Integer.valueOf(param[0]));
-                posX.add(Float.valueOf(param[0]));
-                posY.add(Float.valueOf(param[1]));
-                weight.add(Integer.valueOf(param[2]));
-                speed.add(Float.valueOf(param[3]));
-                time.add(Float.valueOf(param[4]));
+                typeEnemie.add(String.valueOf(param[0]));
+                posX.add(Float.valueOf(param[1]));
+                posY.add(Float.valueOf(param[2]));
+                weight.add(Integer.valueOf(param[3]));
+                speed.add(Float.valueOf(param[4]));
+                time.add(Float.valueOf(param[5]));
             }
         }
     }
@@ -208,6 +214,7 @@ public class GameManager {
         caveman_newlifeAtlas = new TextureAtlas(Gdx.files.internal("caveman/newlife.pack"));
         lifeScaleAtlas = new TextureAtlas(Gdx.files.internal("uiGame/lifescale.pack"));
         lifeCountAtlas = new TextureAtlas(Gdx.files.internal("caveman/cm_life.pack"));
+        bacteriumAtlas = new TextureAtlas(Gdx.files.internal("bacterias/bacteriums.pack"));
     }
 
     void buildGeneralPlayers() {
@@ -312,5 +319,13 @@ public class GameManager {
         return enemies;
     }
 
+    public Array<BacteriasColony> getBacteriasColonys() {return colonys;}
+
+    //public Array<BacteriasColony> getBacterias (){return bacterias;}
+
     public Sprinkle getSprinkle() {return sprinkle;}
+
+    public TextureAtlas getBacteriumAtlas() {
+        return bacteriumAtlas;
+    }
 }//end of class
