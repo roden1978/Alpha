@@ -1,0 +1,40 @@
+
+gfpart02.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+g006
+  rotate: false
+  xy: 1, 259
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+g007
+  rotate: false
+  xy: 1, 1
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+g008
+  rotate: false
+  xy: 259, 259
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+g009
+  rotate: false
+  xy: 259, 1
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+g010
+  rotate: false
+  xy: 517, 259
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1

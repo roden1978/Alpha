@@ -86,7 +86,7 @@ public class LevelScreen extends ObjectScreen {
         Gdx.input.setInputProcessor(stage);
         textureAtlas = new TextureAtlas(Gdx.files.internal("pane/scroll_ui.pack"));
         buttonAtlas = new TextureAtlas(Gdx.files.internal("ui/buttons.pack"));
-        girlsFaceAtlas = new TextureAtlas(Gdx.files.internal("girls/girls.pack"));
+        girlsFaceAtlas = new TextureAtlas(Gdx.files.internal("girls/girls.pack")); ///first part girl faces
         names = new Array<String>(new String[]{"YULI","ANNA","LILA","LIZA","CAMERON","ALICE","MEGAN",
                 "AMELI","NATASHA","ELENA","CLAUDIA","ALLISON","PAMELA","SOFIA","SVETLANA"});
         skin = new Skin(Gdx.files.internal("ui/ui_settings.json"),textureAtlas);

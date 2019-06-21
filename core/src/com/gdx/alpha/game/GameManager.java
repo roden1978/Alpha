@@ -152,7 +152,7 @@ public class GameManager {
 
         hitParticleEffectArray = new Array<HitParticleEffect>(10);
         scoreCloudArray = new Array<ScoreCloud>(10);
-        delta_time_particle_effect = 5.0f;
+        delta_time_particle_effect = 3.0f;
         ovum_effectStart = false;
 
         line = "";
@@ -296,9 +296,11 @@ public class GameManager {
     float getDeltaTimeParticleEffect(){
         return this.delta_time_particle_effect;
     }
+
     void setOvumEffectStart(Boolean start){
         this.ovum_effectStart = start;
     }
+
     Boolean getOvumEffectStart(){
         return this.ovum_effectStart;
     }

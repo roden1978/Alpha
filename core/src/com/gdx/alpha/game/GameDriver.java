@@ -74,6 +74,7 @@ public class GameDriver {
         addScoreCloudToGame();
         addBacteriophageToGame();
         addOvumToGame();
+        addBacteriumToGame();
         //---------------------------------------------------
 
         //Блок контроля столкновений и взаимодействия объектов
@@ -136,9 +137,9 @@ public class GameDriver {
             gameManager.getEnemies().add(microbe);
             gameScreen.getGameStage().addActor(microbe);
         }
-        else
+        if(gameManager.typeEnemie.get(i).trim().equals("b"))
         {
-            colony = new BacteriasColony(new Vector2(gameManager.posX.get(i),gameManager.posY.get(i) * Gdx.graphics.getHeight()), gameManager.getBacteriumAtlas());
+            colony = new BacteriasColony(new Vector2(gameManager.posX.get(i) * Gdx.graphics.getWidth(),gameManager.posY.get(i) * Gdx.graphics.getHeight()), gameManager.getBacteriumAtlas());
             gameManager.getBacteriasColonys().add(colony);
         }
            // if (null != microbe){
@@ -248,12 +249,21 @@ public class GameDriver {
     }
     //Ввод колонии бактерий в игру
     private void addBacteriumToGame(){
-        if (gameManager.getBacteriasColony() != null) {
-            for (int i = 0; i < gameManager.getBacteriasColony().getBacteriumArray().size; i++) {
-                if(gameManager.getBacteriasColony().getBacteriumArray().get(i) != null)
-                    gameManager.getEnemies().add(gameManager.getBacteriasColony().getBacteriumArray().get(i));
-                    gameScreen.getGameStage().addActor(gameManager.getBacteriasColony().getBacteriumArray().get(i));
+        if (gameManager.getBacteriasColonys() != null) {
+            for (int i = 0; i < gameManager.getBacteriasColonys().size; i++) {
+                for (int j = 0; j < gameManager.getBacteriasColonys().get(i).getBacteriumArray().size; j++) {
+                    if (gameManager.getBacteriasColonys().get(i).getBacteriumArray().get(j) != null) {
+                        gameManager.getEnemies().add(gameManager.getBacteriasColonys().get(i).getBacteriumArray().get(j));
+                        gameManager.getBacteriasColonys().get(i).setNext(true);
+                        if (gameManager.getBacteriasColonys().get(i).getNext_item()) {
+                            gameScreen.getGameStage().addActor(gameManager.getBacteriasColonys().get(i).getBacteriumArray().get(j));
+                            gameManager.getBacteriasColonys().get(i).setNext_item(false);
+                            gameManager.getBacteriasColonys().get(i).setNext(false);
+                        }
+                    }
+                }
             }
+            gameManager.getBacteriasColonys().clear();
         }
     }
     private void controlHitParticleEffect(){

@@ -13,7 +13,10 @@ public class BacteriasColony extends Actor {
     private Array<Microbe> colony;
     private static final float BAC_WIDTH = 50.0f;
     private static final float BAC_HEIGHT = 50.0f;
+    private float defaultDelay;
     private float delay;
+    private Boolean next_item;
+    private Boolean next;
     private int figureType;
     private int colony_option0[][]={{1,1,1,1},
                                     {1,1,1,1},
@@ -40,7 +43,18 @@ public class BacteriasColony extends Actor {
         this.position = position;
         this.bacteriumAtlas = bacteriumAtlas;
         colony = new Array<Microbe>();
+        defaultDelay = delay = 0.2f;
+        next_item = false;
+        next = false;
+
         randomizeColonyFigure();
+    }
+
+    @Override
+    public void act(float delta) {
+        //super.act(delta);
+       if (next)
+           Delay(delta);
     }
 
     private void randomizeColonyFigure()
@@ -80,5 +94,29 @@ public class BacteriasColony extends Actor {
 
     public Array<Microbe> getBacteriumArray(){
         return colony;
+    }
+
+    public Boolean getNext_item() {
+        return next_item;
+    }
+
+    public void setNext_item(Boolean next_item) {
+        this.next_item = next_item;
+    }
+
+    public void Delay(float delta){
+        delay -= delta;
+        if (delta < 0){
+            next_item = true;
+            delay = defaultDelay;
+        }
+    }
+
+    public Boolean getNext() {
+        return next;
+    }
+
+    public void setNext(Boolean next) {
+        this.next = next;
     }
 }// end of class
