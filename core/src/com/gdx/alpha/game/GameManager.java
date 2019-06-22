@@ -149,6 +149,7 @@ public class GameManager {
         weapons = new Array<Weapon>(30);
         sperms = new Array<Sperm>(50);
         bacteriophages = new Array<Bacteriophage>(10);
+        colonys = new Array<BacteriasColony>(10);
 
         hitParticleEffectArray = new Array<HitParticleEffect>(10);
         scoreCloudArray = new Array<ScoreCloud>(10);

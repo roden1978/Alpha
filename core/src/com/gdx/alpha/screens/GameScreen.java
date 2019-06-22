@@ -390,7 +390,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         //table.setFillParent(true);
         //table.add(backButton).left().pad(20).bottom();
         //table.draw(spriteBatch, 1.0f);
-            screenShot.draw(spriteBatch, 0.5f);
+            //screenShot.draw(spriteBatch, 0.5f);
             font.draw(spriteBatch,"PAUSE",gameStage.getWidth()/2 - font.getBounds("PAUSE").width/2,
                     gameStage.getHeight()/2 + font.getBounds("PAUSE").height/2);
             font.draw(spriteBatch,"TAP TO CONTINUE",gameStage.getWidth()/2 - font.getBounds("TAP TO CONTINUE").width/2,

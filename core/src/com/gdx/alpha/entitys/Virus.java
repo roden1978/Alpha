@@ -46,6 +46,7 @@ public class Virus extends Microbe {
         lifeScale = new LifeScale(lifeScaleAtlas,position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
                 position.y + boundHeight,lifeScaleAtlas.findRegion("green").getRegionWidth());
         maxHealth = health;
+        entity = "v";
     }
 
     private void init(){

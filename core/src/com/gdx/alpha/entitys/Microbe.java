@@ -16,6 +16,8 @@ public class Microbe extends Actor {
     private Bounds bound;
     protected int health;
     private int price;
+    private Array<VirusBullet> bulletsArray;
+    protected String entity;
 
     Microbe(){
         this.position = new Vector2(0.0f, 0.0f);
@@ -23,6 +25,8 @@ public class Microbe extends Actor {
         bound = new Bounds(0,0,0,0);
         this.health = 0;
         this.price = 0;
+        this.bulletsArray = new Array<VirusBullet>();
+        this.entity = "";
     }
 
     Microbe(Vector2 position, float speed){
@@ -31,15 +35,8 @@ public class Microbe extends Actor {
         bound = new Bounds(0,0,0,0);
         this.health = 0;
         this.price = 0;
-    }
-
-    public Microbe (float x, float y, float speed){
-        this.position.x = x;
-        this.position.y = y;
-        this.speed = speed;
-        bound = new Bounds(0,0,0,0);
-        this.health = 0;
-        this.price = 0;
+        this.bulletsArray = new Array<VirusBullet>();
+        entity = "";
     }
 
     //установка позиции микроба
@@ -79,8 +76,9 @@ public class Microbe extends Actor {
         this.health = health;
     }
     public int getHealth(){return health;}
+
     public Array<VirusBullet> getBulletsArray(){
-        return null;
+        return bulletsArray;
     }
     public Bounds getBound(){
         return bound;
@@ -93,4 +91,6 @@ public class Microbe extends Actor {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public String getEntity() {return entity;}
 }

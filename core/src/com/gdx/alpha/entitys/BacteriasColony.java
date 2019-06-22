@@ -8,6 +8,8 @@ import com.badlogic.gdx.utils.Array;
 
 public class BacteriasColony extends Actor {
     private Vector2 position;
+    private float bac_pos_x;
+    private float bac_pos_y;
     //private Array<Bacterium> bacteriumArray;
     private TextureAtlas bacteriumAtlas;
     private Array<Microbe> colony;
@@ -18,6 +20,7 @@ public class BacteriasColony extends Actor {
     private Boolean next_item;
     private Boolean next;
     private int figureType;
+    private int bacteriumType;
     private int colony_option0[][]={{1,1,1,1},
                                     {1,1,1,1},
                                     {1,1,1,1},
@@ -41,6 +44,8 @@ public class BacteriasColony extends Actor {
 
     public BacteriasColony(Vector2 position, TextureAtlas bacteriumAtlas){
         this.position = position;
+        this.bac_pos_x = position.x;
+        this.bac_pos_y = position.y;
         this.bacteriumAtlas = bacteriumAtlas;
         colony = new Array<Microbe>();
         defaultDelay = delay = 0.2f;
@@ -79,13 +84,14 @@ public class BacteriasColony extends Actor {
         }
     }
     void createColony(int[][] colony_options){
+        bacteriumType = MathUtils.random(0,9);
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (colony_options[i][j] != 0) {
-                    position.x += BAC_WIDTH * j;
-                    position.y -= BAC_HEIGHT  * i;
-                    colony.add(new Bacterium(new Vector2(position.x, position.y),bacteriumAtlas,MathUtils.random(0,9)));
-                    //System.out.println("X: "+pos.x  + " Y: " + pos.y);
+                    position.x = bac_pos_x + (BAC_WIDTH * j);
+                    position.y = bac_pos_y - (BAC_HEIGHT  * i); //(BAC_HEIGHT / 2 + BAC_HEIGHT) - BAC_HEIGHT  * i; // ;
+                    colony.add(new Bacterium(new Vector2(position.x, position.y),bacteriumAtlas,bacteriumType));
+                    System.out.println("Bacterium X: "+position.x  + " Y: " + position.y);
                 }
 
             }
@@ -106,9 +112,10 @@ public class BacteriasColony extends Actor {
 
     public void Delay(float delta){
         delay -= delta;
-        if (delta < 0){
-            next_item = true;
+        if (delay < 0){
+            this.next_item = true;
             delay = defaultDelay;
+            System.out.println("Next item true");
         }
     }
 

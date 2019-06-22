@@ -13,7 +13,9 @@ public class Bacterium extends Microbe {
     private Bounds bacteriumBound;
     private Integer bacteriumType;
 
+
     public Bacterium (Vector2 position, TextureAtlas bacteriumAtlas, Integer bacteriumType){
+        super(position, 0.0f);
         this.position = position;
         this.bacteriumAtlas = bacteriumAtlas;
         this.bacteriumType = bacteriumType;
@@ -76,5 +78,17 @@ public class Bacterium extends Microbe {
                 bacteriumRegion = bacteriumAtlas.findRegion("b010");
                 break;
         }
+    }
+
+    @Override
+    public void setPosition(Vector2 position) {
+        //super.setPosition(position);
+        this.position = position;
+    }
+
+    @Override
+    public Vector2 getPosition() {
+        //return super.getPosition();
+        return this.position;
     }
 }//end of class
