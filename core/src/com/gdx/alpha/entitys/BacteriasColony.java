@@ -115,7 +115,7 @@ public class BacteriasColony extends Actor {
         if (delay < 0){
             this.next_item = true;
             delay = defaultDelay;
-            System.out.println("Next item true");
+            System.out.println("Delay: " + delay);
         }
     }
 

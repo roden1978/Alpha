@@ -20,8 +20,8 @@ public class Bacterium extends Microbe {
         this.bacteriumAtlas = bacteriumAtlas;
         this.bacteriumType = bacteriumType;
         this.bacteriumBound = new Bounds(position.x, position.y,
-                bacteriumAtlas.findRegion("b001").getRegionWidth()/2.0f,
-                bacteriumAtlas.findRegion("b001").getRegionHeight()/2.0f);
+                bacteriumAtlas.findRegion("b001").getRegionWidth(),
+                bacteriumAtlas.findRegion("b001").getRegionHeight());
         setPrice(100);
         setHealth(40);
         setBacteriumRegions();

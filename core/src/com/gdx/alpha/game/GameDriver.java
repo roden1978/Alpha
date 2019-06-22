@@ -143,7 +143,6 @@ public class GameDriver {
             //if (colony != null)
             System.out.println("Colony create");
                 gameManager.getBacteriasColonys().add(colony);
-                //gameScreen.getGameStage().addActor(colony);
 
         }
            // if (null != microbe){
@@ -257,11 +256,14 @@ public class GameDriver {
             for (int i = 0; i < gameManager.getBacteriasColonys().size; i++) {
                 for (int j = 0; j < gameManager.getBacteriasColonys().get(i).getBacteriumArray().size; j++) {
                     if (gameManager.getBacteriasColonys().get(i).getBacteriumArray().get(j) != null) {
-                        gameManager.getEnemies().add(gameManager.getBacteriasColonys().get(i).getBacteriumArray().get(j));
+                            gameManager.getEnemies().add(gameManager.getBacteriasColonys().get(i).getBacteriumArray().get(j));
+                            gameScreen.getGameStage().addActor(gameManager.getBacteriasColonys().get(i).getBacteriumArray().get(j));
+
+
                         //gameManager.getBacteriasColonys().get(i).setNext(true);
                         //System.out.println("set next true:");
                         //if (gameManager.getBacteriasColonys().get(i).getNext_item()) {
-                            gameScreen.getGameStage().addActor(gameManager.getBacteriasColonys().get(i).getBacteriumArray().get(j));
+
                            // System.out.println("Bacterium colony: "+ gameManager.getBacteriasColonys().get(i)+
                            //         " bact: " + gameManager.getBacteriasColonys().get(i).getBacteriumArray().get(j));
                           //  gameManager.getBacteriasColonys().get(i).setNext_item(false);
@@ -335,4 +337,5 @@ public class GameDriver {
     private void changeDeltaTimeParticleEffect(float delta){
         gameManager.setDeltaTimeParticleEffect(gameManager.getDeltaTimeParticleEffect() - delta);
     }
+
 }

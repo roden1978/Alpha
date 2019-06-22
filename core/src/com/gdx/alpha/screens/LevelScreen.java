@@ -1,12 +1,10 @@
 package com.gdx.alpha.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,12 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.gdx.alpha.game.GameManager;
-
-import java.io.IOException;
 
 /**
  * Created by Ro|)e|\| on 07.01.2015.
@@ -35,8 +29,8 @@ public class LevelScreen extends ObjectScreen {
     private Stage stage;
     private Table table;
     private Label heading;
-    private Skin skin, button_skin,girlsFaceSkin;
-    private TextureAtlas textureAtlas, buttonAtlas, girlsFaceAtlas;
+    private Skin skin, button_skin,girlsFaceSkin,girlsFaceSkinPart2;
+    private TextureAtlas textureAtlas, buttonAtlas, girlsFaceAtlas, girlFacesPart2Atlas;
     private Texture backgr;
     private BitmapFont bitmapFont;
     private FreeTypeFontGenerator freeTypeFontGenerator;
@@ -87,11 +81,13 @@ public class LevelScreen extends ObjectScreen {
         textureAtlas = new TextureAtlas(Gdx.files.internal("pane/scroll_ui.pack"));
         buttonAtlas = new TextureAtlas(Gdx.files.internal("ui/buttons.pack"));
         girlsFaceAtlas = new TextureAtlas(Gdx.files.internal("girls/girls.pack")); ///first part girl faces
+        girlFacesPart2Atlas = new TextureAtlas(Gdx.files.internal("girls/gfpart02.pack"));
         names = new Array<String>(new String[]{"YULI","ANNA","LILA","LIZA","CAMERON","ALICE","MEGAN",
                 "AMELI","NATASHA","ELENA","CLAUDIA","ALLISON","PAMELA","SOFIA","SVETLANA"});
         skin = new Skin(Gdx.files.internal("ui/ui_settings.json"),textureAtlas);
         button_skin = new Skin(buttonAtlas);
         girlsFaceSkin = new Skin(girlsFaceAtlas);
+        girlsFaceSkinPart2 = new Skin(girlFacesPart2Atlas);
         table = new Table();
         girl_image = new Image(girlsFaceSkin.getDrawable("girl001o"));
         backgr = new Texture(Gdx.files.internal("ui/menu_back.png"));
@@ -137,12 +133,6 @@ public class LevelScreen extends ObjectScreen {
         readLevelParams(screenManager.getLevelParams());
         if (!screenManager.getScreenMusic().isPlaying())
             screenManager.getScreenMusic().play();
-
-        /*try {
-            loadLevel();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
     }
 
     @Override
@@ -159,7 +149,6 @@ public class LevelScreen extends ObjectScreen {
         table.add(sperm).left().row();
         table.add(backButton).left().pad(20.0f).bottom();
         table.add(playButton).right().pad(20.0f).bottom();
-        //table.debug();
         background.setFillParent(true);
         stage.addActor(background);
         stage.addActor(table);
@@ -250,7 +239,7 @@ public class LevelScreen extends ObjectScreen {
                 break;
             case 5:
                 if (available.get(5) == 1){
-                    girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
+                    girl_image.setDrawable(girlsFaceSkinPart2.getDrawable("g006"));
                     playButton.setVisible(true);
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
@@ -261,7 +250,7 @@ public class LevelScreen extends ObjectScreen {
                 break;
             case 6:
                 if (available.get(6) == 1){
-                    girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
+                    girl_image.setDrawable(girlsFaceSkinPart2.getDrawable("g007"));
                     playButton.setVisible(true);
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
@@ -272,7 +261,7 @@ public class LevelScreen extends ObjectScreen {
                 break;
             case 7:
                 if (available.get(7) == 1){
-                    girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
+                    girl_image.setDrawable(girlsFaceSkinPart2.getDrawable("g008"));
                     playButton.setVisible(true);
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
@@ -283,7 +272,7 @@ public class LevelScreen extends ObjectScreen {
                 break;
             case 8:
                 if (available.get(8) == 1){
-                    girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
+                    girl_image.setDrawable(girlsFaceSkinPart2.getDrawable("g009"));
                     playButton.setVisible(true);
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
@@ -294,7 +283,7 @@ public class LevelScreen extends ObjectScreen {
                 break;
             case 9:
                 if (available.get(9) == 1){
-                    girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
+                    girl_image.setDrawable(girlsFaceSkinPart2.getDrawable("g010"));
                     playButton.setVisible(true);
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
@@ -404,7 +393,7 @@ public class LevelScreen extends ObjectScreen {
     }
 
    //Считываем параметры уровней из файла
-    public void readLevelParams(String line) {
+    private void readLevelParams(String line) {
      /*   FileHandle handle = Gdx.files.internal("levelparam.txt");
         line = handle.readString();*/
         levels = line.split("#");
@@ -421,7 +410,7 @@ public class LevelScreen extends ObjectScreen {
        // System.out.println(line +" "+levels[0]+" "+levels.length);
     }
     //Обновление счетчиков очков и спрм на экране выбора уровня
-    public void setScoreSperm(Integer i){
+    private void setScoreSperm(Integer i){
         scores.setText(String.valueOf(score.get(i)));
         sperm.setText(String.valueOf(sperms.get(i)));
     }
