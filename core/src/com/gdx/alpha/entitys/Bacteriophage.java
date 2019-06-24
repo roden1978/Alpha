@@ -1,8 +1,10 @@
 package com.gdx.alpha.entitys;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -10,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Bacteriophage extends Microbe {
     //private TextureAtlas bacteriophageAtlas;
-    private Animation bacAnimation;
+    private Animation<TextureRegion> bacAnimation;
     private Bounds bacBound;
     private float stateTime;
     private float boundWidth;
@@ -30,7 +32,7 @@ public class Bacteriophage extends Microbe {
         //this.name_region = name_region;
         this.position = position;
         this.speed = speed;
-        bacAnimation = new Animation(1/30f, bacteriophageAtlas.getRegions());
+        bacAnimation = new Animation<TextureRegion>(1/30f, bacteriophageAtlas.getRegions());
         boundWidth = bacteriophageAtlas.findRegion(name_region).getRegionWidth();
         boundHeight = bacteriophageAtlas.findRegion(name_region).getRegionHeight();
         bacBound = new Bounds(position.x, position.y, boundWidth, boundHeight);

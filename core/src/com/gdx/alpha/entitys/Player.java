@@ -1,8 +1,10 @@
 package com.gdx.alpha.entitys;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -19,8 +21,8 @@ public class Player extends Actor {
     private TextureAtlas lifeScaleAtlas;
     private TextureAtlas lifeCountAtlas;
     private TextureAtlas newlifeTextureAtlas;
-    private Animation cavemanAnimation;
-    private Animation caveman_newlifeAnimation;
+    private Animation<TextureRegion> cavemanAnimation;
+    private Animation<TextureRegion> caveman_newlifeAnimation;
     private float stateTime;
     private float stateTimeNewLife;
     private Bounds playerBound;
@@ -56,8 +58,8 @@ public class Player extends Actor {
         lifeScale = new LifeScale(lifeScaleAtlas,position.x, position.y,lifeScaleAtlas.findRegion("green").getRegionWidth());
         lifes = new Lifes(lifeCountAtlas, lifeCount, position.x + boundWidth, position.y);
         playerBound = new Bounds(position.x, position.y, boundWidth, boundHeight);
-        cavemanAnimation = new Animation(frameDuration,cavemanAtlas.getRegions());
-        caveman_newlifeAnimation = new Animation(frameDuration, newlifeTextureAtlas.getRegions());
+        cavemanAnimation = new Animation<TextureRegion>(frameDuration,cavemanAtlas.getRegions());
+        caveman_newlifeAnimation = new Animation<TextureRegion>(frameDuration, newlifeTextureAtlas.getRegions());
     }
 
 

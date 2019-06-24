@@ -1,9 +1,11 @@
 package com.gdx.alpha.entitys;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -15,7 +17,7 @@ public class BacteryA extends Actor {
     private Vector2 direction;
     private float velocity;
     private TextureAtlas bacteryAAtlas;
-    private Animation sprites;
+    private Animation<TextureRegion> sprites;
     private float stateTime;
 
     public BacteryA(Vector2 position, Vector2 direction, float velocity) {
@@ -23,7 +25,7 @@ public class BacteryA extends Actor {
         this.direction = direction;
         this.velocity = velocity;
         bacteryAAtlas = new TextureAtlas(Gdx.files.internal("bacterias/bacA.pack"));
-        sprites = new Animation(1/2f,bacteryAAtlas.getRegions());
+        sprites = new Animation<TextureRegion>(1/2f,bacteryAAtlas.getRegions());
         stateTime = 0.0f;
     }
 

@@ -7,6 +7,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+//import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -359,8 +361,9 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         spriteBatch.begin();
-            font.draw(spriteBatch,"TAP TO PLAY",gameStage.getWidth()/2 - font.getBounds("TAP TO PLAY").width/2,
-                    gameStage.getHeight()/2 + font.getBounds("TAP TO PLAY").height/2);
+            /*font.draw(spriteBatch,"TAP TO PLAY",gameStage.getWidth()/2 - font.getBounds("TAP TO PLAY").width/2,
+                    gameStage.getHeight()/2 + font.getBounds("TAP TO PLAY").height/2);*/
+            font.draw(spriteBatch,"TAP TO PLAY",0.0f, 0.0f, gameStage.getWidth(), Align.center, true);
         spriteBatch.end();
     }
     //отрисовка состояния игры
@@ -391,12 +394,13 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         //table.add(backButton).left().pad(20).bottom();
         //table.draw(spriteBatch, 1.0f);
             //screenShot.draw(spriteBatch, 0.5f);
-            font.draw(spriteBatch,"PAUSE",gameStage.getWidth()/2 - font.getBounds("PAUSE").width/2,
+           /* font.draw(spriteBatch,"PAUSE",gameStage.getWidth()/2 - font.getBounds("PAUSE").width/2,
                     gameStage.getHeight()/2 + font.getBounds("PAUSE").height/2);
             font.draw(spriteBatch,"TAP TO CONTINUE",gameStage.getWidth()/2 - font.getBounds("TAP TO CONTINUE").width/2,
                     gameStage.getHeight()/2 - font.getBounds("TAP TO CONTINUE").height*2);
             font.draw(spriteBatch,"OR BACK (ESC) TO EXIT",gameStage.getWidth()/2 - font.getBounds("OR BACK (ESC) TO EXIT").width/2,
-                    gameStage.getHeight()/2 - font.getBounds("OR BACK TO EXIT").height*3);
+                    gameStage.getHeight()/2 - font.getBounds("OR BACK TO EXIT").height*3);*/
+        font.draw(spriteBatch,"PAUSE",0.0f, 0.0f, gameStage.getWidth(), Align.center, true);
             backButton.left().bottom();
             backButton.draw(spriteBatch, 1.0f);
         spriteBatch.end();
@@ -406,8 +410,9 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         spriteBatch.begin();
-            font.draw(spriteBatch,"LEVEL COMPLETE",gameStage.getWidth()/2 - font.getBounds("LEVEL COMPLETE").width/2,
-                    gameStage.getHeight()/2 + font.getBounds("LEVEL COMPLETE").height/2);
+           /* font.draw(spriteBatch,"LEVEL COMPLETE",gameStage.getWidth()/2 - font.getBounds("LEVEL COMPLETE").width/2,
+                    gameStage.getHeight()/2 + font.getBounds("LEVEL COMPLETE").height/2);*/
+        font.draw(spriteBatch,"LEVEL COMPLETE",0.0f, 0.0f, gameStage.getWidth(), Align.center, true);
         spriteBatch.end();
         //Сохранение результатов пройденного уровня
         if(isStringLevelParamsSave) {
@@ -426,8 +431,9 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         spriteBatch.begin();
-            font.draw(spriteBatch,"GAME OVER",gameStage.getWidth()/2 - font.getBounds("GAME OVER").width/2,
-                    gameStage.getHeight()/2 + font.getBounds("GAME OVER").height/2);
+           /* font.draw(spriteBatch,"GAME OVER",gameStage.getWidth()/2 - font.getBounds("GAME OVER").width/2,
+                    gameStage.getHeight()/2 + font.getBounds("GAME OVER").height/2);*/
+        font.draw(spriteBatch,"GAME OVER",0.0f, 0.0f, gameStage.getWidth(), Align.center, true);
         spriteBatch.end();
     }
 

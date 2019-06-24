@@ -1,42 +1,29 @@
 package com.gdx.alpha.screens;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.gdx.alpha.entitys.BacteryA;
-import com.gdx.alpha.entitys.Player;
 import com.gdx.alpha.entitys.Sperm;
 
 import java.io.IOException;
-
-import javax.swing.Action;
-import javax.swing.GroupLayout;
 
 
 /**
@@ -84,7 +71,7 @@ public class MenuScreen extends ObjectScreen {
         parameter.size = 40;
         bitmapFont = freeTypeFontGenerator.generateFont(parameter);
         bitmapFont72 = new BitmapFont(Gdx.files.internal("font/stonefont.fnt"));
-        bitmapFont72.setScale(1.5f);
+        bitmapFont72.getData().setScale(1.5f);
         freeTypeFontGenerator.dispose();
 
         textureAtlas = new TextureAtlas(Gdx.files.internal("ui/buttons.pack"));
@@ -286,7 +273,7 @@ public class MenuScreen extends ObjectScreen {
         return super.getNAME();
     }
 
-    void saveSoundParamFile(Boolean onoff) throws IOException {
+    private void saveSoundParamFile(Boolean onoff) throws IOException {
         FileHandle handle = Gdx.files.local("gamesound.txt");
         if (onoff)
             handle.writeString("1", false);

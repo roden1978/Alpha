@@ -3,6 +3,7 @@ package com.gdx.alpha.entitys;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -19,7 +20,7 @@ public class Sperm extends Actor {
     private Vector2 position;
     //private Vector2 direction;
     private float speed;
-    private Animation sprites;
+    private Animation<TextureRegion> sprites;
     private float stateTime;
     private Bounds spermBound;
     private float boundWidth;
@@ -31,7 +32,7 @@ public class Sperm extends Actor {
         this.speed = speed;
         stateTime = 0.0f;
         this.spermAtlas = spermAtlas;
-        sprites = new Animation(1/30f,spermAtlas.getRegions());
+        sprites = new Animation<TextureRegion>(1/30f,spermAtlas.getRegions());
         boundWidth = spermAtlas.findRegion("sperm001").getRegionWidth();
         boundHeight = spermAtlas.findRegion("sperm001").getRegionHeight();
         spermBound = new Bounds(position.x, position.y, boundWidth, boundHeight);
