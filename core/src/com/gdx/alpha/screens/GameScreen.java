@@ -234,7 +234,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
                 screenY  > gameDriver.getGameManager().player.getSpriteRegionHeight() / 2 &&
                 screenY < gameStage.getHeight() - gameDriver.getGameManager().player.getSpriteRegionHeight() / 2){
 
-            playerPosition.x = screenX - gameDriver.getGameManager().player.getSpriteRegionWidth()*3 - gameDriver.getGameManager().player.getSpriteRegionWidth() / 10;
+            playerPosition.x = screenX - gameDriver.getGameManager().player.getSpriteRegionWidth()*3 - gameDriver.getGameManager().player.getSpriteRegionWidth();
             playerPosition.y = (gameStage.getHeight() - screenY) - gameDriver.getGameManager().player.getSpriteRegionHeight() / 2;
             gameDriver.getGameManager().player.setPosition(playerPosition);
             gameDriver.getGameManager().getThrowWeapon().updatePosition(playerPosition);
@@ -363,7 +363,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         spriteBatch.begin();
             /*font.draw(spriteBatch,"TAP TO PLAY",gameStage.getWidth()/2 - font.getBounds("TAP TO PLAY").width/2,
                     gameStage.getHeight()/2 + font.getBounds("TAP TO PLAY").height/2);*/
-            font.draw(spriteBatch,"TAP TO PLAY",0.0f, 0.0f, gameStage.getWidth(), Align.center, true);
+            font.draw(spriteBatch,"TAP TO PLAY",0.0f, gameStage.getHeight()/2.0f, gameStage.getWidth(), Align.center, true);
         spriteBatch.end();
     }
     //отрисовка состояния игры
@@ -400,7 +400,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
                     gameStage.getHeight()/2 - font.getBounds("TAP TO CONTINUE").height*2);
             font.draw(spriteBatch,"OR BACK (ESC) TO EXIT",gameStage.getWidth()/2 - font.getBounds("OR BACK (ESC) TO EXIT").width/2,
                     gameStage.getHeight()/2 - font.getBounds("OR BACK TO EXIT").height*3);*/
-        font.draw(spriteBatch,"PAUSE",0.0f, 0.0f, gameStage.getWidth(), Align.center, true);
+        font.draw(spriteBatch,"PAUSE",0.0f, gameStage.getHeight()/2.0f, gameStage.getWidth(), Align.center, true);
             backButton.left().bottom();
             backButton.draw(spriteBatch, 1.0f);
         spriteBatch.end();
@@ -412,7 +412,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         spriteBatch.begin();
            /* font.draw(spriteBatch,"LEVEL COMPLETE",gameStage.getWidth()/2 - font.getBounds("LEVEL COMPLETE").width/2,
                     gameStage.getHeight()/2 + font.getBounds("LEVEL COMPLETE").height/2);*/
-        font.draw(spriteBatch,"LEVEL COMPLETE",0.0f, 0.0f, gameStage.getWidth(), Align.center, true);
+        font.draw(spriteBatch,"LEVEL COMPLETE",0.0f, gameStage.getHeight()/2.0f, gameStage.getWidth(), Align.center, true);
         spriteBatch.end();
         //Сохранение результатов пройденного уровня
         if(isStringLevelParamsSave) {
@@ -433,7 +433,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         spriteBatch.begin();
            /* font.draw(spriteBatch,"GAME OVER",gameStage.getWidth()/2 - font.getBounds("GAME OVER").width/2,
                     gameStage.getHeight()/2 + font.getBounds("GAME OVER").height/2);*/
-        font.draw(spriteBatch,"GAME OVER",0.0f, 0.0f, gameStage.getWidth(), Align.center, true);
+        font.draw(spriteBatch,"GAME OVER",0.0f, gameStage.getHeight()/2.0f, gameStage.getWidth(), Align.center, true);
         spriteBatch.end();
     }
 

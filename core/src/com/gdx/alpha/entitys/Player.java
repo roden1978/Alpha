@@ -91,7 +91,7 @@ public class Player extends Actor {
         lifeScale.setPosition(position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
                 position.y + boundHeight);
         lifes.setLife_count(lifeCount);
-        lifes.setPosition(position.x + boundWidth,position.y);
+        lifes.setPosition(position.x + boundWidth,position.y + boundHeight);
         if (throwing || newlife)
             stateTime +=delta;
         else
