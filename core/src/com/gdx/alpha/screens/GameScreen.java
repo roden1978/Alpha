@@ -233,10 +233,12 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
                 screenX > gameDriver.getGameManager().player.getSpriteRegionWidth() &&
                 screenY  > gameDriver.getGameManager().player.getSpriteRegionHeight() / 2 &&
                 screenY < gameStage.getHeight() - gameDriver.getGameManager().player.getSpriteRegionHeight() / 2){
-
+            //Положение игрока со смещением от точки касания экрана
             playerPosition.x = screenX - gameDriver.getGameManager().player.getSpriteRegionWidth()*3 - gameDriver.getGameManager().player.getSpriteRegionWidth();
-            playerPosition.y = (gameStage.getHeight() - screenY) - gameDriver.getGameManager().player.getSpriteRegionHeight() / 2;
+            playerPosition.y = (gameStage.getHeight() - screenY);// - gameDriver.getGameManager().player.getSpriteRegionHeight() / 2;
+            //установка позиции игрока
             gameDriver.getGameManager().player.setPosition(playerPosition);
+            //установка начальной позиции брошенного оружия
             gameDriver.getGameManager().getThrowWeapon().updatePosition(playerPosition);
         }
         //System.out.println("X: " + player.getPosition().x + " Y: " + player.getPosition().y);

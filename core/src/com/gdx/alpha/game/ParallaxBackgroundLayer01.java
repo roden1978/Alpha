@@ -9,89 +9,71 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * Created by Admin on 18.02.15.
+ * Created by Ro|)e|\| on 18.02.15.
  */
 public class ParallaxBackgroundLayer01 extends Actor {
-    private Array<TextureRegion> backgroundDownLayer1;
-    private Array<TextureRegion> backgroundUpLayer1;
+    private Array<TextureRegion> backgroundDownLayer0;
+    private Array<TextureRegion> backgroundUpLayer0;
+
+    private Array<Vector2> downLayerPosition;
+    private Array<Vector2> upLayerPosition;
+
+    private float SCREEN_WIDTH;
+    private Integer PART_COUNT;
 
 
-    private Vector2 downLayer10Position;
-    private Vector2 downLayer11Position;
-    private Vector2 downLayer12Position;
+    ParallaxBackgroundLayer01(TextureAtlas backgroundAtlas){
 
-    private Vector2 upLayer10Position;
-    private Vector2 upLayer11Position;
-    private Vector2 upLayer12Position;
+        SCREEN_WIDTH = Gdx.graphics.getWidth();
+        float SCREEN_HEIGHT = Gdx.graphics.getHeight();
+        PART_COUNT = (int) Math.ceil(SCREEN_WIDTH / (double) backgroundAtlas.findRegion("layer02down").getRegionWidth()) + 1;
 
+        backgroundDownLayer0 = new Array<TextureRegion>(PART_COUNT);
+        backgroundUpLayer0 = new Array<TextureRegion>(PART_COUNT);
 
-    public ParallaxBackgroundLayer01(TextureAtlas backgroundAtlas){
-        backgroundDownLayer1 = new Array<TextureRegion>(3);
-        backgroundUpLayer1 = new Array<TextureRegion>(3);
+        downLayerPosition = new Array<Vector2>();
+        upLayerPosition = new Array<Vector2>();
 
-        for (int i = 0; i < 3; i++) {
-            backgroundDownLayer1.add(backgroundAtlas.findRegion("layer02down"));
-            backgroundUpLayer1.add(backgroundAtlas.findRegion("layer02up"));
+        for (int i = 0; i < PART_COUNT; i++) {
+            backgroundDownLayer0.add(backgroundAtlas.findRegion("layer02down"));
+            backgroundUpLayer0.add(backgroundAtlas.findRegion("layer02up"));
+
+            downLayerPosition.add(new Vector2(SCREEN_WIDTH - backgroundDownLayer0.get(i).getRegionWidth() * (i + 1), 0));
+            upLayerPosition.add(new Vector2(SCREEN_WIDTH - backgroundUpLayer0.get(i).getRegionWidth() * (i + 1),
+                    SCREEN_HEIGHT - backgroundUpLayer0.get(i).getRegionHeight()));
+
+            System.out.println("DLPositionX: " + downLayerPosition.get(i).x + " Pos " + i +" R_width " + backgroundDownLayer0.get(i).getRegionWidth() +
+                    "SC_width" + SCREEN_WIDTH);
         }
-
-        downLayer10Position = new Vector2(Gdx.graphics.getWidth() - backgroundDownLayer1.get(0).getRegionWidth(), 0);
-        downLayer11Position = new Vector2(0, 0);
-        downLayer12Position = new Vector2(- backgroundDownLayer1.get(0).getRegionWidth(), 0);
-
-        upLayer10Position = new Vector2(Gdx.graphics.getWidth() - backgroundUpLayer1.get(0).getRegionWidth(),
-                Gdx.graphics.getHeight() - backgroundUpLayer1.get(0).getRegionHeight());
-        upLayer11Position = new Vector2(0,Gdx.graphics.getHeight() - backgroundUpLayer1.get(0).getRegionHeight());
-        upLayer12Position = new Vector2(- backgroundUpLayer1.get(0).getRegionWidth(),
-                Gdx.graphics.getHeight() - backgroundUpLayer1.get(0).getRegionHeight());
-
+        System.out.println("PART_COUNT: " + PART_COUNT);
 
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        for (int i = 0; i < 3; i++) {
-            switch (i){
-                case 0:
-                    batch.draw(backgroundDownLayer1.get(0),downLayer10Position.x, downLayer10Position.y);
-                    batch.draw(backgroundUpLayer1.get(0),upLayer10Position.x, upLayer10Position.y);
-                    break;
-                case 1:
-                    batch.draw(backgroundDownLayer1.get(1),downLayer11Position.x, downLayer11Position.y);
-                    batch.draw(backgroundUpLayer1.get(1),upLayer11Position.x, upLayer11Position.y);
-                    break;
-                case 2:
-                    batch.draw(backgroundDownLayer1.get(2),downLayer12Position.x, downLayer12Position.y);
-                    batch.draw(backgroundUpLayer1.get(2),upLayer12Position.x, upLayer12Position.y);
-                    break;
-            }
+        for (int i = 0; i < PART_COUNT; i++) {
+            batch.draw(backgroundDownLayer0.get(i),downLayerPosition.get(i).x, downLayerPosition.get(i).y);
+            batch.draw(backgroundUpLayer0.get(i),upLayerPosition.get(i).x, upLayerPosition.get(i).y);
+
         }
     }
 
     @Override
     public void act(float delta) {
-        super.act(delta);
+        //super.act(delta);
+        for (int i = 0; i < PART_COUNT; i++){
+            downLayerPosition.get(i).x += 3;
+            if (downLayerPosition.get(i).x >= SCREEN_WIDTH){
+                downLayerPosition.get(i).x =  - (backgroundDownLayer0.get(i).getRegionWidth() * (PART_COUNT - 1) - SCREEN_WIDTH) -
+                        backgroundDownLayer0.get(i).getRegionWidth() + (downLayerPosition.get(i).x - SCREEN_WIDTH);
+            }
 
-
-        downLayer10Position.x += 2;
-        downLayer11Position.x += 2;
-        downLayer12Position.x += 2;
-        if (downLayer10Position.x >= Gdx.graphics.getWidth())
-            downLayer10Position.x = -backgroundDownLayer1.get(0).getRegionWidth();
-        if (downLayer11Position.x >= Gdx.graphics.getWidth())
-            downLayer11Position.x = -backgroundDownLayer1.get(0).getRegionWidth();
-        if (downLayer12Position.x >= Gdx.graphics.getWidth())
-            downLayer12Position.x = -backgroundDownLayer1.get(0).getRegionWidth();
-
-
-        upLayer10Position.x += 2;
-        upLayer11Position.x += 2;
-        upLayer12Position.x += 2;
-        if (upLayer10Position.x >= Gdx.graphics.getWidth())
-            upLayer10Position.x = -backgroundUpLayer1.get(0).getRegionWidth();
-        if (upLayer11Position.x >= Gdx.graphics.getWidth())
-            upLayer11Position.x = -backgroundUpLayer1.get(0).getRegionWidth();
-        if (upLayer12Position.x >= Gdx.graphics.getWidth())
-            upLayer12Position.x = -backgroundUpLayer1.get(0).getRegionWidth();
+            upLayerPosition.get(i).x += 3;
+            if (upLayerPosition.get(i).x >= SCREEN_WIDTH){
+                upLayerPosition.get(i).x = - (backgroundUpLayer0.get(i).getRegionWidth() * (PART_COUNT - 1) - SCREEN_WIDTH) -
+                        backgroundUpLayer0.get(i).getRegionWidth() + (upLayerPosition.get(i).x - SCREEN_WIDTH);
+            }
+        }
     }
 }

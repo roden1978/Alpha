@@ -267,10 +267,10 @@ public class GameManager {
         uiTable.clear();
         uiTable.setFillParent(true);
         uiTable.top().left();
-        uiTable.add(pauseImage).left().row();
-        uiTable.add(scoreCountLabel).right().spaceRight(10.0f);
+        uiTable.add(pauseImage).left().spaceLeft(50).row();
+        uiTable.add(scoreCountLabel).spaceLeft(50).right().spaceRight(10.0f);
         uiTable.add(scoresLabel).row();
-        uiTable.add(spermCountLabel).right().spaceRight(10.0f);
+        uiTable.add(spermCountLabel).spaceLeft(50).right().spaceRight(10.0f);
         uiTable.add(spermLabel).row();
     }
 
