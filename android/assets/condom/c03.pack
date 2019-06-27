@@ -1,0 +1,33 @@
+
+c03.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+c03
+  rotate: false
+  xy: 1, 103
+  size: 260, 100
+  orig: 260, 100
+  offset: 0, 0
+  index: 1
+c03
+  rotate: false
+  xy: 1, 1
+  size: 260, 100
+  orig: 260, 100
+  offset: 0, 0
+  index: 2
+c03
+  rotate: false
+  xy: 263, 103
+  size: 260, 100
+  orig: 260, 100
+  offset: 0, 0
+  index: 3
+c03
+  rotate: false
+  xy: 263, 1
+  size: 260, 100
+  orig: 260, 100
+  offset: 0, 0
+  index: 4

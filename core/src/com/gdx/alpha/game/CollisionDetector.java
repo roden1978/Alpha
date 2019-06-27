@@ -201,8 +201,8 @@ public class CollisionDetector {
                                     //Выводим облако очков поражения врага
                                     interactionManager.createScoreCloudToEnemies(i);
                                     //Добавление бактериофага в игру
-                                    if (interactionManager.randomizeBacteriophages(i) != null)
-                                        gameManager.getBacteriophages().add(interactionManager.randomizeBacteriophages(i));
+                                    //if (interactionManager.randomizeBacteriophages(i) != null)
+                                    gameManager.getBacteriophages().add(interactionManager.randomizeBacteriophages(i));
                                   }
                             }
                         }

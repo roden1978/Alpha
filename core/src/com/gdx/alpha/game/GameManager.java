@@ -50,7 +50,7 @@ public class GameManager {
     //private TextureAtlas bactiaAtlas;
     //public TextureAtlas axeAtlas;
     public TextureAtlas ovumAtlas;
-    public TextureAtlas lifeAtlas;
+    private TextureAtlas lifeAtlas;
     //public TextureAtlas lifeCountAtlas;
     public TextureAtlas bacteriophageAtlas;
     public TextureAtlas bacteriophage_weapon_maceAtlas;
@@ -58,11 +58,15 @@ public class GameManager {
     private TextureAtlas bacteriophage_weapon_cudgelAtlas;
 
     private TextureAtlas bacteriumAtlas;
+    //private TextureAtlas condomAtlas;
 
     private TextureAtlas cavemanAtlas;
     private TextureAtlas caveman_newlifeAtlas;
     private TextureAtlas lifeScaleAtlas;
     private TextureAtlas lifeCountAtlas;
+
+    //Текстурные карты кондомов
+    private Array<TextureAtlas> condomAtlasesArray;
 
     //эффекты частиц
     public ParticleEffect blow;
@@ -100,10 +104,10 @@ public class GameManager {
     //действие бросок оружия
     private Throw throwWeapon;
     //бактериофаги
-    public Bacteriophage bacteriophage;
+    //public Bacteriophage bacteriophage;
     //движущийся фон игры
-    public ParallaxBackgroundLayer00 backgroundLayer00;
-    public ParallaxBackgroundLayer01 backgroundLayer01;
+    private ParallaxBackgroundLayer00 backgroundLayer00;
+    private ParallaxBackgroundLayer01 backgroundLayer01;
 
     private String line;
     //Признак конца уровня
@@ -129,12 +133,6 @@ public class GameManager {
 
     public Table uiTable;
 
-   /* //public Lifes getLifes() {
-        return lifes;
-    }*/
-
-   // private Lifes lifes;
-
     GameManager(int level) {
         this.level = level;
         typeEnemie = new Array<String>();
@@ -150,6 +148,7 @@ public class GameManager {
         sperms = new Array<Sperm>(50);
         bacteriophages = new Array<Bacteriophage>(10);
         colonys = new Array<BacteriasColony>(10);
+        condomAtlasesArray = new Array<TextureAtlas>();
 
         hitParticleEffectArray = new Array<HitParticleEffect>(10);
         scoreCloudArray = new Array<ScoreCloud>(10);
@@ -190,7 +189,6 @@ public class GameManager {
         virusAtlas = new TextureAtlas(Gdx.files.internal("viruses/viruses.pack"));
         spermAtlas = new TextureAtlas(Gdx.files.internal("sperm/sperm.pack"));
         virusBulletAtlas = new TextureAtlas(Gdx.files.internal("bullets/bullets.pack"));
-        //axeAtlas = new TextureAtlas(Gdx.files.internal("axe/axe.pack"));
         ovumAtlas = new TextureAtlas(Gdx.files.internal("ovum/ovum.pack"));
         backgroundAtlas = new TextureAtlas(Gdx.files.internal("background/background.pack"));
         uiAtlas = new TextureAtlas(Gdx.files.internal("uiGame/uiGameSrc.pack"));
@@ -216,6 +214,7 @@ public class GameManager {
         lifeScaleAtlas = new TextureAtlas(Gdx.files.internal("uiGame/lifescale.pack"));
         lifeCountAtlas = new TextureAtlas(Gdx.files.internal("caveman/cm_life.pack"));
         bacteriumAtlas = new TextureAtlas(Gdx.files.internal("bacterias/bacteriums.pack"));
+        condomsTextureAtlasBuild();
     }
 
     void buildGeneralPlayers() {
@@ -314,21 +313,37 @@ public class GameManager {
         return throwWeapon;
     }
 
-    public TextureAtlas getBacteriophage_weapon_cudgelAtlas() {
+    TextureAtlas getBacteriophage_weapon_cudgelAtlas() {
         return bacteriophage_weapon_cudgelAtlas;
     }
 
-    public Array<Microbe> getEnemies() {
+    Array<Microbe> getEnemies() {
         return enemies;
     }
 
-    public Array<BacteriasColony> getBacteriasColonys() {return colonys;}
+    Array<BacteriasColony> getBacteriasColonys() {return colonys;}
 
     //public Array<BacteriasColony> getBacterias (){return bacterias;}
 
-    public Sprinkle getSprinkle() {return sprinkle;}
+    Sprinkle getSprinkle() {return sprinkle;}
 
-    public TextureAtlas getBacteriumAtlas() {
+    TextureAtlas getBacteriumAtlas() {
         return bacteriumAtlas;
     }
+
+    //TextureAtlas getCondomAtlas(){return condomAtlas;}
+
+    TextureAtlas getLifeScaleAtlas(){return lifeScaleAtlas;}
+
+    ParallaxBackgroundLayer00 getBackgroundLayer00(){return backgroundLayer00;}
+
+    ParallaxBackgroundLayer01 getBackgroundLayer01(){return backgroundLayer01;}
+
+    void condomsTextureAtlasBuild () {
+        condomAtlasesArray.add( new TextureAtlas(Gdx.files.internal("condom/c01.pack")));
+        condomAtlasesArray.add( new TextureAtlas(Gdx.files.internal("condom/c02.pack")));
+        condomAtlasesArray.add( new TextureAtlas(Gdx.files.internal("condom/c03.pack")));
+        condomAtlasesArray.add( new TextureAtlas(Gdx.files.internal("condom/c04.pack")));
+    }
+    Array<TextureAtlas> getCondomAtlasesArray() {return condomAtlasesArray;}
 }//end of class

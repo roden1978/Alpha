@@ -23,7 +23,7 @@ class InteractionManager {
     //Ввад в игру бактериофага со случайными свойтвами
     Bacteriophage randomizeBacteriophages(Integer i) {
         if (MathUtils.random(100) > 85 && gameManager.getEnemies().get(i).getEntity().equals("v")) { //////////////////////
-            bacteriophage=null;
+            //bacteriophage=null;
             int weapon_type_bacteriophage = MathUtils.random(0, 3); //////////////
             //System.out.println("Weapon type: "+ weapon_type_bacteriophage);
             switch (weapon_type_bacteriophage) {

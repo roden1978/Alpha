@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.gdx.alpha.effects.HitParticleEffect;
 import com.gdx.alpha.entitys.BacteriasColony;
+import com.gdx.alpha.entitys.Condom;
 import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.ScoreCloud;
 import com.gdx.alpha.entitys.Virus;
@@ -103,8 +104,8 @@ public class GameDriver {
     }
     //Функция ввода основных объектов в игру
     public void addGeneralActorsToScene(){
-        gameScreen.getGameStage().addActor(gameManager.backgroundLayer01);
-        gameScreen.getGameStage().addActor(gameManager.backgroundLayer00);
+        gameScreen.getGameStage().addActor(gameManager.getBackgroundLayer00());
+        gameScreen.getGameStage().addActor(gameManager.getBackgroundLayer01());
         gameScreen.getGameStage().addActor(gameManager.getSprinkle());
         gameScreen.getGameStage().addActor(gameManager.uiTable);
         gameScreen.getGameStage().addActor(gameManager.getThrowWeapon());
@@ -133,21 +134,26 @@ public class GameDriver {
         //System.out.println("Height: "+gameManager.virusAtlas);
         if(gameManager.typeEnemie.get(i).trim().equals("v")){
             microbe = new Virus(new Vector2(gameManager.posX.get(i),gameManager.posY.get(i) * Gdx.graphics.getHeight()),gameManager.speed.get(i),
-                    gameManager.weight.get(i),gameManager.player,gameManager.virusAtlas, gameManager.virusBulletAtlas, gameManager.lifeAtlas);
+                    gameManager.weight.get(i),gameManager.player,gameManager.virusAtlas, gameManager.virusBulletAtlas, gameManager.getLifeScaleAtlas());
             gameManager.getEnemies().add(microbe);
             gameScreen.getGameStage().addActor(microbe);
         }
         if(gameManager.typeEnemie.get(i).trim().equals("b"))
         {
-            colony = new BacteriasColony(new Vector2(gameManager.posX.get(i) * Gdx.graphics.getWidth(),gameManager.posY.get(i) * Gdx.graphics.getHeight()), gameManager.getBacteriumAtlas());
+            colony = new BacteriasColony(new Vector2(gameManager.posX.get(i) * Gdx.graphics.getWidth(),
+                    gameManager.posY.get(i) * Gdx.graphics.getHeight()), gameManager.getBacteriumAtlas());
             //if (colony != null)
             System.out.println("Colony create");
                 gameManager.getBacteriasColonys().add(colony);
 
         }
-           // if (null != microbe){
-
-          //  }
+        if(gameManager.typeEnemie.get(i).trim().equals("c")){
+            microbe = new Condom(new Vector2(gameManager.posX.get(i), gameManager.posY.get(i) * Gdx.graphics.getHeight()),
+                    gameManager.getCondomAtlasesArray(), gameManager.getLifeScaleAtlas());
+            System.out.println("Condom create");
+            gameManager.getEnemies().add(microbe);
+            gameScreen.getGameStage().addActor(microbe);
+        }
     }
     private void controlEnemiesPosition(){
         //отслеживание позиции врагов и удаление их со сцены если они вышли за пределы экрана

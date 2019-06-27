@@ -14,7 +14,7 @@ public class Bacterium extends Microbe {
     private Integer bacteriumType;
 
 
-    public Bacterium (Vector2 position, TextureAtlas bacteriumAtlas, Integer bacteriumType){
+    Bacterium (Vector2 position, TextureAtlas bacteriumAtlas, Integer bacteriumType){
         super(position, 0.0f);
         this.position = position;
         this.bacteriumAtlas = bacteriumAtlas;

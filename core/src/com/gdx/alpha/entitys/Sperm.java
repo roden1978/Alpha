@@ -40,7 +40,7 @@ public class Sperm extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
+        //super.draw(batch, parentAlpha);
         batch.draw(sprites.getKeyFrame(stateTime,true),position.x,position.y);
     }
 
