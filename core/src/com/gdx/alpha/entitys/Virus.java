@@ -42,8 +42,8 @@ public class Virus extends Microbe {
         this.lifeScaleAtlas = lifeScaleAtlas;
         this.virus_type = 0;
         init();
-        virusBound = new Bounds(position.x, position.y, boundWidth, boundHeight);
-        lifeScale = new LifeScale(lifeScaleAtlas,position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
+        this.virusBound = new Bounds(this.position.x, this.position.y, boundWidth, boundHeight);
+        this.lifeScale = new LifeScale(lifeScaleAtlas,position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
                 position.y + boundHeight,lifeScaleAtlas.findRegion("green").getRegionWidth());
         maxHealth = health;
         entity = "v";

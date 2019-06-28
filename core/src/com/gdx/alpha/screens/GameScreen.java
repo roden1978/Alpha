@@ -264,9 +264,11 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
 
             gameDriver = new GameDriver(this, level);
             gameDriver.addGeneralActorsToScene();
-            //Запускаем музыку игрового процесса
-            gameDriver.getAudioManager().getBackgroundGameMusic().setLooping(true);
-            gameDriver.getAudioManager().getBackgroundGameMusic().play();
+            if (screenManager.getOnoff()) {
+                //Запускаем музыку игрового процесса
+                gameDriver.getAudioManager().getBackgroundGameMusic().setLooping(true);
+                gameDriver.getAudioManager().getBackgroundGameMusic().play();
+            }
 
 }
 
@@ -511,11 +513,13 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         for (int i = 0; i < levels.length; i++) {
             levelString = levels[i].split(";");
             //System.out.println(levels[i]);
-            levelNumber.add(Integer.valueOf(levelString[0].trim()));
-            score.add(Integer.valueOf(levelString[1].trim()));
-            sperms.add(Integer.valueOf(levelString[2].trim()));
-            complete.add(Integer.valueOf(levelString[3].trim()));
-            available.add(Integer.valueOf(levelString[4].trim()));
+            //if(Integer.valueOf(levelString[0].trim()) == level) {
+                levelNumber.add(Integer.valueOf(levelString[0].trim()));
+                score.add(Integer.valueOf(levelString[1].trim()));
+                sperms.add(Integer.valueOf(levelString[2].trim()));
+                complete.add(Integer.valueOf(levelString[3].trim()));
+                available.add(Integer.valueOf(levelString[4].trim()));
+
             //System.out.println(levelString[0]+" "+levelString[1]+" "+levelString[2]+" "+levelString[3]+" "+levelString[4]);
         }
         //Изменяем в массивах количество очков и кол-во сперм, устанавливаем признак что уровень выполнен,
@@ -546,5 +550,9 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         handle.writeString(builder.toString(), false);
         screenManager.setLevelParams(builder.toString());
         builder.delete(0, builder.length());
+    }
+
+    public ScreenManager getScreenManager() {
+        return screenManager;
     }
 }

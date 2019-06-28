@@ -57,6 +57,8 @@ public class GameDriver {
         gameManager.buildActions();
         //инициализируем строку состояния игры
         gameManager.buildUiStateString();
+        //Вкл/Выкл звук
+        gameManager.setSoundOnOff(gameScreen.getScreenManager().getOnoff());
         System.out.println("GameDriver create");
     }
 
@@ -181,7 +183,7 @@ public class GameDriver {
             if (gameManager.getEnemies().get(i) != null) {
                 for (int j = 0; j < gameManager.getEnemies().get(i).getBulletsArray().size; j++) {
                     if (gameManager.getEnemies().get(i).getBulletsArray().get(j) != null)
-                        gameManager.bullets.add(gameManager.getEnemies().get(i).getBulletsArray().get(j));
+                        gameManager.getBullets().add(gameManager.getEnemies().get(i).getBulletsArray().get(j));
                 }
                 gameManager.getEnemies().get(i).getBulletsArray().clear();
             }
@@ -189,22 +191,22 @@ public class GameDriver {
     }
     private void addBulletsToGame(){
         //выводим пули врагов на игровую сцену
-            for (int j = 0; j < gameManager.bullets.size; j++) {
-                if (gameManager.bullets.get(j) != null) {
-                    gameScreen.getGameStage().addActor(gameManager.bullets.get(j));
+            for (int j = 0; j < gameManager.getBullets().size; j++) {
+                if (gameManager.getBullets().get(j) != null) {
+                    gameScreen.getGameStage().addActor(gameManager.getBullets().get(j));
                 }
             }
     }
     private void controlBulletPosition(){
         //отслеживание позиции пуль вирусов и удаление их со сцены если они вышли за пределы экрана
-        for (int i = 0; i < gameManager.bullets.size; i++){
-            if (gameManager.bullets.get(i) != null){
-                if (gameManager.bullets.get(i).getPositionX() > gameScreen.getGameStage().getWidth()
-                        || gameManager.bullets.get(i).getPositionX() < 0
-                        || gameManager.bullets.get(i).getPositionY() > gameScreen.getGameStage().getHeight()
-                        || gameManager.bullets.get(i).getPositionY() < 0) {
-                    if (gameManager.bullets.get(i).remove()) {
-                        VirusBullet removedBullet = gameManager.bullets.removeIndex(i);
+        for (int i = 0; i < gameManager.getBullets().size; i++){
+            if (gameManager.getBullets().get(i) != null){
+                if (gameManager.getBullets().get(i).getPositionX() > gameScreen.getGameStage().getWidth()
+                        || gameManager.getBullets().get(i).getPositionX() < 0
+                        || gameManager.getBullets().get(i).getPositionY() > gameScreen.getGameStage().getHeight()
+                        || gameManager.getBullets().get(i).getPositionY() < 0) {
+                    if (gameManager.getBullets().get(i).remove()) {
+                        VirusBullet removedBullet = gameManager.getBullets().removeIndex(i);
                         removedBullet.clear();
                     }
                 }
@@ -323,11 +325,11 @@ public class GameDriver {
         }
     }
     private void addOvumToGame(){
-        if (gameManager.ovum != null){
+        if (gameManager.getOvum() != null){
             for (int i = 0; i < gameManager.sperms.size; i++){
                 if (gameManager.sperms.get(i).getPositionX() <= gameScreen.getGameStage().getWidth() -
                         (gameScreen.getGameStage().getWidth()/3.0f)*2.0f)
-                    gameScreen.getGameStage().addActor(gameManager.ovum);
+                    gameScreen.getGameStage().addActor(gameManager.getOvum());
 
             }
         }

@@ -1,6 +1,5 @@
 package com.gdx.alpha.entitys;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -18,7 +17,7 @@ public class Bacteriophage extends Microbe {
     private float boundWidth;
     private float boundHeight;
     private Vector2 position;
-    private float speed;
+    //private float speed;
    /* private String name_region;
     private static final int HEALTH = 0;
     private static final int WEAPON_AXE = 1;
@@ -27,16 +26,16 @@ public class Bacteriophage extends Microbe {
     private Integer typeBacteriophage;
 
     public Bacteriophage(Vector2 position, float speed, TextureAtlas bacteriophageAtlas, String name_region, Integer type) {
-        //super(position, speed);
+        super(position, speed);
         //this.bacteriophageAtlas = bacteriophageAtlas;
         //this.name_region = name_region;
         this.position = position;
-        this.speed = speed;
-        bacAnimation = new Animation<TextureRegion>(1/30f, bacteriophageAtlas.getRegions());
-        boundWidth = bacteriophageAtlas.findRegion(name_region).getRegionWidth();
-        boundHeight = bacteriophageAtlas.findRegion(name_region).getRegionHeight();
-        bacBound = new Bounds(position.x, position.y, boundWidth, boundHeight);
-        stateTime = 0.0f;
+        //this.speed = speed;
+        this.bacAnimation = new Animation<TextureRegion>(1/30f, bacteriophageAtlas.getRegions());
+        this.boundWidth = bacteriophageAtlas.findRegion(name_region).getRegionWidth();
+        this.boundHeight = bacteriophageAtlas.findRegion(name_region).getRegionHeight();
+        this.bacBound = new Bounds(this.position.x, this.position.y, this.boundWidth, this.boundHeight);
+        this.stateTime = 0.0f;
         this.typeBacteriophage = type;
         setHealth(50);
     }
@@ -44,25 +43,30 @@ public class Bacteriophage extends Microbe {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         //super.draw(batch, parentAlpha);
-        batch.draw(bacAnimation.getKeyFrame(stateTime, true), position.x, position.y);
+        batch.draw(this.bacAnimation.getKeyFrame(this.stateTime, true), this.position.x, this.position.y);
     }
 
     @Override
     public void act(float delta) {
         //super.act(delta);
-        bacBound.update(position.x, position.y,boundWidth,boundHeight);
-        stateTime += delta;
+        this.bacBound.update(this.position.x, this.position.y,this.boundWidth,this.boundHeight);
+        this.stateTime += delta;
     }
 
     @Override
     public Bounds getBound() {
-        return bacBound;
+        return this.bacBound;
     }
 
-    public int getType() {return typeBacteriophage;}
+    public int getType() {return this.typeBacteriophage;}
 
     @Override
     public void setPosition(Vector2 position) {
         this.position = position;
+    }
+
+    @Override
+    public Vector2 getPosition() {
+        return this.getPosition();
     }
 }

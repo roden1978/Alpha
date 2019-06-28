@@ -86,7 +86,7 @@ public class GameManager {
     //массив врагов
     private Array<Microbe> enemies;
     //массив пуль врагов
-    public Array<VirusBullet> bullets;
+    private Array<VirusBullet> bullets;
     //массив брошеных топоров игрока
     public Array<Weapon> weapons;
     //массив сперматозоидов
@@ -94,7 +94,7 @@ public class GameManager {
     //массив бактериофагов
     private Array<Bacteriophage> bacteriophages;
     //объект "Яйцеклетка"
-    public Ovum ovum;
+    private Ovum ovum;
     //объект "Игрок"
     public Player player;
     //объект "Капля"
@@ -116,6 +116,8 @@ public class GameManager {
     private float delta_time_particle_effect;
     //Запущен ли ovum_effect
     private Boolean ovum_effectStart;
+    //Вкл/Выкл звук
+    private Boolean soundOnOff;
 
     //элементы интерфейса строки состояния игры
     private TextureAtlas uiAtlas;
@@ -345,5 +347,22 @@ public class GameManager {
         condomAtlasesArray.add( new TextureAtlas(Gdx.files.internal("condom/c03.pack")));
         condomAtlasesArray.add( new TextureAtlas(Gdx.files.internal("condom/c04.pack")));
     }
+
     Array<TextureAtlas> getCondomAtlasesArray() {return condomAtlasesArray;}
+
+    public Ovum getOvum() {
+        return ovum;
+    }
+
+    public Boolean getSoundOnOff() {
+        return soundOnOff;
+    }
+
+    public void setSoundOnOff(Boolean soundOnOff) {
+        this.soundOnOff = soundOnOff;
+    }
+
+    public Array<VirusBullet> getBullets() {
+        return bullets;
+    }
 }//end of class

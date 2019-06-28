@@ -23,11 +23,13 @@ public class Condom extends Microbe {
     private float frameDuration;
 
     public Condom(Vector2 position, Array<TextureAtlas> textureAtlasArray, TextureAtlas lifeScaleAtlas) {
-        super(position, 5.0f);
+        super(position, 10.0f);
         this.position = position;
+        this.stateTime = 0.0f;
+        this.frameDuration = 1/20f;
         this.textureAtlasArray = textureAtlasArray;
         this.lifeScaleAtlas = lifeScaleAtlas;
-        this.animation = new Animation<TextureRegion>(frameDuration, getCondomTextureAtlas().getRegions());
+        this.animation = new Animation<TextureRegion>(this.frameDuration, getCondomTextureAtlas().getRegions());
         this.condomBound = new Bounds(this.position.x, this.position.y,
                 this.textureAtlas.getRegions().get(0).getRegionWidth(),
                 this.textureAtlas.getRegions().get(0).getRegionHeight());
@@ -36,17 +38,15 @@ public class Condom extends Microbe {
         this.lifeScale = new LifeScale(lifeScaleAtlas,this.position.x + this.condomBoundWidth/2.0f - this.lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
                 position.y + this.condomBoundHeight, this.lifeScaleAtlas.findRegion("green").getRegionWidth());
         setPrice(200);
-        setHealth(60);
+        setHealth(150);
         maxHealth = health;
         entity = "c";
-        this.stateTime = 0.0f;
-        this.frameDuration = 1/20f;
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         //super.draw(batch, parentAlpha);
-        batch.draw(this.animation.getKeyFrame(stateTime, true),this.position.x, this.position.y);
+        batch.draw(this.animation.getKeyFrame(this.stateTime, true),this.position.x, this.position.y);
         this.lifeScale.draw(batch, parentAlpha);
     }
 
@@ -56,7 +56,7 @@ public class Condom extends Microbe {
     @Override
     public void act(float delta) {
         //super.act(delta);
-        stateTime +=delta;
+        this.stateTime +=delta;
         this.position.x += speed;
 
         this.condomBound.update(this.position.x, this.position.y, this.condomBoundWidth, this.condomBoundHeight);
@@ -68,21 +68,21 @@ public class Condom extends Microbe {
     private TextureAtlas getCondomTextureAtlas() {
         switch (MathUtils.random(0, 3)) {
             case 0:
-                this.textureAtlas = textureAtlasArray.get(0);
+                this.textureAtlas = this.textureAtlasArray.get(0);
                 break;
             case 1:
-                this.textureAtlas = textureAtlasArray.get(1);
+                this.textureAtlas = this.textureAtlasArray.get(1);
                 break;
             case 2:
-                this.textureAtlas = textureAtlasArray.get(2);
+                this.textureAtlas = this.textureAtlasArray.get(2);
                 break;
             case 3:
-                this.textureAtlas = textureAtlasArray.get(3);
+                this.textureAtlas = this.textureAtlasArray.get(3);
                 break;
             default:
-                this.textureAtlas = textureAtlasArray.get(0);
+                this.textureAtlas = this.textureAtlasArray.get(0);
                 break;
         }
-        return textureAtlas;
+        return this.textureAtlas;
     }
 }
