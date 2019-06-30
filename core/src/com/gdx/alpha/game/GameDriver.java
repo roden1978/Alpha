@@ -106,12 +106,15 @@ public class GameDriver {
     }
     //Функция ввода основных объектов в игру
     public void addGeneralActorsToScene(){
+        gameScreen.getGameStage().addActor(gameManager.player);
         gameScreen.getGameStage().addActor(gameManager.getBackgroundLayer00());
         gameScreen.getGameStage().addActor(gameManager.getBackgroundLayer01());
         gameScreen.getGameStage().addActor(gameManager.getSprinkle());
         gameScreen.getGameStage().addActor(gameManager.uiTable);
         gameScreen.getGameStage().addActor(gameManager.getThrowWeapon());
-        gameScreen.getGameStage().addActor(gameManager.player);
+
+        System.out.println("Z index " + gameManager.player.getZIndex());
+        System.out.println("Z index " + gameManager.getSprinkle().getZIndex());
     }
     //Функция ввода в игру "врагов"
     private void addEnemiesToGame(float delta){

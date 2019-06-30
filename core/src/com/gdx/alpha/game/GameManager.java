@@ -135,6 +135,8 @@ public class GameManager {
 
     public Table uiTable;
 
+    private float koeff; // коэффициент скорссти капли в зависимости от ширины экрана
+
     GameManager(int level) {
         this.level = level;
         typeEnemie = new Array<String>();
@@ -156,6 +158,13 @@ public class GameManager {
         scoreCloudArray = new Array<ScoreCloud>(10);
         delta_time_particle_effect = 3.0f;
         ovum_effectStart = false;
+
+        if(Gdx.graphics.getWidth() <= 1280){
+            koeff = 1;
+        }else
+        {
+            koeff = Gdx.graphics.getWidth() / 1280;
+        }
 
         line = "";
 
@@ -223,12 +232,14 @@ public class GameManager {
         try {
             player = new Player(new Vector2(Gdx.graphics.getWidth() / 2.0f, Gdx.graphics.getHeight() / 2.0f),
                     cavemanAtlas, lifeScaleAtlas,lifeCountAtlas, caveman_newlifeAtlas);
+            //System.out.println("Z index " + player.getZIndex());
+            //player.setZIndex(-20);
         } catch (Exception e) {
             e.printStackTrace();
         }
         backgroundLayer00 = new ParallaxBackgroundLayer00(backgroundAtlas);
         backgroundLayer01 = new ParallaxBackgroundLayer01(backgroundAtlas);
-        sprinkle = new Sprinkle(spermAtlas);
+        sprinkle = new Sprinkle(spermAtlas, koeff, level);
         ovum = new Ovum(ovumAtlas);
     }
 

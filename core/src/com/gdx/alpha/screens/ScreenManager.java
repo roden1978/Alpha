@@ -54,21 +54,21 @@ public class ScreenManager {
     /*public ScreenManager getScreenManager(){
         return this;
     }*/
-    public void loadLevelParamFile() throws IOException{
+    private void loadLevelParamFile() throws IOException{
         FileHandle handle = Gdx.files.internal("levelparam.txt");
         line = handle.readString();
     }
 
-    public void loadSoundParamFile() throws IOException{
+    private void loadSoundParamFile() throws IOException{
         FileHandle handle = Gdx.files.internal("gamesound.txt");
         soundParam = handle.readString();
     }
 
-    public String getLevelParams(){return line;}
+    String getLevelParams(){return line;}
 
-    public void setLevelParams(String line){this.line = line;}
+    void setLevelParams(String line){this.line = line;}
 
-    public Music getScreenMusic() {
+    Music getScreenMusic() {
         return screenMusic;
     }
 
@@ -76,7 +76,7 @@ public class ScreenManager {
         return onoff;
     }
 
-    public void setOnoff(Boolean onoff) {
+    void setOnoff(Boolean onoff) {
         this.onoff = onoff;
     }
 }//end of class

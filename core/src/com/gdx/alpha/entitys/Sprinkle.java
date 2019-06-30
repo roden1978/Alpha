@@ -36,11 +36,12 @@ public class Sprinkle extends Actor{
                                     {0,1,0,0,0,1,0},
                                     {0,0,1,1,1,0,0}};
 
-    public Sprinkle(TextureAtlas spermAtlas){
+    public Sprinkle(TextureAtlas spermAtlas, float koeff, int level){
         this.sprinkle = new Array<Sperm>();
         this.position = new Vector2();
         this.spermAtlas = spermAtlas;
-        this.speed = 0.625f; //0.0625 - 5 минут скорость капли чем больше число тем выше скорость движения капли
+        this.speed = 0.625f * koeff - 0.1f * level; //0.0625 - 5 минут скорость капли чем больше число тем выше скорость движения капли
+        System.out.println("Speed: "+speed);
         randomizeSprinkle();
     }
 

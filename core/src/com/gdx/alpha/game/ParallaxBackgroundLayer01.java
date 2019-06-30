@@ -63,13 +63,13 @@ public class ParallaxBackgroundLayer01 extends Actor {
     public void act(float delta) {
         //super.act(delta);
         for (int i = 0; i < PART_COUNT; i++){
-            downLayerPosition.get(i).x += 3;
+            downLayerPosition.get(i).x += 2;
             if (downLayerPosition.get(i).x >= SCREEN_WIDTH){
                 downLayerPosition.get(i).x =  - (backgroundDownLayer0.get(i).getRegionWidth() * (PART_COUNT - 1) - SCREEN_WIDTH) -
                         backgroundDownLayer0.get(i).getRegionWidth() + (downLayerPosition.get(i).x - SCREEN_WIDTH);
             }
 
-            upLayerPosition.get(i).x += 3;
+            upLayerPosition.get(i).x += 2;
             if (upLayerPosition.get(i).x >= SCREEN_WIDTH){
                 upLayerPosition.get(i).x = - (backgroundUpLayer0.get(i).getRegionWidth() * (PART_COUNT - 1) - SCREEN_WIDTH) -
                         backgroundUpLayer0.get(i).getRegionWidth() + (upLayerPosition.get(i).x - SCREEN_WIDTH);
