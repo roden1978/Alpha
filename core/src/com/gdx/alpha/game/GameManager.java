@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -133,9 +134,11 @@ public class GameManager {
     private Integer scoresAmount;
     private Integer spermAmount;
 
-    public Table uiTable;
+    private Table uiTable;
 
     private float koeff; // коэффициент скорссти капли в зависимости от ширины экрана
+
+    private Group groupLayer0;
 
     GameManager(int level) {
         this.level = level;
@@ -175,6 +178,10 @@ public class GameManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        groupLayer0 = new Group();
+        //groupLayer1 = new Group();
+
         System.out.println("GameManager create");
     }
 
@@ -233,10 +240,10 @@ public class GameManager {
             player = new Player(new Vector2(Gdx.graphics.getWidth() / 2.0f, Gdx.graphics.getHeight() / 2.0f),
                     cavemanAtlas, lifeScaleAtlas,lifeCountAtlas, caveman_newlifeAtlas);
             //System.out.println("Z index " + player.getZIndex());
-            //player.setZIndex(-20);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         backgroundLayer00 = new ParallaxBackgroundLayer00(backgroundAtlas);
         backgroundLayer01 = new ParallaxBackgroundLayer01(backgroundAtlas);
         sprinkle = new Sprinkle(spermAtlas, koeff, level);
@@ -284,6 +291,7 @@ public class GameManager {
         uiTable.add(scoresLabel).row();
         uiTable.add(spermCountLabel).spaceLeft(50).right().spaceRight(10.0f);
         uiTable.add(spermLabel).row();
+        //groupLayer1.addActor(uiTable);
     }
 
     void updateScoresAmount() {
@@ -375,5 +383,13 @@ public class GameManager {
 
     public Array<VirusBullet> getBullets() {
         return bullets;
+    }
+
+    public Table getUiTable() {
+        return uiTable;
+    }
+
+    public Group getGroupLayer0() {
+        return groupLayer0;
     }
 }//end of class

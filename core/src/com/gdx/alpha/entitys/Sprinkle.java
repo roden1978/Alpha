@@ -19,7 +19,7 @@ public class Sprinkle extends Actor{
     private static final float SCREEN_HEIGHT = Gdx.graphics.getHeight();
     private static final float SPERM_WIDTH = 123.0f;
     private static final float SPERM_HEIGHT = 46.0f;
-    private Array<Sperm> sprinkle;
+    private Array<Sperm> sprinkleArray;
     private int[][] sprinklePos01 = {{0,1,1,0,0,0,0},
                                     {1,0,0,1,1,0,0},
                                     {1,0,0,0,0,1,1},
@@ -37,7 +37,7 @@ public class Sprinkle extends Actor{
                                     {0,0,1,1,1,0,0}};
 
     public Sprinkle(TextureAtlas spermAtlas, float koeff, int level){
-        this.sprinkle = new Array<Sperm>();
+        this.sprinkleArray = new Array<Sperm>();
         this.position = new Vector2();
         this.spermAtlas = spermAtlas;
         this.speed = 0.625f * koeff - 0.1f * level; //0.0625 - 5 минут скорость капли чем больше число тем выше скорость движения капли
@@ -46,7 +46,7 @@ public class Sprinkle extends Actor{
     }
 
     public Array<Sperm> getSpermArray(){
-        return this.sprinkle;
+        return this.sprinkleArray;
     }
 
     private void randomizeSprinkle(){
@@ -68,7 +68,7 @@ public class Sprinkle extends Actor{
                 if (sprinkleFigure[i][j] != 0) {
                     this.position.x = SCREEN_WIDTH + SPERM_WIDTH / 2 * j;
                     this.position.y = (SCREEN_HEIGHT / 2 + (SPERM_HEIGHT / 2 + SPERM_HEIGHT)) - SPERM_HEIGHT  * i;
-                    this.sprinkle.add(new Sperm(new Vector2(this.position.x, this.position.y), this.speed, this.spermAtlas));
+                    this.sprinkleArray.add(new Sperm(new Vector2(this.position.x, this.position.y), this.speed, this.spermAtlas));
                     //System.out.println("X: "+pos.x  + " Y: " + pos.y);
                 }
 

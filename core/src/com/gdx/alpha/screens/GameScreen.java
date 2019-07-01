@@ -263,7 +263,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         //создаем класс управления игрой
 
             gameDriver = new GameDriver(this, level);
-            gameDriver.addGeneralActorsToScene();
+            gameDriver.addGeneralActorsToScene();//#1
             if (screenManager.getOnoff()) {
                 //Запускаем музыку игрового процесса
                 gameDriver.getAudioManager().getBackgroundGameMusic().setLooping(true);
@@ -376,7 +376,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         //uiStage.getBatch().setProjectionMatrix(camera.combined);
         gameStage.getBatch().setProjectionMatrix(camera.combined);
-        //gameStage.setDebugAll(true);
+        //gameStage.setRoot(gameDriver.getGameManager().getGroupLayer0());
         gameStage.draw();
         //uiStage.draw();
     }
@@ -435,9 +435,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         spriteBatch.begin();
-           /* font.draw(spriteBatch,"GAME OVER",gameStage.getWidth()/2 - font.getBounds("GAME OVER").width/2,
-                    gameStage.getHeight()/2 + font.getBounds("GAME OVER").height/2);*/
-        font.draw(spriteBatch,"GAME OVER",0.0f, gameStage.getHeight()/2.0f, gameStage.getWidth(), Align.center, true);
+            font.draw(spriteBatch,"GAME OVER",0.0f, gameStage.getHeight()/2.0f, gameStage.getWidth(), Align.center, true);
         spriteBatch.end();
     }
 
@@ -445,8 +443,6 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     @Override
     public void render(float delta) {
         //super.render(delta);
-        //Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
-        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         update(delta);
         drawStates();
 

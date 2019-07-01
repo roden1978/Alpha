@@ -72,7 +72,6 @@ public class GameDriver {
         addBulletsToArray();
         addBulletsToGame();
         addWeaponToGame();
-        addSpermsToGame();
         addHitParticleEffectToGame();
         addScoreCloudToGame();
         addBacteriophageToGame();
@@ -106,15 +105,16 @@ public class GameDriver {
     }
     //Функция ввода основных объектов в игру
     public void addGeneralActorsToScene(){
-        gameScreen.getGameStage().addActor(gameManager.player);
+        //gameScreen.getGameStage().addActor(gameManager.player);
         gameScreen.getGameStage().addActor(gameManager.getBackgroundLayer00());
         gameScreen.getGameStage().addActor(gameManager.getBackgroundLayer01());
         gameScreen.getGameStage().addActor(gameManager.getSprinkle());
-        gameScreen.getGameStage().addActor(gameManager.uiTable);
-        gameScreen.getGameStage().addActor(gameManager.getThrowWeapon());
+        gameScreen.getGameStage().addActor(gameManager.getUiTable());
+        gameScreen.getGameStage().addActor(gameManager.getGroupLayer0());
 
-        System.out.println("Z index " + gameManager.player.getZIndex());
-        System.out.println("Z index " + gameManager.getSprinkle().getZIndex());
+        addSpermsToGame();
+        gameManager.getGroupLayer0().addActor(gameManager.getThrowWeapon());
+        gameManager.getGroupLayer0().addActor(gameManager.player);
     }
     //Функция ввода в игру "врагов"
     private void addEnemiesToGame(float delta){
@@ -257,9 +257,11 @@ public class GameDriver {
         gameManager.updateSpermAmount();
         for (int i = 0; i < gameManager.sperms.size; i++){
             if (gameManager.sperms.get(i) != null){
-                gameScreen.getGameStage().addActor(gameManager.sperms.get(i));
+                gameManager.getGroupLayer0().addActorAfter(gameManager.player, gameManager.sperms.get(i));
+                //gameScreen.getGameStage().addActor(gameManager.getGroupLayer0());///////////////////////////////////////
             }
         }
+        //spermInGame = true;
     }
     //Ввод колонии бактерий в игру
     private void addBacteriumToGame(){
@@ -269,17 +271,6 @@ public class GameDriver {
                     if (gameManager.getBacteriasColonys().get(i).getBacteriumArray().get(j) != null) {
                             gameManager.getEnemies().add(gameManager.getBacteriasColonys().get(i).getBacteriumArray().get(j));
                             gameScreen.getGameStage().addActor(gameManager.getBacteriasColonys().get(i).getBacteriumArray().get(j));
-
-
-                        //gameManager.getBacteriasColonys().get(i).setNext(true);
-                        //System.out.println("set next true:");
-                        //if (gameManager.getBacteriasColonys().get(i).getNext_item()) {
-
-                           // System.out.println("Bacterium colony: "+ gameManager.getBacteriasColonys().get(i)+
-                           //         " bact: " + gameManager.getBacteriasColonys().get(i).getBacteriumArray().get(j));
-                          //  gameManager.getBacteriasColonys().get(i).setNext_item(false);
-                          //  gameManager.getBacteriasColonys().get(i).setNext(false);
-                        //}
                     }
                 }
             }
@@ -318,8 +309,14 @@ public class GameDriver {
         }
     }
     private void controlLifeScale(){
-        if (gameManager.player.getLifeCount() == 0)
-            gameScreen.setGameState(4); //Game over
+        if (gameManager.player.getLifeCount() == 0){
+/*
+            System.out.println("Z index player" + gameManager.player.getZIndex());
+            for (int i = 0; i < gameManager.sperms.size; i++){
+                System.out.println("Z index " + gameManager.sperms.get(i).getZIndex());
+            }*/
+            gameScreen.setGameState(4);
+        } //Game over
     }
     private void addBacteriophageToGame(){
         for (int i = 0; i < gameManager.getBacteriophages().size; i++) {
