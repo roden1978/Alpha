@@ -71,6 +71,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     private SpriteBatch spriteBatch;
 
     private Boolean takeScreenshot;
+    private Boolean isScreenshot;
 
     //Инициализируем массивы параметров уровней
     private  Array<Integer> levelNumber;
@@ -96,6 +97,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         HEIGHT = Gdx.graphics.getHeight();
         this.screenManager = screenManager;
         this.takeScreenshot = false;
+        this.isScreenshot = false;
         camera = new OrthographicCamera(WIDTH,HEIGHT);
         //weaponType = 0;
         this.level = level;
@@ -147,14 +149,16 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK){
-            if (state == PAUSE_STATE || state == END_STATE || state == LEVEL_END_STATE)
+            if (state == PAUSE_STATE || state == END_STATE || state == LEVEL_END_STATE) {
                 screenManager.setCurrentScreen(new LevelScreen(screenManager));
-
+            }
+            takeScreenshot = true;
             state = PAUSE_STATE;
         }
         if (keycode == Input.Keys.P){
             state = PAUSE_STATE;
-            takeScreenshot = true;
+            if(!isScreenshot)
+                takeScreenshot = true;
         }
 
             //screenManager.setCurrentScreen(new LevelScreen(screenManager));
@@ -385,6 +389,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         if(takeScreenshot){
             screenShot = new Image(ScreenUtils.getFrameBufferTexture());
             takeScreenshot = false;
+            isScreenshot = true;
         }
 
         Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
@@ -397,7 +402,8 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         //table.setFillParent(true);
         //table.add(backButton).left().pad(20).bottom();
         //table.draw(spriteBatch, 1.0f);
-            //screenShot.draw(spriteBatch, 0.5f);
+        if (isScreenshot)
+            screenShot.draw(spriteBatch, 0.5f);
            /* font.draw(spriteBatch,"PAUSE",gameStage.getWidth()/2 - font.getBounds("PAUSE").width/2,
                     gameStage.getHeight()/2 + font.getBounds("PAUSE").height/2);
             font.draw(spriteBatch,"TAP TO CONTINUE",gameStage.getWidth()/2 - font.getBounds("TAP TO CONTINUE").width/2,

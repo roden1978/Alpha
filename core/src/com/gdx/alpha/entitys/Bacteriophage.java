@@ -17,12 +17,6 @@ public class Bacteriophage extends Microbe {
     private float boundWidth;
     private float boundHeight;
     private Vector2 position;
-    //private float speed;
-   /* private String name_region;
-    private static final int HEALTH = 0;
-    private static final int WEAPON_AXE = 1;
-    private static final int WEAPON_MACE = 2;
-    private static final int WEAPON_STONE = 3;*/
     private Integer typeBacteriophage;
 
     public Bacteriophage(Vector2 position, float speed, TextureAtlas bacteriophageAtlas, String name_region, Integer type) {
@@ -65,8 +59,8 @@ public class Bacteriophage extends Microbe {
         this.position = position;
     }
 
-    @Override
+  /*  @Override
     public Vector2 getPosition() {
         return this.getPosition();
-    }
+    }*/
 }

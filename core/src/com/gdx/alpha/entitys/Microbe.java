@@ -22,7 +22,7 @@ public class Microbe extends Actor {
     Microbe(){
         this.position = new Vector2(0.0f, 0.0f);
         this.speed = 0.0f;
-        bound = new Bounds(0,0,0,0);
+        this.bound = new Bounds(0,0,0,0);
         this.health = 0;
         this.price = 0;
         this.bulletsArray = new Array<VirusBullet>();
@@ -37,7 +37,7 @@ public class Microbe extends Actor {
         this.health = 0;
         this.price = 0;
         this.bulletsArray = new Array<VirusBullet>();
-        entity = "";
+        this.entity = "";
     }
 
     //установка позиции микроба

@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.gdx.alpha.effects.HitParticleEffect;
 import com.gdx.alpha.entitys.Bacteriophage;
-import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.ScoreCloud;
 
 class InteractionManager {
@@ -19,11 +18,12 @@ class InteractionManager {
     InteractionManager(GameManager gameManager, AudioManager audioManager) {
         this.gameManager = gameManager;
         this.audioManager = audioManager;
+        //this.bacteriophage = new Bacteriophage();
         System.out.println("InteractionManager create");
     }
     //Ввад в игру бактериофага со случайными свойтвами
     Bacteriophage randomizeBacteriophages(Integer i) {
-        if (MathUtils.random(100) > 85 && gameManager.getEnemies().get(i).getEntity().equals("v")) { //////////////////////
+        if (MathUtils.random(100) > 15 && gameManager.getEnemies().get(i).getEntity().equals("v")) { //////////////////////
             int weapon_type_bacteriophage;
             if (gameManager.getLevel() < 5)
                  weapon_type_bacteriophage = MathUtils.random(0, 1); //////////////
@@ -33,30 +33,31 @@ class InteractionManager {
             //System.out.println("Weapon type: "+ weapon_type_bacteriophage);
             switch (weapon_type_bacteriophage) {
                 case 0:
-                    bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
+                    this.bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
                             0.0f, gameManager.bacteriophageAtlas, "h001",0);
                     System.out.println("Pos Bacteriophage + X: "+ gameManager.getEnemies().get(i).getPosition().x +" Y: " + gameManager.getEnemies().get(i).getPosition().y);
                     break;
                 case 1:
-                    bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
+                    this.bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
                             0.0f, gameManager.bacteriophage_weapon_maceAtlas, "m001",1);
                     System.out.println("Pos Bacteriophage mace X: "+ gameManager.getEnemies().get(i).getPosition().x +" Y: " + gameManager.getEnemies().get(i).getPosition().y);
                     break;
                 case 2:
-                    bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
+                    this.bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
                             0.0f, gameManager.bacteriophage_weapon_stoneAtlas, "s001",2);
                     System.out.println("Pos Bacteriophage stone X: "+ gameManager.getEnemies().get(i).getPosition().x +" Y: " + gameManager.getEnemies().get(i).getPosition().y);
                     break;
                 case 3:
-                    bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
+                    this.bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
                             0.0f, gameManager.getBacteriophage_weapon_cudgelAtlas(), "000",3);
                     System.out.println("Pos Bacteriophage cudgel X: "+ gameManager.getEnemies().get(i).getPosition().x +" Y: " + gameManager.getEnemies().get(i).getPosition().y);
                     break;
 
             }
             System.out.println("Weapon type: "+ weapon_type_bacteriophage);
+            System.out.println("Bacter array siaze interact manager: "+ gameManager.getBacteriophages().size);
         }
-        return bacteriophage;
+        return this.bacteriophage;
     }
     //Создание эффекта взрыва от столкновения  с врагом
     void createParticleEffectBlow(Integer i){
@@ -177,6 +178,7 @@ class InteractionManager {
                 gameManager.getThrowWeapon().changeType(3);
                 break;
         }
+        System.out.println("UseBacter array size interact manager: "+ gameManager.getBacteriophages().size);
     }
 
 

@@ -108,7 +108,7 @@ public class GameDriver {
         //gameScreen.getGameStage().addActor(gameManager.player);
         gameScreen.getGameStage().addActor(gameManager.getBackgroundLayer00());
         gameScreen.getGameStage().addActor(gameManager.getBackgroundLayer01());
-        gameScreen.getGameStage().addActor(gameManager.getSprinkle());
+        //gameScreen.getGameStage().addActor(gameManager.getSprinkle());
         gameScreen.getGameStage().addActor(gameManager.getUiTable());
         gameScreen.getGameStage().addActor(gameManager.getGroupLayer0());
 
@@ -318,6 +318,7 @@ public class GameDriver {
             if (gameManager.getBacteriophages().get(i) != null)
                 gameScreen.getGameStage().addActor(gameManager.getBacteriophages().get(i));
         }
+        //System.out.println("Game driver bacter array size: "+ gameManager.getBacteriophages().size);
     }
     private void addOvumToGame(){
         if (gameManager.getOvum() != null){

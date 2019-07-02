@@ -42,10 +42,10 @@ public class ParallaxBackgroundLayer00 extends Actor {
             upLayerPosition.add(new Vector2(SCREEN_WIDTH - backgroundUpLayer0.get(i).getRegionWidth() * (i + 1),
                     SCREEN_HEIGHT - backgroundUpLayer0.get(i).getRegionHeight()));
 
-            System.out.println("DLPositionX: " + downLayerPosition.get(i).x + " Pos " + i +" R_width " + backgroundDownLayer0.get(i).getRegionWidth() +
-                    "SC_width" + SCREEN_WIDTH);
+            /*System.out.println("DLPositionX: " + downLayerPosition.get(i).x + " Pos " + i +" R_width " + backgroundDownLayer0.get(i).getRegionWidth() +
+                    "SC_width" + SCREEN_WIDTH);*/
         }
-        System.out.println("PART_COUNT: " + PART_COUNT);
+        //System.out.println("PART_COUNT: " + PART_COUNT);
 
     }
 

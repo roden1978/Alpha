@@ -1,13 +1,7 @@
 package com.gdx.alpha.game;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.gdx.alpha.effects.HitParticleEffect;
-import com.gdx.alpha.entitys.Axe;
 import com.gdx.alpha.entitys.Bacteriophage;
 import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.ScoreCloud;
@@ -125,6 +119,7 @@ public class CollisionDetector {
                     if (playerRect.contains(bacRect) || playerRect.overlaps(bacRect)) {
                         interactionManager.useBacteriophage(i);
                         gameManager.getBacteriophages().get(i).remove();
+                        System.out.println("Collision player bacter array size: " + gameManager.getBacteriophages().size);
                         bacRemoved = gameManager.getBacteriophages().removeIndex(i);
                         bacRemoved = null;
                     }
@@ -145,6 +140,7 @@ public class CollisionDetector {
                             if (enemyRect.overlaps(bacRect) || enemyRect.contains(bacRect)) {
                                 gameManager.getEnemies().get(j).remove();
                                 gameManager.getBacteriophages().get(i).remove();
+                                System.out.println("Collision enemy bacter array size: " + gameManager.getBacteriophages().size);
                                 deleteBac = i;
                                 overlap = true;
                                 interactionManager.createParticleEffectBlow(j);
