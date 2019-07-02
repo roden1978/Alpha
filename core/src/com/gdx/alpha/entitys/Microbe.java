@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * Класс "Микроб" родительский класс для сущностей вирус и бактерия
+ * Класс "Микроб" родительский класс для сущностей вирус, бактерия и кондом
  * вирусы умеют срелять себе подобными, но не умеют размножаться
  * бактерии умеют размножаться, но не умеют срелять
  * Created by Ro|)e|\| on 31.01.2015.
@@ -30,9 +30,10 @@ public class Microbe extends Actor {
     }
 
     Microbe(Vector2 position, float speed){
+        //super(position,speed);
         this.position = position;
         this.speed = speed;
-        bound = new Bounds(0,0,0,0);
+        this.bound = new Bounds(0,0,0,0);
         this.health = 0;
         this.price = 0;
         this.bulletsArray = new Array<VirusBullet>();
@@ -50,15 +51,15 @@ public class Microbe extends Actor {
     }
 //получение позиции микроба
     public Vector2 getPosition(){
-        return position;
+        return this.position;
     }
 
     public float getPositionX(){
-        return position.x;
+        return this.position.x;
     }
 
     public float getPositionY(){
-        return position.y;
+        return this.position.y;
     }
 
     public void setSpeed(float speed){
@@ -69,17 +70,21 @@ public class Microbe extends Actor {
     public boolean remove() {
         return super.remove();
     }
+
     public void changeHealth(int value){
         this.health -= value;
     }
+
     public void setHealth(int health){
         this.health = health;
     }
-    public int getHealth(){return health;}
+
+    public int getHealth(){return this.health;}
 
     public Array<VirusBullet> getBulletsArray(){
         return bulletsArray;
     }
+
     public Bounds getBound(){
         return bound;
     }

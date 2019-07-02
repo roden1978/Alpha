@@ -45,21 +45,21 @@ public class Virus extends Microbe {
         this.virusBound = new Bounds(this.position.x, this.position.y, boundWidth, boundHeight);
         this.lifeScale = new LifeScale(lifeScaleAtlas,position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
                 position.y + boundHeight,lifeScaleAtlas.findRegion("green").getRegionWidth());
-        maxHealth = health;
-        entity = "v";
+        this.maxHealth = health;
+        this.entity = "v";
     }
 
     private void init(){
-        intervalDelta = 0.0f;
-        bulletsArray = new Array<VirusBullet>();
+        this.intervalDelta = 0.0f;
+        this.bulletsArray = new Array<VirusBullet>();
         setVirusParameters(weight);
         setVirusTextureRegions(weight);
     }
 
     private void shot(float delta){
-        intervalDelta += delta;
+        this.intervalDelta += delta;
 
-        if (intervalDelta > interval){//изменить тип пуль
+        if (this.intervalDelta > this.interval){//изменить тип пуль
             VirusBullet bullet = new VirusBullet(this.virus_type, new Vector2(player.getPositionX(),
                     player.getPositionY() + player.getSpriteRegionHeight() / 2.0f), bulletTextureAtlas);
             bullet.setPosition(position.x + virusTextureRegion.getRegionWidth(),
@@ -67,7 +67,7 @@ public class Virus extends Microbe {
             bullet.setSpeed(interval * 8.0f);
             bullet.updateAngel();
             bulletsArray.add(bullet);
-            intervalDelta = 0.0f;
+            this.intervalDelta = 0.0f;
             //System.out.println("X: "+bullet.getPositionX()  + " Y: " + bullet.getPositionY() + " size " + bulletsArray.size);
         }
     }
@@ -89,7 +89,7 @@ public class Virus extends Microbe {
         if (degree < -359.0f)
             degree = 0.0f;
         degree -=5.0f;
-        virusBound.update(position.x, position.y, boundWidth, boundHeight);
+        virusBound.update(this.position.x, this.position.y, this.boundWidth, this.boundHeight);
         lifeScale.setWidth(33.0f*health/maxHealth);
         lifeScale.setPosition(position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
                 position.y + boundHeight);
@@ -97,17 +97,17 @@ public class Virus extends Microbe {
 
     @Override
     public Bounds getBound() {
-        return virusBound;
+        return this.virusBound;
     }
 
     @Override
     public Array<VirusBullet> getBulletsArray() {
-        return bulletsArray;
+        return this.bulletsArray;
     }
 
     @Override
     public Vector2 getPosition() {
-        return position;
+        return this.position;
     }
 
     @Override

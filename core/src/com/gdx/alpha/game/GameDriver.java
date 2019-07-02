@@ -248,16 +248,16 @@ public class GameDriver {
         //вводим массив сперматозоидов для дальнейшей обработки
         for (int i = 0; i < gameManager.getSprinkle().getSpermArray().size; i++){
             if (gameManager.getSprinkle().getSpermArray().get(i) != null){
-                gameManager.sperms.add(gameManager.getSprinkle().getSpermArray().get(i));
+                gameManager.getSperms().add(gameManager.getSprinkle().getSpermArray().get(i));
             }
         }
         gameManager.getSprinkle().getSpermArray().clear();
         //выводим массив сперматозоидов на игровую сцену
-        gameManager.setSpermAmount(gameManager.sperms.size);
+        gameManager.setSpermAmount(gameManager.getSperms().size);
         gameManager.updateSpermAmount();
-        for (int i = 0; i < gameManager.sperms.size; i++){
-            if (gameManager.sperms.get(i) != null){
-                gameManager.getGroupLayer0().addActorAfter(gameManager.player, gameManager.sperms.get(i));
+        for (int i = 0; i < gameManager.getSperms().size; i++){
+            if (gameManager.getSperms().get(i) != null){
+                gameManager.getGroupLayer0().addActorAfter(gameManager.player, gameManager.getSperms().get(i));
                 //gameScreen.getGameStage().addActor(gameManager.getGroupLayer0());///////////////////////////////////////
             }
         }
@@ -310,11 +310,6 @@ public class GameDriver {
     }
     private void controlLifeScale(){
         if (gameManager.player.getLifeCount() == 0){
-/*
-            System.out.println("Z index player" + gameManager.player.getZIndex());
-            for (int i = 0; i < gameManager.sperms.size; i++){
-                System.out.println("Z index " + gameManager.sperms.get(i).getZIndex());
-            }*/
             gameScreen.setGameState(4);
         } //Game over
     }
@@ -326,11 +321,10 @@ public class GameDriver {
     }
     private void addOvumToGame(){
         if (gameManager.getOvum() != null){
-            for (int i = 0; i < gameManager.sperms.size; i++){
-                if (gameManager.sperms.get(i).getPositionX() <= gameScreen.getGameStage().getWidth() -
+            for (int i = 0; i < gameManager.getSperms().size; i++){
+                if (gameManager.getSperms().get(i).getPositionX() <= gameScreen.getGameStage().getWidth() -
                         (gameScreen.getGameStage().getWidth()/3.0f)*2.0f)
                     gameScreen.getGameStage().addActor(gameManager.getOvum());
-
             }
         }
     }

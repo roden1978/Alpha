@@ -124,9 +124,6 @@ public class CollisionDetector {
                     bacRect = gameManager.getBacteriophages().get(i).getBound().getBox();
                     if (playerRect.contains(bacRect) || playerRect.overlaps(bacRect)) {
                         interactionManager.useBacteriophage(i);
-                        //gameManager.player.setHealth(gameManager.player.getHealth() + gameManager.bacteriophages.get(i).health);
-                       /* if (gameManager.player.getHealth() > 300)
-                            gameManager.player.setHealth(300);*/
                         gameManager.getBacteriophages().get(i).remove();
                         bacRemoved = gameManager.getBacteriophages().removeIndex(i);
                         bacRemoved = null;
@@ -199,7 +196,7 @@ public class CollisionDetector {
                                     interactionManager.createScoreCloudToEnemies(i);
                                     //Добавление бактериофага в игру
                                     //if (interactionManager.randomizeBacteriophages(i) != null)
-                                    gameManager.getBacteriophages().add(interactionManager.randomizeBacteriophages(gameManager.getEnemies().get(i)));
+                                    gameManager.getBacteriophages().add(interactionManager.randomizeBacteriophages(i));
                                     //Удаляем текущего врага из массива врагов
                                     gameManager.getEnemies().get(i).remove();
                                     overlap = true;
@@ -253,10 +250,10 @@ public class CollisionDetector {
     }
 
     public void detectSpermCollisions() {
-        for (int i = 0; i < gameManager.sperms.size; i++) {
+        for (int i = 0; i < gameManager.getSperms().size; i++) {
             for (int j = 0; j < gameManager.getEnemies().size; j++) {
-                if (gameManager.sperms.get(i) != null && gameManager.getEnemies().get(j) != null) {
-                    spermRect = gameManager.sperms.get(i).getBound().getBox();
+                if (gameManager.getSperms().get(i) != null && gameManager.getEnemies().get(j) != null) {
+                    spermRect = gameManager.getSperms().get(i).getBound().getBox();
                     enemyRect = gameManager.getEnemies().get(j).getBound().getBox();
                     if (enemyRect.contains(spermRect) || enemyRect.overlaps(spermRect)) {
                         //Выводим эффект взрыва
@@ -264,7 +261,7 @@ public class CollisionDetector {
                        //Создаем облако очков для сперм
                         interactionManager.createScoreCloudToSperms(i);
                         //Удаляем сперматозоида
-                        gameManager.sperms.get(i).remove();
+                        gameManager.getSperms().get(i).remove();
                         //уменьшаем счетчик прерм
                         gameManager.setSpermAmount(gameManager.getSpermAmount() - 1);
                         //Обновляем счетчик сперм
@@ -279,19 +276,19 @@ public class CollisionDetector {
                 }
             }
         }
-        if (overlap && gameManager.sperms.size > 0 && deleteSperm != -1) {
-            removedSperm = gameManager.sperms.removeIndex(deleteSperm);
+        if (overlap && gameManager.getSperms().size > 0 && deleteSperm != -1) {
+            removedSperm = gameManager.getSperms().removeIndex(deleteSperm);
             removedSperm = null;
         }
         deleteSperm = -1;
     }
 
     public void detectOvumSpermsCollisions(){
-        if (gameManager.sperms.size > 0 && gameManager.getOvumEffectStart() == false) {
-            for (int i = 0; i < gameManager.sperms.size; i++) {
-                if (gameManager.getOvum() != null && gameManager.sperms.get(i) != null) {
+        if (gameManager.getSperms().size > 0 && gameManager.getOvumEffectStart() == false) {
+            for (int i = 0; i < gameManager.getSperms().size; i++) {
+                if (gameManager.getOvum() != null && gameManager.getSperms().get(i) != null) {
                     ovumRect = gameManager.getOvum().getBound().getBox();
-                    spermRect = gameManager.sperms.get(i).getBound().getBox();
+                    spermRect = gameManager.getSperms().get(i).getBound().getBox();
                     if (ovumRect.contains(spermRect) || ovumRect.overlaps(spermRect)) {
                        /* hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.ovum_effect), 5.0f);
                         hitParticleEffect.setPositionEffect(gameManager.sperms.get(i).getPositionX() + spermRect.getWidth() / 2,

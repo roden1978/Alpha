@@ -38,9 +38,9 @@ public class Condom extends Microbe {
         this.lifeScale = new LifeScale(lifeScaleAtlas,this.position.x + this.condomBoundWidth/2.0f - this.lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
                 position.y + this.condomBoundHeight, this.lifeScaleAtlas.findRegion("green").getRegionWidth());
         setPrice(200);
-        setHealth(150);
+        setHealth(120);
         maxHealth = health;
-        entity = "c";
+        this.entity = "c";
     }
 
     @Override

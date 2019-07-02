@@ -22,34 +22,39 @@ class InteractionManager {
         System.out.println("InteractionManager create");
     }
     //Ввад в игру бактериофага со случайными свойтвами
-    Bacteriophage randomizeBacteriophages(Microbe enemy) {
-        if (MathUtils.random(100) > 85 && enemy.getEntity().equals("v")) { //////////////////////
-            //bacteriophage=null;
-            int weapon_type_bacteriophage = MathUtils.random(0, 3); //////////////
+    Bacteriophage randomizeBacteriophages(Integer i) {
+        if (MathUtils.random(100) > 85 && gameManager.getEnemies().get(i).getEntity().equals("v")) { //////////////////////
+            int weapon_type_bacteriophage;
+            if (gameManager.getLevel() < 5)
+                 weapon_type_bacteriophage = MathUtils.random(0, 1); //////////////
+            else
+                weapon_type_bacteriophage = MathUtils.random(0, 3);
+
             //System.out.println("Weapon type: "+ weapon_type_bacteriophage);
             switch (weapon_type_bacteriophage) {
                 case 0:
-                    bacteriophage = new Bacteriophage(new Vector2(enemy.getPosition()),
+                    bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
                             0.0f, gameManager.bacteriophageAtlas, "h001",0);
-                    System.out.println("Pos Bacteriophage + X: "+ enemy.getPosition().x +" Y: " + enemy.getPosition().y);
+                    System.out.println("Pos Bacteriophage + X: "+ gameManager.getEnemies().get(i).getPosition().x +" Y: " + gameManager.getEnemies().get(i).getPosition().y);
                     break;
                 case 1:
-                    bacteriophage = new Bacteriophage(new Vector2(enemy.getPosition()),
+                    bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
                             0.0f, gameManager.bacteriophage_weapon_maceAtlas, "m001",1);
-                    System.out.println("Pos Bacteriophage mace X: "+ enemy.getPosition().x +" Y: " + enemy.getPosition().y);
+                    System.out.println("Pos Bacteriophage mace X: "+ gameManager.getEnemies().get(i).getPosition().x +" Y: " + gameManager.getEnemies().get(i).getPosition().y);
                     break;
                 case 2:
-                    bacteriophage = new Bacteriophage(new Vector2(enemy.getPosition()),
+                    bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
                             0.0f, gameManager.bacteriophage_weapon_stoneAtlas, "s001",2);
-                    System.out.println("Pos Bacteriophage stone X: "+ enemy.getPosition().x +" Y: " + enemy.getPosition().y);
+                    System.out.println("Pos Bacteriophage stone X: "+ gameManager.getEnemies().get(i).getPosition().x +" Y: " + gameManager.getEnemies().get(i).getPosition().y);
                     break;
                 case 3:
-                    bacteriophage = new Bacteriophage(new Vector2(enemy.getPosition()),
+                    bacteriophage = new Bacteriophage(new Vector2(gameManager.getEnemies().get(i).getPosition()),
                             0.0f, gameManager.getBacteriophage_weapon_cudgelAtlas(), "000",3);
-                    System.out.println("Pos Bacteriophage cudgel X: "+ enemy.getPosition().x +" Y: " + enemy.getPosition().y);
+                    System.out.println("Pos Bacteriophage cudgel X: "+ gameManager.getEnemies().get(i).getPosition().x +" Y: " + gameManager.getEnemies().get(i).getPosition().y);
                     break;
 
             }
+            System.out.println("Weapon type: "+ weapon_type_bacteriophage);
         }
         return bacteriophage;
     }
@@ -94,8 +99,8 @@ class InteractionManager {
     //Создаем эффукт столкновения с яйцк
     void createParticleEffectOvum(){
         hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.ovum_effect), 3.0f);
-        hitParticleEffect.setPositionEffect(gameManager.getOvum().getPositionX() + gameManager.getOvum().getWidth(),
-                gameManager.getOvum().getPositionY() - gameManager.getOvum().getHeight() / 2);
+        hitParticleEffect.setPositionEffect(gameManager.getOvum().getPosition().x + gameManager.getOvum().getBoundWidth(),
+                gameManager.getOvum().getPosition().y + gameManager.getOvum().getBoundHeight() / 2);
         gameManager.hitParticleEffectArray.add(hitParticleEffect);
         gameManager.setOvumEffectStart(true);
     }
@@ -142,8 +147,8 @@ class InteractionManager {
     }
     //Создание облака очков для сперм
     void createScoreCloudToSperms(Integer i){
-        scoreCloud = new ScoreCloud(new Vector2(gameManager.sperms.get(i).getPositionX() + gameManager.sperms.get(i).getBound().getBox().getWidth()/2,
-                gameManager.sperms.get(i).getPositionY() + gameManager.sperms.get(i).getBound().getBox().getHeight()/2),
+        scoreCloud = new ScoreCloud(new Vector2(gameManager.getSperms().get(i).getPositionX() + gameManager.getSperms().get(i).getBound().getBox().getWidth()/2,
+                gameManager.getSperms().get(i).getPositionY() + gameManager.getSperms().get(i).getBound().getBox().getHeight()/2),
                 gameManager.fontScoreCloudRed, 1,false);
         gameManager.scoreCloudArray.add(scoreCloud);
     }

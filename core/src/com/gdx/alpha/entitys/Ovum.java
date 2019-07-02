@@ -22,30 +22,30 @@ public class Ovum extends Actor{
     private float boundHeight;
 
     public Ovum(TextureAtlas ovumAtlas){
-        position = new Vector2(-256.0f,Gdx.graphics.getHeight()/2 - 128);
-        stateTime = 0.0f;
-        speed = 0.1f;
+        this.position = new Vector2(-256.0f,Gdx.graphics.getHeight()/2 - 128);
+        this.stateTime = 0.0f;
+        this.speed = 0.1f;
         this.ovumAtlas = ovumAtlas;
-        boundWidth = ovumAtlas.findRegion("ovum").getRegionWidth();
-        boundHeight = ovumAtlas.findRegion("ovum").getRegionHeight();
-        sprite = new TextureRegion(ovumAtlas.findRegion("ovum"));
-        ovumBound = new Bounds(position.x, position.y, boundWidth, boundHeight);
+        this.boundWidth = ovumAtlas.findRegion("ovum").getRegionWidth();
+        this.boundHeight = ovumAtlas.findRegion("ovum").getRegionHeight();
+        this.sprite = new TextureRegion(ovumAtlas.findRegion("ovum"));
+        this.ovumBound = new Bounds(this.position.x, this.position.y, this.boundWidth, this.boundHeight);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.draw(sprite,position.x,position.y);
+        batch.draw(this.sprite, this.position.x, this.position.y);
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
-        position.x += speed;
-        ovumBound.update(position.x, position.y, boundWidth, boundHeight);
-        stateTime += delta;
-        if (position.x  >= 0)
-            speed = 0.0f;
+        this.position.x += speed;
+        this.ovumBound.update(this.position.x, this.position.y, this.boundWidth, this.boundHeight);
+        this.stateTime += delta;
+        if (this.position.x  >= 0)
+            this.speed = 0.0f;
     }
 
     public void setPosition(Vector2 position){
@@ -56,16 +56,24 @@ public class Ovum extends Actor{
         this.position.y = y;
     }
     public Vector2 getPosition(){
-        return position;
+        return this.position;
     }
     public float getPositionX(){
-        return position.x;
+        return this.position.x;
     }
     public float getPositionY(){
-        return position.y;
+        return this.position.y;
     }
 
     public Bounds getBound(){
-        return ovumBound;
+        return this.ovumBound;
+    }
+
+    public float getBoundWidth() {
+        return this.boundWidth;
+    }
+
+    public float getBoundHeight() {
+        return this.boundHeight;
     }
 }

@@ -91,7 +91,7 @@ public class GameManager {
     //массив брошеных топоров игрока
     public Array<Weapon> weapons;
     //массив сперматозоидов
-    public Array<Sperm> sperms;
+    private Array<Sperm> sperms;
     //массив бактериофагов
     private Array<Bacteriophage> bacteriophages;
     //объект "Яйцеклетка"
@@ -391,5 +391,13 @@ public class GameManager {
 
     public Group getGroupLayer0() {
         return groupLayer0;
+    }
+
+    public Array<Sperm> getSperms() {
+        return sperms;
+    }
+
+    public int getLevel() {
+        return level;
     }
 }//end of class
