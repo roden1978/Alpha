@@ -322,7 +322,7 @@ public class CollisionDetector {
                     if (playerRect.overlaps(bonusRect) || playerRect.contains(bonusRect)) {
 
                         //Создаем эффект взрыва от столкновения игрока с бонусным предметом
-                        //interactionManager.createParticleEffectBlow(i);
+                        interactionManager.createParticleEffectBonus(i);
                         //Изменение уровня жизни игрока от столкновения с врагом
                         interactionManager.changePlayerLifeCount();
                      /*   //Создаем облако очков от столкновения игрока с врагом

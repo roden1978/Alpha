@@ -81,6 +81,7 @@ public class GameManager {
     public ParticleEffect blow_small;
     public ParticleEffect hit;
     public ParticleEffect ovum_effect;
+    public ParticleEffect bonusEffect;
     //массив части hit (столкновение оружия с врагом)
     public Array<HitParticleEffect> hitParticleEffectArray;
 
@@ -230,6 +231,8 @@ public class GameManager {
         hit.load(Gdx.files.internal("effects/hit"), Gdx.files.internal("effects"));
         ovum_effect = new ParticleEffect();
         ovum_effect.load(Gdx.files.internal("effects/ovum"), Gdx.files.internal("effects"));
+        bonusEffect = new ParticleEffect();
+        bonusEffect.load(Gdx.files.internal("effects/life"), Gdx.files.internal("effects"));
         fontScoreCloudRed = new BitmapFont(Gdx.files.internal("font/font_red_32.fnt"));
         fontScoreCloudGreen = new BitmapFont(Gdx.files.internal("font/font_green_32.fnt"));
         lifeAtlas = new TextureAtlas(Gdx.files.internal("uiGame/lifescale.pack"));

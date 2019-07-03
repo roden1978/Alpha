@@ -4,19 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class BonusLife extends BonusItems {
 
     private TextureRegion textureRegion;
     private Vector2 position;
-    //private Bounds bonusLifeBound;
 
     public BonusLife(TextureRegion textureRegion) {
-        super(textureRegion);
+       // super(textureRegion);
         this.textureRegion = textureRegion;
-        this.position = new Vector2(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight());
-        bonusItemsBound = new Bounds(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight(), textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
+        this.position = new Vector2(Gdx.graphics.getWidth()/4.0f, Gdx.graphics.getHeight());
+        bonusItemsBound = new Bounds(Gdx.graphics.getWidth()/4.0f, Gdx.graphics.getHeight(), textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
     }
 
     @Override
@@ -36,10 +34,6 @@ public class BonusLife extends BonusItems {
 
         bonusItemsBound.update(this.position.x, this.position.y, this.textureRegion.getRegionWidth(), this.textureRegion.getRegionHeight());
     }
-
-   /* public Bounds getBonusItemBound() {
-        return bonusItemsBound;
-    }*/
 
     public Vector2 getPosition() {return this.position;}
 }

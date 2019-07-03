@@ -105,6 +105,14 @@ class InteractionManager {
         gameManager.hitParticleEffectArray.add(hitParticleEffect);
         gameManager.setOvumEffectStart(true);
     }
+    //Создаем эффект столкновения с бонусным предметом
+    void createParticleEffectBonus(int i){
+        hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.bonusEffect), 0.5f);
+        hitParticleEffect.setPositionEffect(gameManager.getBonusItemsArray().get(i).getPosition().x + gameManager.getBonusItemsArray().get(i).getBonusItemsBound().getBox().getWidth(),
+                gameManager.getBonusItemsArray().get(i).getPosition().y + gameManager.getBonusItemsArray().get(i).getBonusItemsBound().getBox().getWidth() / 2);
+        gameManager.hitParticleEffectArray.add(hitParticleEffect);
+        //gameManager.setOvumEffectStart(true);
+    }
 
     //Изменение уровня жизни игрока от столкновения с пулями
     void changePlayerHealthBullets(Integer i){
