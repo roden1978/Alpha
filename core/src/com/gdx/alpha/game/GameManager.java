@@ -18,6 +18,7 @@ import com.gdx.alpha.effects.HitParticleEffect;
 import com.gdx.alpha.entitys.BacteriasColony;
 import com.gdx.alpha.entitys.Bacteriophage;
 import com.gdx.alpha.entitys.Bacterium;
+import com.gdx.alpha.entitys.BonusItems;
 import com.gdx.alpha.entitys.BonusLife;
 import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.Ovum;
@@ -113,7 +114,7 @@ public class GameManager {
     //поросенок
     private Pig pig;
     //Массив Бонусных предметов
-    private Array<BonusLife> bonusItemsArray;
+    private Array<BonusItems> bonusItemsArray;
     //движущийся фон игры
     private ParallaxBackgroundLayer00 backgroundLayer00;
     private ParallaxBackgroundLayer01 backgroundLayer01;
@@ -164,7 +165,7 @@ public class GameManager {
         bacteriophages = new Array<Bacteriophage>(10);
         colonys = new Array<BacteriasColony>(10);
         condomAtlasesArray = new Array<TextureAtlas>(10);
-        bonusItemsArray = new Array<BonusLife>(10);
+        bonusItemsArray = new Array<BonusItems>(10);
 
         hitParticleEffectArray = new Array<HitParticleEffect>(10);
         scoreCloudArray = new Array<ScoreCloud>(10);
@@ -414,9 +415,7 @@ public class GameManager {
 
     public Pig getPig (){return pig;}
 
-    public Array<BonusLife> getBonusItemsArray() {
-        return bonusItemsArray;
-    }
+    public Array<BonusItems> getBonusItemsArray() {return bonusItemsArray;}
 
     public TextureAtlas getBonusTextureAtlas() {
         return bonusTextureAtlas;

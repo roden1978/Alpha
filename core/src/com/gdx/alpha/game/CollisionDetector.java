@@ -3,6 +3,7 @@ package com.gdx.alpha.game;
 import com.badlogic.gdx.math.Rectangle;
 import com.gdx.alpha.effects.HitParticleEffect;
 import com.gdx.alpha.entitys.Bacteriophage;
+import com.gdx.alpha.entitys.BonusItems;
 import com.gdx.alpha.entitys.BonusLife;
 import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.ScoreCloud;
@@ -18,7 +19,7 @@ public class CollisionDetector {
     private GameManager gameManager;
     private InteractionManager interactionManager;
     private Microbe removedMicrobe;
-    private BonusLife removeBonusLife;
+    private BonusItems removeBonusItem;
     private VirusBullet removedBullet;
     private Weapon removedWeapon;
     private Sperm removedSperm;
@@ -61,7 +62,7 @@ public class CollisionDetector {
         removedSperm = null;
         removedIndex = null;
         bacRemoved = null;
-        removeBonusLife = null;
+        removeBonusItem = null;
 
         deleteAxe = -1;
         deleteMicrobe = -1;
@@ -312,12 +313,12 @@ public class CollisionDetector {
     }
 
     public void detectPlayerBonusItemsCollisions(){
-        //обработка столкновений игрока с врагами
+        //обработка столкновений игрока с бонусными предметами
         if (gameManager.getBonusItemsArray().size > 0) {
             for (int i = 0; i < gameManager.getBonusItemsArray().size; i++) {
                 if (gameManager.player != null && gameManager.getBonusItemsArray().get(i) != null) {
                     playerRect = gameManager.player.getBound().getBox();
-                    bonusRect = gameManager.getBonusItemsArray().get(i).getBonusLifeBound().getBox();
+                    bonusRect = gameManager.getBonusItemsArray().get(i).getBonusItemsBound().getBox();
                     if (playerRect.overlaps(bonusRect) || playerRect.contains(bonusRect)) {
 
                         //Создаем эффект взрыва от столкновения игрока с бонусным предметом
@@ -328,8 +329,8 @@ public class CollisionDetector {
                         interactionManager.createScoreCloudToPlayer(i);*/
 
                         gameManager.getBonusItemsArray().get(i).remove();
-                        removeBonusLife = gameManager.getBonusItemsArray().removeIndex(i);
-                        removeBonusLife = null;
+                        removeBonusItem = gameManager.getBonusItemsArray().removeIndex(i);
+                        removeBonusItem = null;
                     }
                 }
             }

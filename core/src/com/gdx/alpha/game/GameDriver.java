@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.gdx.alpha.effects.HitParticleEffect;
 import com.gdx.alpha.entitys.BacteriasColony;
+import com.gdx.alpha.entitys.BonusItems;
 import com.gdx.alpha.entitys.BonusLife;
 import com.gdx.alpha.entitys.Condom;
 import com.gdx.alpha.entitys.Microbe;
@@ -26,6 +27,7 @@ public class GameDriver {
     private InteractionManager interactionManager;
     private AudioManager audioManager;
     private Actor removedActor;
+    private BonusItems removedBonusItem;
     private Weapon removedAxe;
     private Float removedTime;
     private HitParticleEffect removedHPE;
@@ -104,6 +106,7 @@ public class GameDriver {
         controlLifeScale();
         controlLevelEnd();
         controlBonusLife();
+        controlBonusItemPosition();
         /*Запуск задержки для отрисовки ovum_effect и выходом на экран с выбором уровня
         * */
         if(gameManager.getOvumEffectStart())
@@ -363,6 +366,24 @@ public class GameDriver {
         for (int i = 0; i < gameManager.getBonusItemsArray().size; i++) {
             if (gameManager.getBonusItemsArray().get(i) != null) {
                 gameScreen.getGameStage().addActor(gameManager.getBonusItemsArray().get(i));
+            }
+        }
+    }
+
+    private void controlBonusItemPosition(){
+        //отслеживание позиции бонусных предметов и удаление их со сцены если они вышли за пределы экрана
+        for (int i = 0; i < gameManager.getBonusItemsArray().size; i++){
+            if (gameManager.getBonusItemsArray().get(i) != null){
+                if (gameManager.getBonusItemsArray().get(i).getPosition().x > gameScreen.getGameStage().getWidth()
+                        || gameManager.getBonusItemsArray().get(i).getPosition().x  < 0
+                        || gameManager.getBonusItemsArray().get(i).getPosition().y > gameScreen.getGameStage().getHeight()
+                        || gameManager.getBonusItemsArray().get(i).getPosition().y < 0) {
+                    if (gameManager.getBonusItemsArray().get(i).remove()) {              //удаляем объект(Actor) с индексом i из сцены
+                        removedBonusItem = gameManager.getBonusItemsArray().removeIndex(i);  //удаляет объект с индексом i из массива и возвращает объект
+                        removedBonusItem = null; // присваиваем объекту null чтобы его уничтожил сборщик мусора (в Java не нужно самому удалять объекты из памяти)
+                        //такой принцип применяем для всех игровых объектов
+                    }
+                }
             }
         }
     }
