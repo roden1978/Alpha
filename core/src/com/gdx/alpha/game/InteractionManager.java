@@ -181,5 +181,9 @@ class InteractionManager {
         System.out.println("UseBacter array size interact manager: "+ gameManager.getBacteriophages().size);
     }
 
+    public void changePlayerLifeCount(){
+        if (gameManager.player.getLifeCount() < 3)
+            gameManager.player.setLifeCount(gameManager.player.getLifeCount() + 1);
+    }
 
 }//end of class

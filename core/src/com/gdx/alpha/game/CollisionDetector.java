@@ -3,6 +3,7 @@ package com.gdx.alpha.game;
 import com.badlogic.gdx.math.Rectangle;
 import com.gdx.alpha.effects.HitParticleEffect;
 import com.gdx.alpha.entitys.Bacteriophage;
+import com.gdx.alpha.entitys.BonusLife;
 import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.ScoreCloud;
 import com.gdx.alpha.entitys.Sperm;
@@ -17,6 +18,7 @@ public class CollisionDetector {
     private GameManager gameManager;
     private InteractionManager interactionManager;
     private Microbe removedMicrobe;
+    private BonusLife removeBonusLife;
     private VirusBullet removedBullet;
     private Weapon removedWeapon;
     private Sperm removedSperm;
@@ -40,12 +42,14 @@ public class CollisionDetector {
     private Rectangle spermRect;
     private Rectangle bacRect;
     private Rectangle ovumRect;
+    private Rectangle bonusRect;
 
     CollisionDetector(GameManager gameManager, InteractionManager interactionManager) {
         this.gameManager = gameManager;
         this.interactionManager = interactionManager;
         playerRect = new Rectangle();
         enemyRect = new Rectangle();
+        bonusRect = new Rectangle();
         bulletRect = new Rectangle();
         weaponRect = new Rectangle();
         spermRect = new Rectangle();
@@ -57,6 +61,7 @@ public class CollisionDetector {
         removedSperm = null;
         removedIndex = null;
         bacRemoved = null;
+        removeBonusLife = null;
 
         deleteAxe = -1;
         deleteMicrobe = -1;
@@ -303,6 +308,31 @@ public class CollisionDetector {
         if (gameManager.getDeltaTimeParticleEffect() < 0.0f){
             gameManager.setOvumEffectStart(false);
             gameManager.setLevelEnd(true);
+        }
+    }
+
+    public void detectPlayerBonusItemsCollisions(){
+        //обработка столкновений игрока с врагами
+        if (gameManager.getBonusItemsArray().size > 0) {
+            for (int i = 0; i < gameManager.getBonusItemsArray().size; i++) {
+                if (gameManager.player != null && gameManager.getBonusItemsArray().get(i) != null) {
+                    playerRect = gameManager.player.getBound().getBox();
+                    bonusRect = gameManager.getBonusItemsArray().get(i).getBonusLifeBound().getBox();
+                    if (playerRect.overlaps(bonusRect) || playerRect.contains(bonusRect)) {
+
+                        //Создаем эффект взрыва от столкновения игрока с бонусным предметом
+                        //interactionManager.createParticleEffectBlow(i);
+                        //Изменение уровня жизни игрока от столкновения с врагом
+                        interactionManager.changePlayerLifeCount();
+                     /*   //Создаем облако очков от столкновения игрока с врагом
+                        interactionManager.createScoreCloudToPlayer(i);*/
+
+                        gameManager.getBonusItemsArray().get(i).remove();
+                        removeBonusLife = gameManager.getBonusItemsArray().removeIndex(i);
+                        removeBonusLife = null;
+                    }
+                }
+            }
         }
     }
 }//end fo class

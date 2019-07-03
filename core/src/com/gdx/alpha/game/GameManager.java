@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -17,8 +18,10 @@ import com.gdx.alpha.effects.HitParticleEffect;
 import com.gdx.alpha.entitys.BacteriasColony;
 import com.gdx.alpha.entitys.Bacteriophage;
 import com.gdx.alpha.entitys.Bacterium;
+import com.gdx.alpha.entitys.BonusLife;
 import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.Ovum;
+import com.gdx.alpha.entitys.Pig;
 import com.gdx.alpha.entitys.Player;
 import com.gdx.alpha.entitys.ScoreCloud;
 import com.gdx.alpha.entitys.Sperm;
@@ -66,6 +69,9 @@ public class GameManager {
     private TextureAtlas lifeScaleAtlas;
     private TextureAtlas lifeCountAtlas;
 
+    //Текстурнык карты бонусных предметов
+    private TextureAtlas bonusTextureAtlas;
+
     //Текстурные карты кондомов
     private Array<TextureAtlas> condomAtlasesArray;
 
@@ -104,8 +110,10 @@ public class GameManager {
     private Array<BacteriasColony> colonys;
     //действие бросок оружия
     private Throw throwWeapon;
-    //бактериофаги
-    //public Bacteriophage bacteriophage;
+    //поросенок
+    private Pig pig;
+    //Массив Бонусных предметов
+    private Array<BonusLife> bonusItemsArray;
     //движущийся фон игры
     private ParallaxBackgroundLayer00 backgroundLayer00;
     private ParallaxBackgroundLayer01 backgroundLayer01;
@@ -155,7 +163,8 @@ public class GameManager {
         sperms = new Array<Sperm>(50);
         bacteriophages = new Array<Bacteriophage>(10);
         colonys = new Array<BacteriasColony>(10);
-        condomAtlasesArray = new Array<TextureAtlas>();
+        condomAtlasesArray = new Array<TextureAtlas>(10);
+        bonusItemsArray = new Array<BonusLife>(10);
 
         hitParticleEffectArray = new Array<HitParticleEffect>(10);
         scoreCloudArray = new Array<ScoreCloud>(10);
@@ -232,6 +241,7 @@ public class GameManager {
         lifeScaleAtlas = new TextureAtlas(Gdx.files.internal("uiGame/lifescale.pack"));
         lifeCountAtlas = new TextureAtlas(Gdx.files.internal("caveman/cm_life.pack"));
         bacteriumAtlas = new TextureAtlas(Gdx.files.internal("bacterias/bacteriums.pack"));
+        bonusTextureAtlas = new TextureAtlas(Gdx.files.internal("bonus/bonusItems.pack"));
         condomsTextureAtlasBuild();
     }
 
@@ -248,6 +258,7 @@ public class GameManager {
         backgroundLayer01 = new ParallaxBackgroundLayer01(backgroundAtlas);
         sprinkle = new Sprinkle(spermAtlas, koeff, level);
         ovum = new Ovum(ovumAtlas);
+        pig = new Pig(bonusTextureAtlas.findRegion("pig"));
     }
 
     void buildActions() {
@@ -399,5 +410,15 @@ public class GameManager {
 
     public int getLevel() {
         return level;
+    }
+
+    public Pig getPig (){return pig;}
+
+    public Array<BonusLife> getBonusItemsArray() {
+        return bonusItemsArray;
+    }
+
+    public TextureAtlas getBonusTextureAtlas() {
+        return bonusTextureAtlas;
     }
 }//end of class

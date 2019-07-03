@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.gdx.alpha.effects.HitParticleEffect;
 import com.gdx.alpha.entitys.BacteriasColony;
+import com.gdx.alpha.entitys.BonusLife;
 import com.gdx.alpha.entitys.Condom;
 import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.ScoreCloud;
@@ -34,6 +35,8 @@ public class GameDriver {
 
     private float gameTime = 0.0f;
 
+    private int preScoreCountPart = 0;
+
     public GameManager getGameManager() {
         return gameManager;
     }
@@ -53,10 +56,10 @@ public class GameDriver {
         gameManager.loadSources();
         //инициализируем игрока и каплю
         gameManager.buildGeneralPlayers();
-        //инициализируем и стартуем процесс бросания оружия
-        gameManager.buildActions();
         //инициализируем строку состояния игры
         gameManager.buildUiStateString();
+        //инициализируем и стартуем процесс бросания оружия
+        gameManager.buildActions();
         //Вкл/Выкл звук
         gameManager.setSoundOnOff(gameScreen.getScreenManager().getOnoff());
         System.out.println("GameDriver create");
@@ -77,6 +80,7 @@ public class GameDriver {
         addBacteriophageToGame();
         addOvumToGame();
         addBacteriumToGame();
+        addBonusItemsToGame();
         //---------------------------------------------------
 
         //Блок контроля столкновений и взаимодействия объектов
@@ -87,6 +91,7 @@ public class GameDriver {
         collisionDetector.detectBacteriophageEnemyCollisions();
         collisionDetector.detectOvumSpermsCollisions();
         collisionDetector.detectLevelEnd();
+        collisionDetector.detectPlayerBonusItemsCollisions();
         //----------------------------------------------------
 
         //Блок контроля нахождения объектов игрового процесса на игровой сцене
@@ -98,6 +103,7 @@ public class GameDriver {
         controlScoreCloud();
         controlLifeScale();
         controlLevelEnd();
+        controlBonusLife();
         /*Запуск задержки для отрисовки ovum_effect и выходом на экран с выбором уровня
         * */
         if(gameManager.getOvumEffectStart())
@@ -113,6 +119,7 @@ public class GameDriver {
         gameScreen.getGameStage().addActor(gameManager.getGroupLayer0());
 
         addSpermsToGame();
+        gameScreen.getGameStage().addActor(gameManager.getPig());
         gameManager.getGroupLayer0().addActor(gameManager.getThrowWeapon());
         gameManager.getGroupLayer0().addActor(gameManager.player);
     }
@@ -341,4 +348,22 @@ public class GameDriver {
         gameManager.setDeltaTimeParticleEffect(gameManager.getDeltaTimeParticleEffect() - delta);
     }
 
+    //Контроль количества очков для бонусной жизни
+    private void controlBonusLife(){
+        int bonusLifeScoreAmount = 1000;
+        if(preScoreCountPart < gameManager.getScoresAmount() / bonusLifeScoreAmount){
+            preScoreCountPart = gameManager.getScoresAmount() / bonusLifeScoreAmount;
+            gameManager.getPig().setIsDraw(true);
+            gameManager.getBonusItemsArray().add(new BonusLife(gameManager.getBonusTextureAtlas().findRegion("caveman")));
+        }
+    }
+
+    private void addBonusItemsToGame(){
+        //выводим бонусные предметы на сцену
+        for (int i = 0; i < gameManager.getBonusItemsArray().size; i++) {
+            if (gameManager.getBonusItemsArray().get(i) != null) {
+                gameScreen.getGameStage().addActor(gameManager.getBonusItemsArray().get(i));
+            }
+        }
+    }
 }

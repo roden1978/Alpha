@@ -1,0 +1,19 @@
+
+bonusItems.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+pig
+  rotate: false
+  xy: 1, 1
+  size: 130, 100
+  orig: 130, 100
+  offset: 0, 0
+  index: -1
+caveman
+  rotate: false
+  xy: 133, 1
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
