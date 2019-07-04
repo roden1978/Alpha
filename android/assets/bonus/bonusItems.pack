@@ -5,14 +5,35 @@ filter: Nearest,Nearest
 repeat: none
 pig
   rotate: false
-  xy: 1, 1
+  xy: 1, 103
   size: 130, 100
   orig: 130, 100
   offset: 0, 0
   index: -1
+coin
+  rotate: false
+  xy: 1, 1
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+skull
+  rotate: false
+  xy: 133, 103
+  size: 92, 100
+  orig: 92, 100
+  offset: 0, 0
+  index: -1
+alarmclock
+  rotate: false
+  xy: 103, 1
+  size: 70, 100
+  orig: 70, 100
+  offset: 0, 0
+  index: -1
 caveman
   rotate: false
-  xy: 133, 1
+  xy: 175, 1
   size: 50, 100
   orig: 50, 100
   offset: 0, 0

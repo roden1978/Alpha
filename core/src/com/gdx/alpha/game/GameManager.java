@@ -232,7 +232,7 @@ public class GameManager {
         ovum_effect = new ParticleEffect();
         ovum_effect.load(Gdx.files.internal("effects/ovum"), Gdx.files.internal("effects"));
         bonusEffect = new ParticleEffect();
-        bonusEffect.load(Gdx.files.internal("effects/life"), Gdx.files.internal("effects"));
+        bonusEffect.load(Gdx.files.internal("effects/bonus"), Gdx.files.internal("effects"));
         fontScoreCloudRed = new BitmapFont(Gdx.files.internal("font/font_red_32.fnt"));
         fontScoreCloudGreen = new BitmapFont(Gdx.files.internal("font/font_green_32.fnt"));
         lifeAtlas = new TextureAtlas(Gdx.files.internal("uiGame/lifescale.pack"));
@@ -288,11 +288,11 @@ public class GameManager {
     void buildUiStateString() {
         scoresAmount = 0;
         spermAmount = 0;
-        scoreCountLabel = new Label("SC:", textSkin, "style36");
-        spermCountLabel = new Label("SP:", textSkin, "style36");
+        scoreCountLabel = new Label("SCORE: ", textSkin, "style36");
+        spermCountLabel = new Label("SPERM: ", textSkin, "style36");
         //lifeCountLabel = new Label("LIFE:", textSkin, "style36");
         pauseImage = new Image(uiAtlas.findRegion("pause"));
-        //pauseImage.setScale(2.0f, 2.0f);
+        pauseImage.setScale(1.5f, 1.5f);
         spermLabel = new Label("000", textSkin, "style36");
         scoresLabel = new Label("000", textSkin, "style36");
         //создаем таблицу со строкой состояния
@@ -301,11 +301,11 @@ public class GameManager {
         uiTable.clear();
         uiTable.setFillParent(true);
         uiTable.top().left();
-        uiTable.add(pauseImage).left().spaceLeft(50).row();
+        uiTable.add(pauseImage).right().spaceRight(50);//.row();
         uiTable.add(scoreCountLabel).spaceLeft(50).right().spaceRight(10.0f);
-        uiTable.add(scoresLabel).row();
+        uiTable.add(scoresLabel);//.row();
         uiTable.add(spermCountLabel).spaceLeft(50).right().spaceRight(10.0f);
-        uiTable.add(spermLabel).row();
+        uiTable.add(spermLabel);//.row();
         //groupLayer1.addActor(uiTable);
     }
 

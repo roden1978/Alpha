@@ -324,7 +324,7 @@ public class CollisionDetector {
                         //Создаем эффект взрыва от столкновения игрока с бонусным предметом
                         interactionManager.createParticleEffectBonus(i);
                         //Изменение уровня жизни игрока от столкновения с врагом
-                        interactionManager.changePlayerLifeCount();
+                        interactionManager.usingBonusItems(i);
                      /*   //Создаем облако очков от столкновения игрока с врагом
                         interactionManager.createScoreCloudToPlayer(i);*/
 

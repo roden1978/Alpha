@@ -1,15 +1,19 @@
 package com.gdx.alpha.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.gdx.alpha.effects.HitParticleEffect;
+import com.gdx.alpha.entitys.AlarmClock;
 import com.gdx.alpha.entitys.BacteriasColony;
 import com.gdx.alpha.entitys.BonusItems;
 import com.gdx.alpha.entitys.BonusLife;
+import com.gdx.alpha.entitys.Coin;
 import com.gdx.alpha.entitys.Condom;
 import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.ScoreCloud;
+import com.gdx.alpha.entitys.Skull;
 import com.gdx.alpha.entitys.Virus;
 import com.gdx.alpha.entitys.VirusBullet;
 import com.gdx.alpha.entitys.Weapon;
@@ -38,6 +42,7 @@ public class GameDriver {
     private float gameTime = 0.0f;
 
     private int preScoreCountPart = 0;
+    private int preGameTime = 0;
 
     public GameManager getGameManager() {
         return gameManager;
@@ -107,6 +112,7 @@ public class GameDriver {
         controlLevelEnd();
         controlBonusLife();
         controlBonusItemPosition();
+        controlBonusItems(gameTime);
         /*Запуск задержки для отрисовки ovum_effect и выходом на экран с выбором уровня
         * */
         if(gameManager.getOvumEffectStart())
@@ -351,7 +357,7 @@ public class GameDriver {
         gameManager.setDeltaTimeParticleEffect(gameManager.getDeltaTimeParticleEffect() - delta);
     }
 
-    //Контроль количества очков для бонусной жизни
+    //Контроль количества очков для бонусной жизни////////////////////////////////////////////////////
     private void controlBonusLife(){
         int bonusLifeScoreAmount = 1000;
         if(preScoreCountPart < gameManager.getScoresAmount() / bonusLifeScoreAmount){
@@ -387,4 +393,24 @@ public class GameDriver {
             }
         }
     }
-}
+    //Контроль времени игры для вывода бонусных предметов
+    private void controlBonusItems(float gameTime){
+        if (preGameTime < (int)(gameTime / 17.0f)){
+            preGameTime = (int)(gameTime / 17.0f);
+            switch (MathUtils.random(0, 2)) {//MathUtils.random(0, 2)
+                case 0:
+                    gameManager.getBonusItemsArray().add(new Skull(gameManager.getBonusTextureAtlas().findRegion("skull")));
+                    gameManager.getPig().setIsDraw(true);
+                    break;
+                case 1:
+                    gameManager.getBonusItemsArray().add(new Coin(gameManager.getBonusTextureAtlas().findRegion("coin")));
+                    gameManager.getPig().setIsDraw(true);
+                    break;
+                case 2:
+                    gameManager.getBonusItemsArray().add(new AlarmClock(gameManager.getBonusTextureAtlas().findRegion("alarmclock")));
+                    gameManager.getPig().setIsDraw(true);
+                    break;
+            }
+        }
+    }
+}//end of class

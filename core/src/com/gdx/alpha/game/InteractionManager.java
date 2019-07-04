@@ -189,9 +189,44 @@ class InteractionManager {
         System.out.println("UseBacter array size interact manager: "+ gameManager.getBacteriophages().size);
     }
 
-    public void changePlayerLifeCount(){
+  /*  public void changePlayerLifeCount(){
         if (gameManager.player.getLifeCount() < 3)
             gameManager.player.setLifeCount(gameManager.player.getLifeCount() + 1);
+    }*/
+    //Использование бонусных предметов
+    void usingBonusItems(int i){
+        //Microbe itemRemoved;
+        switch (gameManager.getBonusItemsArray().get(i).getType()){
+            case 0: //Череп уничтожение всех врагов в игре
+                for (int j = 0; j < gameManager.getEnemies().size; j++){
+                    //Создаем еффект взрыва
+                   createParticleEffectBlow(j);
+                    //Изменяем счетчик очков на велечину вознаграждения за поражение врага
+                    changeScoreAmountUIEnemiesKill(j);
+                    //Выводим облако очков поражения врага
+                    createScoreCloudToEnemies(j);
+
+                    gameManager.getEnemies().get(j).remove();
+                    //System.out.println("Collision player bacter array size: " + gameManager.getBacteriophages().size);
+                    gameManager.getEnemies().removeIndex(j);
+                }
+                break;
+            case 1://Монета прибавление 5000 очков
+                gameManager.setScoresAmount(gameManager.getScoresAmount() + 5000);
+                break;
+            case 2:// Будилник замедление всех врагов в игре в 2 раза
+                for (int j = 0; j < gameManager.getEnemies().size; j++){
+                   gameManager.getEnemies().get(j).setSpeed(gameManager.getEnemies().get(j).getSpeed() / 2.0f);
+                   gameManager.getEnemies().get(j).setInterval(gameManager.getEnemies().get(j).getInterval() * 2.0f);
+                   gameManager.getEnemies().get(j).setPrice(gameManager.getEnemies().get(j).getPrice() * 2);
+                   gameManager.getEnemies().get(j).setKoeffVirusBulletSpeed(0.1f);
+                }
+                break;
+            case 3:
+                if (gameManager.player.getLifeCount() < 3)
+                    gameManager.player.setLifeCount(gameManager.player.getLifeCount() + 1);
+                break;
+        }
     }
 
 }//end of class

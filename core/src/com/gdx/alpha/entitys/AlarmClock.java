@@ -5,17 +5,17 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-public class BonusLife extends BonusItems {
+public class AlarmClock extends BonusItems {
 
     private TextureRegion textureRegion;
     private Vector2 position;
 
-    public BonusLife(TextureRegion textureRegion) {
+    public AlarmClock(TextureRegion textureRegion) {
        // super(textureRegion);
         this.textureRegion = textureRegion;
         this.position = new Vector2(Gdx.graphics.getWidth()/4.0f, Gdx.graphics.getHeight());
         bonusItemsBound = new Bounds(Gdx.graphics.getWidth()/4.0f, Gdx.graphics.getHeight(), textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
-        type = 3;
+        type = 2;
     }
 
     @Override

@@ -29,10 +29,13 @@ public class Virus extends Microbe {
     private float degree;
     private Integer virus_type;
     private Vector2 position;
+    private float speed;
+    private float koeffVirusBulletSpeed;
 
     public Virus(Vector2 position, float speed, int weight, Player player,
                   TextureAtlas virusTextureAtlas, TextureAtlas bulletTextureAtlas, TextureAtlas lifeScaleAtlas) {
         super(position, speed);
+        this.speed = speed;
         this.weight = weight;
         this.player = player;
         this.position = position;
@@ -47,6 +50,7 @@ public class Virus extends Microbe {
                 position.y + boundHeight,lifeScaleAtlas.findRegion("green").getRegionWidth());
         this.maxHealth = health;
         this.entity = "v";
+        koeffVirusBulletSpeed = 8.0f;
     }
 
     private void init(){
@@ -64,7 +68,7 @@ public class Virus extends Microbe {
                     player.getPositionY() + player.getSpriteRegionHeight() / 2.0f), bulletTextureAtlas);
             bullet.setPosition(position.x + virusTextureRegion.getRegionWidth(),
                     position.y + virusTextureRegion.getRegionWidth() / 2.0f - bullet.getWidth() / 2.0f);
-            bullet.setSpeed(interval * 8.0f);
+            bullet.setSpeed(interval * koeffVirusBulletSpeed);
             bullet.updateAngel();
             bulletsArray.add(bullet);
             this.intervalDelta = 0.0f;
@@ -392,4 +396,33 @@ public class Virus extends Microbe {
         }
     }
 
+    @Override
+    public float getInterval() {
+        return interval;
+    }
+
+    @Override
+    public void setInterval(float interval) {
+        this.interval = interval;
+    }
+
+    @Override
+    public void setSpeed(float speed) {
+        super.setSpeed(speed);
+    }
+
+    @Override
+    public float getSpeed() {
+        return super.getSpeed();
+    }
+
+    @Override
+    public float getKoeffVirusBulletSpeed() {
+        return super.getKoeffVirusBulletSpeed();
+    }
+
+    @Override
+    public void setKoeffVirusBulletSpeed(float koeffVirusBulletSpeed) {
+        super.setKoeffVirusBulletSpeed(koeffVirusBulletSpeed);
+    }
 }

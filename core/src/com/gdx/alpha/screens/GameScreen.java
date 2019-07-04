@@ -197,8 +197,8 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         //        " Y >: " + 0);
         //Отслеживание нажатия на кнопку пауза во время игрового процесса
         if (screenX > (int)gameDriver.getGameManager().pauseImage.getImageX() &&
-                screenX < (int)(gameStage.getWidth() - (gameStage.getWidth() - gameDriver.getGameManager().pauseImage.getImageWidth()))&&
-                screenY < (int)(gameStage.getHeight() - (gameStage.getHeight() - gameDriver.getGameManager().pauseImage.getImageHeight())) &&
+                screenX < (int)(gameStage.getWidth() - (gameStage.getWidth() - gameDriver.getGameManager().pauseImage.getImageWidth()* 2.0f))&&
+                screenY < (int)(gameStage.getHeight() - (gameStage.getHeight() - gameDriver.getGameManager().pauseImage.getImageHeight()*2.0f)) &&
                 screenY > 0.0f){
 //(int) (gameStage.getHeight() - gameDriver.gameManager.pauseImage.getImageY() - gameDriver.gameManager.pauseImage.getImageHeight())
             state = PAUSE_STATE;
