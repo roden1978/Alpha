@@ -359,7 +359,7 @@ public class GameDriver {
 
     //Контроль количества очков для бонусной жизни////////////////////////////////////////////////////
     private void controlBonusLife(){
-        int bonusLifeScoreAmount = 1000;
+        int bonusLifeScoreAmount = 10000;
         if(preScoreCountPart < gameManager.getScoresAmount() / bonusLifeScoreAmount){
             preScoreCountPart = gameManager.getScoresAmount() / bonusLifeScoreAmount;
             gameManager.getPig().setIsDraw(true);
@@ -395,9 +395,9 @@ public class GameDriver {
     }
     //Контроль времени игры для вывода бонусных предметов
     private void controlBonusItems(float gameTime){
-        if (preGameTime < (int)(gameTime / 17.0f)){
-            preGameTime = (int)(gameTime / 17.0f);
-            switch (MathUtils.random(0, 2)) {//MathUtils.random(0, 2)
+        if (preGameTime < (int)(gameTime / 10.0f)){
+            preGameTime = (int)(gameTime / 10.0f);
+            switch (2) {//MathUtils.random(0, 2)
                 case 0:
                     gameManager.getBonusItemsArray().add(new Skull(gameManager.getBonusTextureAtlas().findRegion("skull")));
                     gameManager.getPig().setIsDraw(true);

@@ -61,9 +61,10 @@ public class Virus extends Microbe {
     }
 
     private void shot(float delta){
-        this.intervalDelta += delta;
+        if(this.interval != 0)
+            this.intervalDelta += delta;
 
-        if (this.intervalDelta > this.interval){//изменить тип пуль
+        if (this.intervalDelta > this.interval && this.interval != 0){//изменить тип пуль
             VirusBullet bullet = new VirusBullet(this.virus_type, new Vector2(player.getPositionX(),
                     player.getPositionY() + player.getSpriteRegionHeight() / 2.0f), bulletTextureAtlas);
             bullet.setPosition(position.x + virusTextureRegion.getRegionWidth(),
@@ -408,12 +409,12 @@ public class Virus extends Microbe {
 
     @Override
     public void setSpeed(float speed) {
-        super.setSpeed(speed);
+        this.speed = speed;
     }
 
     @Override
     public float getSpeed() {
-        return super.getSpeed();
+        return this.speed;
     }
 
     @Override

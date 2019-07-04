@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -17,9 +16,7 @@ import com.gdx.alpha.actions.Throw;
 import com.gdx.alpha.effects.HitParticleEffect;
 import com.gdx.alpha.entitys.BacteriasColony;
 import com.gdx.alpha.entitys.Bacteriophage;
-import com.gdx.alpha.entitys.Bacterium;
 import com.gdx.alpha.entitys.BonusItems;
-import com.gdx.alpha.entitys.BonusLife;
 import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.Ovum;
 import com.gdx.alpha.entitys.Pig;
@@ -160,7 +157,7 @@ public class GameManager {
         time = new Array<Float>();
 
         enemies = new Array<Microbe>(50);
-        bullets = new Array<VirusBullet>(50);
+        bullets = new Array<VirusBullet>(100);
         weapons = new Array<Weapon>(30);
         sperms = new Array<Sperm>(50);
         bacteriophages = new Array<Bacteriophage>(10);

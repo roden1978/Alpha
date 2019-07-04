@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public abstract class BonusItems extends Actor {
+public class BonusItems extends Actor {
     protected Vector2 position;
     Bounds bonusItemsBound;
     protected int type;

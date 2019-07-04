@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.gdx.alpha.effects.HitParticleEffect;
 import com.gdx.alpha.entitys.Bacteriophage;
+import com.gdx.alpha.entitys.Microbe;
 import com.gdx.alpha.entitys.ScoreCloud;
 
 class InteractionManager {
@@ -197,29 +198,39 @@ class InteractionManager {
     void usingBonusItems(int i){
         //Microbe itemRemoved;
         switch (gameManager.getBonusItemsArray().get(i).getType()){
-            case 0: //Череп уничтожение всех врагов в игре
+            case 0: //Череп уничтожение всех врагов и их пули в игре в данный момент
+
                 for (int j = 0; j < gameManager.getEnemies().size; j++){
+                    //System.out.println("index: " + j +" obj " +  gameManager.getEnemies().get(j) + " size: " + gameManager.getEnemies().size);
                     //Создаем еффект взрыва
                    createParticleEffectBlow(j);
                     //Изменяем счетчик очков на велечину вознаграждения за поражение врага
                     changeScoreAmountUIEnemiesKill(j);
                     //Выводим облако очков поражения врага
-                    createScoreCloudToEnemies(j);
+                   createScoreCloudToEnemies(j);
 
                     gameManager.getEnemies().get(j).remove();
                     //System.out.println("Collision player bacter array size: " + gameManager.getBacteriophages().size);
-                    gameManager.getEnemies().removeIndex(j);
+                    //gameManager.getEnemies().removeIndex(j);
                 }
+                gameManager.getEnemies().clear();
+
+                for (int b = 0; b < gameManager.getBullets().size; b++){
+                    createParticleEffectBlowSmall(b);
+                    changeScoreAmountUIBulletsKill(b);
+                    createScoreCloudToBullets(b);
+                    gameManager.getBullets().get(b).remove();
+                }
+                gameManager.getBullets().clear();
                 break;
             case 1://Монета прибавление 5000 очков
                 gameManager.setScoresAmount(gameManager.getScoresAmount() + 5000);
                 break;
-            case 2:// Будилник замедление всех врагов в игре в 2 раза
+            case 2:// Будилник вирусы перестают стрелять и начинают двигаться в противоположном направлении
                 for (int j = 0; j < gameManager.getEnemies().size; j++){
-                   gameManager.getEnemies().get(j).setSpeed(gameManager.getEnemies().get(j).getSpeed() / 2.0f);
-                   gameManager.getEnemies().get(j).setInterval(gameManager.getEnemies().get(j).getInterval() * 2.0f);
+                   gameManager.getEnemies().get(j).setSpeed(gameManager.getEnemies().get(j).getSpeed() / -2.0f);
+                   gameManager.getEnemies().get(j).setInterval(0.0f);
                    gameManager.getEnemies().get(j).setPrice(gameManager.getEnemies().get(j).getPrice() * 2);
-                   gameManager.getEnemies().get(j).setKoeffVirusBulletSpeed(0.1f);
                 }
                 break;
             case 3:
