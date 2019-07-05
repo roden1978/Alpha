@@ -214,11 +214,16 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
             takeScreenshot = true;
             //System.out.println("State out: " + state);
         }
-        //Если уровень заокнчен по клику переходим к экрану выбора уровня
+        //Если уровень заокнчен по клику переходим к экрану выбора уровня и останавливаем музыку игрового процесса
         if(state == LEVEL_END_STATE){
             gameDriver.getAudioManager().getBackgroundGameMusic().stop();
             gameDriver.getAudioManager().getBackgroundGameMusic().dispose();
             state = END_STATE;
+        }
+        //Если game over останавливаем музыку игрового процесса
+        if(state == END_STATE){
+            gameDriver.getAudioManager().getBackgroundGameMusic().stop();
+            gameDriver.getAudioManager().getBackgroundGameMusic().dispose();
         }
 
         return true;

@@ -42,7 +42,7 @@ class InteractionManager {
                     break;
                 case 1:
                     gameManager.getBacteriophages().add(new Bacteriophage(new Vector2(microbe.getPosition()),
-                            0.0f, gameManager.bacteriophageAtlas, "m001",0));
+                            0.0f, gameManager.bacteriophage_weapon_maceAtlas, "m001",1));
                     /*this.bacteriophage = new Bacteriophage(new Vector2(microbe.getPosition()),
                             0.0f, gameManager.bacteriophage_weapon_maceAtlas, "m001",1);*/
 
@@ -50,14 +50,14 @@ class InteractionManager {
                     break;
                 case 2:
                     gameManager.getBacteriophages().add(new Bacteriophage(new Vector2(microbe.getPosition()),
-                            0.0f, gameManager.bacteriophageAtlas, "s001",0));
+                            0.0f, gameManager.bacteriophage_weapon_stoneAtlas, "s001",2));
                    /* this.bacteriophage = new Bacteriophage(new Vector2(microbe.getPosition()),
                             0.0f, gameManager.bacteriophage_weapon_stoneAtlas, "s001",2);*/
                     //System.out.println("Pos Bacteriophage stone X: "+ gameManager.getEnemies().get(i).getPosition().x +" Y: " + gameManager.getEnemies().get(i).getPosition().y);
                     break;
                 case 3:
                     gameManager.getBacteriophages().add(new Bacteriophage(new Vector2(microbe.getPosition()),
-                            0.0f, gameManager.bacteriophageAtlas, "000",0));
+                            0.0f, gameManager.getBacteriophage_weapon_cudgelAtlas(), "000",3));
                    /* this.bacteriophage = new Bacteriophage(new Vector2(microbe.getPosition()),
                             0.0f, gameManager.getBacteriophage_weapon_cudgelAtlas(), "000",3);*/
                     //System.out.println("Pos Bacteriophage cudgel X: "+ gameManager.getEnemies().get(i).getPosition().x +" Y: " + gameManager.getEnemies().get(i).getPosition().y);
