@@ -180,7 +180,7 @@ class CollisionDetector {
                                     interactionManager.createScoreCloudToEnemies(i);
                                     //Добавление бактериофага в игру
                                     //if (interactionManager.randomizeBacteriophages(i) != null)
-                                    gameManager.getBacteriophages().add(interactionManager.randomizeBacteriophages(i));
+                                    interactionManager.randomizeBacteriophage(gameManager.getEnemies().get(i));
                                     //Удаляем текущего врага из массива врагов
                                     gameManager.getEnemies().get(i).remove();
                                     overlap = true;
