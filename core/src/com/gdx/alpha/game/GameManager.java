@@ -94,7 +94,7 @@ public class GameManager {
     //массив пуль врагов
     private Array<VirusBullet> bullets;
     //массив брошеных топоров игрока
-    public Array<Weapon> weapons;
+    private Array<Weapon> weapons;
     //массив сперматозоидов
     private Array<Sperm> sperms;
     //массив бактериофагов
@@ -102,7 +102,7 @@ public class GameManager {
     //объект "Яйцеклетка"
     private Ovum ovum;
     //объект "Игрок"
-    public Player player;
+    private Player player;
     //объект "Капля"
     private Sprinkle sprinkle;
     //Объект "Колония бактерий"
@@ -372,7 +372,7 @@ public class GameManager {
 
     ParallaxBackgroundLayer01 getBackgroundLayer01(){return backgroundLayer01;}
 
-    void condomsTextureAtlasBuild () {
+    private void condomsTextureAtlasBuild () {
         condomAtlasesArray.add( new TextureAtlas(Gdx.files.internal("condom/c01.pack")));
         condomAtlasesArray.add( new TextureAtlas(Gdx.files.internal("condom/c02.pack")));
         condomAtlasesArray.add( new TextureAtlas(Gdx.files.internal("condom/c03.pack")));
@@ -381,43 +381,47 @@ public class GameManager {
 
     Array<TextureAtlas> getCondomAtlasesArray() {return condomAtlasesArray;}
 
-    public Ovum getOvum() {
+    Ovum getOvum() {
         return ovum;
     }
 
-    public Boolean getSoundOnOff() {
+    Boolean getSoundOnOff() {
         return soundOnOff;
     }
 
-    public void setSoundOnOff(Boolean soundOnOff) {
+    void setSoundOnOff(Boolean soundOnOff) {
         this.soundOnOff = soundOnOff;
     }
 
-    public Array<VirusBullet> getBullets() {
+    Array<VirusBullet> getBullets() {
         return bullets;
     }
 
-    public Table getUiTable() {
+    Table getUiTable() {
         return uiTable;
     }
 
-    public Group getGroupLayer0() {
+    Group getGroupLayer0() {
         return groupLayer0;
     }
 
-    public Array<Sperm> getSperms() {
+    Array<Sperm> getSperms() {
         return sperms;
     }
 
-    public int getLevel() {
+    int getLevel() {
         return level;
     }
 
-    public Pig getPig (){return pig;}
+    Pig getPig (){return pig;}
 
-    public Array<BonusItems> getBonusItemsArray() {return bonusItemsArray;}
+    Array<BonusItems> getBonusItemsArray() {return bonusItemsArray;}
 
-    public TextureAtlas getBonusTextureAtlas() {
+    TextureAtlas getBonusTextureAtlas() {
         return bonusTextureAtlas;
     }
+
+    Array<Weapon> getWeapons() {return weapons;}
+
+    public Player getPlayer() {return player;}
 }//end of class

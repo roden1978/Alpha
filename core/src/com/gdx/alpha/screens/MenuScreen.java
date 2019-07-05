@@ -61,9 +61,7 @@ public class MenuScreen extends ObjectScreen {
         time = 0.0f;
         spermObject = new Array <Sperm>();
         bacteriaAArray = new Array<BacteryA>();
-        //playerArray = new Array<Player>();
         this.screenManager = screenManager;
-        //sound = true;
 
         freeTypeFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("JFRocSol_rus.ttf"));
         parameter = new FreeTypeFontParameter();

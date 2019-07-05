@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 //import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -56,6 +57,9 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     private FreeTypeFontGenerator freeTypeFontGenerator;
     private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
     private Skin button_skin;
+    //фон промежуточных состояний
+    private Texture backgroundTexture;
+    private Image background;
     //
     private float WIDTH;
     private float HEIGHT;
@@ -111,6 +115,8 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         builder = new StringBuilder();
 
         font = new BitmapFont(Gdx.files.internal("font/stonefont.fnt"));
+        backgroundTexture = new Texture(Gdx.files.internal("ui/cave.png"));
+        background = new Image(backgroundTexture);
         spriteBatch = new SpriteBatch();
         Gdx.input.setInputProcessor(this);
         Gdx.input.setCatchBackKey(true);
@@ -139,6 +145,9 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
 
         //создаем игровую сцену
         gameStage = new Stage();
+        //изменяем размер фона под размер экрана
+        background.setWidth(gameStage.getWidth());
+        background.setHeight(gameStage.getHeight());
         //создаем сцену со строкой состояния
         //uiStage = new Stage();
         screenManager.getScreenMusic().stop();
@@ -189,7 +198,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
             gameDriver.getAudioManager().getBackgroundGameMusic().play();
         }
         //Бросание оружия при одиночном клике по экрану
-        gameDriver.getGameManager().player.setThrowing(true);
+        gameDriver.getGameManager().getPlayer().setThrowing(true);
         gameDriver.getGameManager().getThrowWeapon().setThrowing(true);
         //System.out.println("X >: " + (int)gameDriver.gameManager.pauseImage.getImageX() +
         //        " X <: " + (int)(gameStage.getWidth() - (gameStage.getWidth() - gameDriver.gameManager.pauseImage.getImageWidth()))+
@@ -219,7 +228,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     public boolean touchUp(int i, int i2, int i3, int i4) {
         //Остановка процесса бросания оружия при отсутствии нажания экрана или удержания кнопки мыши
        // if(!gameDriver.getGameManager().player.getNewlife()) {
-            gameDriver.getGameManager().player.setThrowing(false);
+            gameDriver.getGameManager().getPlayer().setThrowing(false);
             gameDriver.getGameManager().getThrowWeapon().setThrowing(false);
        // }
         return true;
@@ -228,20 +237,20 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         //Бросание оружия при удержании нажания на экране или левой кнопки мыши в игровом процессе
-        if (!gameDriver.getGameManager().player.getThrowing()) {
-            gameDriver.getGameManager().player.setThrowing(true);
+        if (!gameDriver.getGameManager().getPlayer().getThrowing()) {
+            gameDriver.getGameManager().getPlayer().setThrowing(true);
             gameDriver.getGameManager().getThrowWeapon().setThrowing(true);
         }
 
         if(screenX < gameStage.getWidth() &&
-                screenX > gameDriver.getGameManager().player.getSpriteRegionWidth() &&
-                screenY  > gameDriver.getGameManager().player.getSpriteRegionHeight() / 2 &&
-                screenY < gameStage.getHeight() - gameDriver.getGameManager().player.getSpriteRegionHeight() / 2){
+                screenX > gameDriver.getGameManager().getPlayer().getSpriteRegionWidth() &&
+                screenY  > gameDriver.getGameManager().getPlayer().getSpriteRegionHeight() / 2 &&
+                screenY < gameStage.getHeight() - gameDriver.getGameManager().getPlayer().getSpriteRegionHeight() / 2){
             //Положение игрока со смещением от точки касания экрана
-            playerPosition.x = screenX - gameDriver.getGameManager().player.getSpriteRegionWidth()*3 - gameDriver.getGameManager().player.getSpriteRegionWidth();
+            playerPosition.x = screenX - gameDriver.getGameManager().getPlayer().getSpriteRegionWidth()*3 - gameDriver.getGameManager().getPlayer().getSpriteRegionWidth();
             playerPosition.y = (gameStage.getHeight() - screenY);// - gameDriver.getGameManager().player.getSpriteRegionHeight() / 2;
             //установка позиции игрока
-            gameDriver.getGameManager().player.setPosition(playerPosition);
+            gameDriver.getGameManager().getPlayer().setPosition(playerPosition);
             //установка начальной позиции брошенного оружия
             gameDriver.getGameManager().getThrowWeapon().updatePosition(playerPosition);
         }
@@ -371,6 +380,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         spriteBatch.begin();
             /*font.draw(spriteBatch,"TAP TO PLAY",gameStage.getWidth()/2 - font.getBounds("TAP TO PLAY").width/2,
                     gameStage.getHeight()/2 + font.getBounds("TAP TO PLAY").height/2);*/
+            background.draw(spriteBatch, 0.5f);
             font.draw(spriteBatch,"TAP TO PLAY",0.0f, gameStage.getHeight()/2.0f, gameStage.getWidth(), Align.center, true);
         spriteBatch.end();
     }
@@ -422,6 +432,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         spriteBatch.begin();
            /* font.draw(spriteBatch,"LEVEL COMPLETE",gameStage.getWidth()/2 - font.getBounds("LEVEL COMPLETE").width/2,
                     gameStage.getHeight()/2 + font.getBounds("LEVEL COMPLETE").height/2);*/
+        background.draw(spriteBatch, 0.5f);
         font.draw(spriteBatch,"LEVEL COMPLETE",0.0f, gameStage.getHeight()/2.0f, gameStage.getWidth(), Align.center, true);
         spriteBatch.end();
         //Сохранение результатов пройденного уровня
@@ -441,6 +452,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         spriteBatch.begin();
+            background.draw(spriteBatch, 0.5f);
             font.draw(spriteBatch,"GAME OVER",0.0f, gameStage.getHeight()/2.0f, gameStage.getWidth(), Align.center, true);
         spriteBatch.end();
     }

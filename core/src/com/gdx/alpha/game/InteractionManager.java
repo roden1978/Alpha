@@ -70,14 +70,14 @@ class InteractionManager {
     }
     //создание облака очко от столкновения игрока с врагом
      void createScoreCloudToPlayer(Integer i){
-        scoreCloud = new ScoreCloud(new Vector2(gameManager.player.getPositionX() + gameManager.player.getBound().getBox().getWidth() / 2,
-                gameManager.player.getPositionY() + gameManager.player.getBound().getBox().getHeight() / 2),
+        scoreCloud = new ScoreCloud(new Vector2(gameManager.getPlayer().getPositionX() + gameManager.getPlayer().getBound().getBox().getWidth() / 2,
+                gameManager.getPlayer().getPositionY() + gameManager.getPlayer().getBound().getBox().getHeight() / 2),
                 gameManager.fontScoreCloudRed, gameManager.getEnemies().get(i).getPrice(), false);
         gameManager.scoreCloudArray.add(scoreCloud);
     }
     //Изменение уровня жизни игрока от столкновения с врагом
     void changePlayerHealthEnemies(Integer i){
-        gameManager.player.setHealth(gameManager.player.getHealth() - gameManager.getEnemies().get(i).getPrice());
+        gameManager.getPlayer().setHealth(gameManager.getPlayer().getHealth() - gameManager.getEnemies().get(i).getPrice());
     }
 
     //Создание эффекта взрыва от столкновения  с пулями
@@ -92,8 +92,8 @@ class InteractionManager {
     //Создание эффекта взрыва от столкновения с оружием
     void createParticleEffectHit(Integer j){
         hitParticleEffect = new HitParticleEffect(new ParticleEffect(gameManager.hit), 0.2f);
-        hitParticleEffect.setPositionEffect(gameManager.weapons.get(j).getPositionX(),
-                gameManager.weapons.get(j).getPositionY() + gameManager.weapons.get(j).getBounds().getBox().getHeight() / 2);
+        hitParticleEffect.setPositionEffect(gameManager.getWeapons().get(j).getPositionX(),
+                gameManager.getWeapons().get(j).getPositionY() + gameManager.getWeapons().get(j).getBounds().getBox().getHeight() / 2);
         gameManager.hitParticleEffectArray.add(hitParticleEffect);
 
        //return hitParticleEffect;
@@ -117,11 +117,11 @@ class InteractionManager {
 
     //Изменение уровня жизни игрока от столкновения с пулями
     void changePlayerHealthBullets(Integer i){
-        gameManager.player.setHealth(gameManager.player.getHealth() - gameManager.getBullets().get(i).getPrice());
+        gameManager.getPlayer().setHealth(gameManager.getPlayer().getHealth() - gameManager.getBullets().get(i).getPrice());
     }
     //уменьшаем здоровье врага на величину силы оружия
     void changeEnemiesHealth(Integer i, Integer j){
-        gameManager.getEnemies().get(i).changeHealth(gameManager.weapons.get(j).getHealth());
+        gameManager.getEnemies().get(i).changeHealth(gameManager.getWeapons().get(j).getHealth());
     }
     //Изменение счетчика очков на величину вознаграждения за поражение врага
     void changeScoreAmountUIEnemiesKill(Integer i){
@@ -136,8 +136,8 @@ class InteractionManager {
 
     //Создание облака очков от столкновения игрока с пулями
    void createScoreCloudToPlayerBullets(Integer i){
-        scoreCloud = new ScoreCloud(new Vector2(gameManager.player.getPositionX() + gameManager.player.getBound().getBox().getWidth() / 2,
-            gameManager.player.getPositionY() + gameManager.player.getBound().getBox().getHeight() / 2),
+        scoreCloud = new ScoreCloud(new Vector2(gameManager.getPlayer().getPositionX() + gameManager.getPlayer().getBound().getBox().getWidth() / 2,
+            gameManager.getPlayer().getPositionY() + gameManager.getPlayer().getBound().getBox().getHeight() / 2),
         gameManager.fontScoreCloudRed, gameManager.getBullets().get(i).getPrice(), false);
         gameManager.scoreCloudArray.add(scoreCloud);
     }
@@ -173,9 +173,9 @@ class InteractionManager {
         //int type = gameManager.getBacteriophages().get(i).getType();
         switch (gameManager.getBacteriophages().get(i).getType()){
             case 0:
-                gameManager.player.setHealth(gameManager.player.getHealth() + gameManager.getBacteriophages().get(i).getHealth());
-                if (gameManager.player.getHealth() > 300)
-                    gameManager.player.setHealth(300);
+                gameManager.getPlayer().setHealth(gameManager.getPlayer().getHealth() + gameManager.getBacteriophages().get(i).getHealth());
+                if (gameManager.getPlayer().getHealth() > 300)
+                    gameManager.getPlayer().setHealth(300);
                 break;
             case 1:
                 gameManager.getThrowWeapon().changeType(1);
@@ -234,8 +234,8 @@ class InteractionManager {
                 }
                 break;
             case 3:
-                if (gameManager.player.getLifeCount() < 3)
-                    gameManager.player.setLifeCount(gameManager.player.getLifeCount() + 1);
+                if (gameManager.getPlayer().getLifeCount() < 3)
+                    gameManager.getPlayer().setLifeCount(gameManager.getPlayer().getLifeCount() + 1);
                 break;
         }
     }

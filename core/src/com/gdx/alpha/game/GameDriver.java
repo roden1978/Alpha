@@ -3,20 +3,15 @@ package com.gdx.alpha.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.gdx.alpha.effects.HitParticleEffect;
 import com.gdx.alpha.entitys.AlarmClock;
 import com.gdx.alpha.entitys.BacteriasColony;
-import com.gdx.alpha.entitys.BonusItems;
 import com.gdx.alpha.entitys.BonusLife;
 import com.gdx.alpha.entitys.Coin;
 import com.gdx.alpha.entitys.Condom;
 import com.gdx.alpha.entitys.Microbe;
-import com.gdx.alpha.entitys.ScoreCloud;
 import com.gdx.alpha.entitys.Skull;
 import com.gdx.alpha.entitys.Virus;
 import com.gdx.alpha.entitys.VirusBullet;
-import com.gdx.alpha.entitys.Weapon;
 import com.gdx.alpha.screens.GameScreen;
 import com.gdx.alpha.screens.ObjectScreen;
 
@@ -30,18 +25,19 @@ public class GameDriver {
     private CollisionDetector collisionDetector;
     private InteractionManager interactionManager;
     private AudioManager audioManager;
-    private Actor removedActor;
+   /* private Actor removedActor;
     private BonusItems removedBonusItem;
     private Weapon removedAxe;
     private Float removedTime;
     private HitParticleEffect removedHPE;
-    private ScoreCloud removedScoreCloud;
+    private ScoreCloud removedScoreCloud;*/
     private Microbe microbe;
     private BacteriasColony colony;
 
     private float gameTime = 0.0f;
-
+    //Передыдущий промежуток очков в котором появилась бонусная жизнь
     private int preScoreCountPart = 0;
+    //Предыдущий промежуток времени в котором появился бонусный предмет
     private int preGameTime = 0;
 
     public GameManager getGameManager() {
@@ -91,7 +87,9 @@ public class GameDriver {
         //---------------------------------------------------
 
         //Блок контроля столкновений и взаимодействия объектов
-        collisionDetector.detectPlayerCollisions();
+        collisionDetector.detectPlayerEnemyCollisions();
+        collisionDetector.detectPlayerBulletsCollisions();
+        collisionDetector.detectPlayerBacteriophgesCollisions();
         collisionDetector.detectWeaponBulletCollision();
         collisionDetector.detectWeaponEnemyCollisions();
         collisionDetector.detectSpermCollisions();
@@ -106,6 +104,7 @@ public class GameDriver {
         controlEnemiesPosition();
         controlBulletPosition();
         controlWeaponPosition();
+        controlSpermsPosition();
         controlHitParticleEffect();
         controlScoreCloud();
         controlLifeScale();
@@ -130,7 +129,7 @@ public class GameDriver {
         addSpermsToGame();
         gameScreen.getGameStage().addActor(gameManager.getPig());
         gameManager.getGroupLayer0().addActor(gameManager.getThrowWeapon());
-        gameManager.getGroupLayer0().addActor(gameManager.player);
+        gameManager.getGroupLayer0().addActor(gameManager.getPlayer());
     }
     //Функция ввода в игру "врагов"
     private void addEnemiesToGame(float delta){
@@ -155,7 +154,7 @@ public class GameDriver {
         //System.out.println("Height: "+gameManager.virusAtlas);
         if(gameManager.typeEnemie.get(i).trim().equals("v")){
             microbe = new Virus(new Vector2(gameManager.posX.get(i),gameManager.posY.get(i) * Gdx.graphics.getHeight()),gameManager.speed.get(i),
-                    gameManager.weight.get(i),gameManager.player,gameManager.virusAtlas, gameManager.virusBulletAtlas, gameManager.getLifeScaleAtlas());
+                    gameManager.weight.get(i),gameManager.getPlayer(),gameManager.virusAtlas, gameManager.virusBulletAtlas, gameManager.getLifeScaleAtlas());
             gameManager.getEnemies().add(microbe);
             gameScreen.getGameStage().addActor(microbe);
         }
@@ -184,10 +183,11 @@ public class GameDriver {
                         || gameManager.getEnemies().get(i).getPositionX() < 0
                         || gameManager.getEnemies().get(i).getPositionY() > gameScreen.getGameStage().getHeight()
                         || gameManager.getEnemies().get(i).getPositionY() < 0) {
-                    if (gameManager.getEnemies().get(i).remove()) {              //удаляем объект(Actor) с индексом i из сцены
-                        removedActor = gameManager.getEnemies().removeIndex(i);  //удаляет объект с индексом i из массива и возвращает объект
+                    if (gameManager.getEnemies().get(i).remove()) {
+                        gameManager.getEnemies().removeIndex(i);//удаляем объект(Actor) с индексом i из сцены
+                       /* removedActor = gameManager.getEnemies().removeIndex(i);  //удаляет объект с индексом i из массива и возвращает объект
                         removedActor = null; // присваиваем объекту null чтобы его уничтожил сборщик мусора (в Java не нужно самому удалять объекты из памяти)
-                        //такой принцип применяем для всех игровых объектов
+                        //такой принцип применяем для всех игровых объектов*/
                     }
                 }
             }
@@ -236,24 +236,25 @@ public class GameDriver {
         //вводим массив топоров для дальнейшей обработки
         for (int i = 0; i < gameManager.getThrowWeapon().getWeaponArray().size; i++){
             if (gameManager.getThrowWeapon().getWeaponArray().get(i) != null){
-                gameManager.weapons.add(gameManager.getThrowWeapon().getWeaponArray().get(i));
+                gameManager.getWeapons().add(gameManager.getThrowWeapon().getWeaponArray().get(i));
             }
         }
         gameManager.getThrowWeapon().getWeaponArray().clear();
         //выводим массив топоров на игровую сцену
-        for (int i = 0; i < gameManager.weapons.size; i++){
-            if (gameManager.weapons.get(i) != null){
-                gameScreen.getGameStage().addActor(gameManager.weapons.get(i));
+        for (int i = 0; i < gameManager.getWeapons().size; i++){
+            if (gameManager.getWeapons().get(i) != null){
+                gameScreen.getGameStage().addActor(gameManager.getWeapons().get(i));
             }
         }
     }
     private void controlWeaponPosition(){
-        for (int i = 0; i < gameManager.weapons.size; i++){
-            if (gameManager.weapons.get(i) != null){
-                if(gameManager.weapons.get(i).getPositionX() < 50) {
-                    if (gameManager.weapons.get(i).remove()) {
-                        removedAxe = gameManager.weapons.removeIndex(i);
-                        removedAxe = null;
+        for (int i = 0; i < gameManager.getWeapons().size; i++){
+            if (gameManager.getWeapons().get(i) != null){
+                if(gameManager.getWeapons().get(i).getPositionX() < 50) {
+                    if (gameManager.getWeapons().get(i).remove()) {
+                        gameManager.getWeapons().removeIndex(i);
+                        /*removedAxe = gameManager.weapons.removeIndex(i);
+                        removedAxe = null;*/
                     }
                 }
             }
@@ -273,11 +274,26 @@ public class GameDriver {
         gameManager.updateSpermAmount();
         for (int i = 0; i < gameManager.getSperms().size; i++){
             if (gameManager.getSperms().get(i) != null){
-                gameManager.getGroupLayer0().addActorAfter(gameManager.player, gameManager.getSperms().get(i));
+                gameManager.getGroupLayer0().addActorAfter(gameManager.getPlayer(), gameManager.getSperms().get(i));
                 //gameScreen.getGameStage().addActor(gameManager.getGroupLayer0());///////////////////////////////////////
             }
         }
         //spermInGame = true;
+    }
+    //контроль позиций сперм
+    private void controlSpermsPosition(){
+        //отслеживание позиции сперм и удаление их со сцены если они вышли за пределы экрана
+        for (int i = 0; i < gameManager.getSperms().size; i++){
+            if (gameManager.getSperms().get(i) != null){
+                if(gameManager.getSperms().get(i).getPositionX() < 0) {
+                    if (gameManager.getSperms().get(i).remove()) {
+                        gameManager.getSperms().removeIndex(i);
+                        /*removedAxe = gameManager.weapons.removeIndex(i);
+                        removedAxe = null;*/
+                    }
+                }
+            }
+        }
     }
     //Ввод колонии бактерий в игру
     private void addBacteriumToGame(){
@@ -298,8 +314,9 @@ public class GameDriver {
             if (gameManager.hitParticleEffectArray.get(i).isComplete()){
                 gameManager.hitParticleEffectArray.get(i).resetEffect();
                 gameManager.hitParticleEffectArray.get(i).remove();
-                removedHPE = gameManager.hitParticleEffectArray.removeIndex(i);
-                removedHPE = null;
+                gameManager.hitParticleEffectArray.removeIndex(i);
+                /*removedHPE = gameManager.hitParticleEffectArray.removeIndex(i);
+                removedHPE = null;*/
             }
         }
     }
@@ -314,8 +331,9 @@ public class GameDriver {
         for (int i = 0; i < gameManager.scoreCloudArray.size; i++) {
             if(gameManager.scoreCloudArray.get(i).getY() > gameScreen.getGameStage().getHeight()){
                 gameManager.scoreCloudArray.get(i).remove();
-                removedScoreCloud  = gameManager.scoreCloudArray.removeIndex(i);
-                removedScoreCloud = null;
+                gameManager.scoreCloudArray.removeIndex(i);
+                /*removedScoreCloud  = gameManager.scoreCloudArray.removeIndex(i);
+                removedScoreCloud = null;*/
             }
         }
     }
@@ -325,7 +343,7 @@ public class GameDriver {
         }
     }
     private void controlLifeScale(){
-        if (gameManager.player.getLifeCount() == 0){
+        if (gameManager.getPlayer().getLifeCount() == 0 || gameManager.getSpermAmount() == 0){
             gameScreen.setGameState(4);
         } //Game over
     }
@@ -384,10 +402,11 @@ public class GameDriver {
                         || gameManager.getBonusItemsArray().get(i).getPosition().x  < 0
                         || gameManager.getBonusItemsArray().get(i).getPosition().y > gameScreen.getGameStage().getHeight()
                         || gameManager.getBonusItemsArray().get(i).getPosition().y < 0) {
-                    if (gameManager.getBonusItemsArray().get(i).remove()) {              //удаляем объект(Actor) с индексом i из сцены
-                        removedBonusItem = gameManager.getBonusItemsArray().removeIndex(i);  //удаляет объект с индексом i из массива и возвращает объект
+                    if (gameManager.getBonusItemsArray().get(i).remove()) {
+                        gameManager.getBonusItemsArray().removeIndex(i);//удаляем объект(Actor) с индексом i из сцены
+                        /*removedBonusItem = gameManager.getBonusItemsArray().removeIndex(i);  //удаляет объект с индексом i из массива и возвращает объект
                         removedBonusItem = null; // присваиваем объекту null чтобы его уничтожил сборщик мусора (в Java не нужно самому удалять объекты из памяти)
-                        //такой принцип применяем для всех игровых объектов
+                        //такой принцип применяем для всех игровых объектов*/
                     }
                 }
             }
@@ -395,9 +414,9 @@ public class GameDriver {
     }
     //Контроль времени игры для вывода бонусных предметов
     private void controlBonusItems(float gameTime){
-        if (preGameTime < (int)(gameTime / 10.0f)){
-            preGameTime = (int)(gameTime / 10.0f);
-            switch (2) {//MathUtils.random(0, 2)
+        if (preGameTime < (int)(gameTime / 20.0f)){
+            preGameTime = (int)(gameTime / 20.0f);
+            switch (MathUtils.random(0, 2)) {//MathUtils.random(0, 2)
                 case 0:
                     gameManager.getBonusItemsArray().add(new Skull(gameManager.getBonusTextureAtlas().findRegion("skull")));
                     gameManager.getPig().setIsDraw(true);
