@@ -366,6 +366,7 @@ public class GameDriver {
     private void controlLevelEnd(){
         if(gameManager.getLevelEnd()){
             gameScreen.setStringLevelParamsSave(true);
+            System.out.println("Full level time: " + gameTime);
             gameScreen.setGameState(3);
         } //Level end
     }
@@ -414,21 +415,23 @@ public class GameDriver {
     }
     //Контроль времени игры для вывода бонусных предметов
     private void controlBonusItems(float gameTime){
-        if (preGameTime < (int)(gameTime / 20.0f)){
-            preGameTime = (int)(gameTime / 20.0f);
-            switch (MathUtils.random(0, 2)) {//MathUtils.random(0, 2)
-                case 0:
-                    gameManager.getBonusItemsArray().add(new Skull(gameManager.getBonusTextureAtlas().findRegion("skull")));
-                    gameManager.getPig().setIsDraw(true);
-                    break;
-                case 1:
-                    gameManager.getBonusItemsArray().add(new Coin(gameManager.getBonusTextureAtlas().findRegion("coin")));
-                    gameManager.getPig().setIsDraw(true);
-                    break;
-                case 2:
-                    gameManager.getBonusItemsArray().add(new AlarmClock(gameManager.getBonusTextureAtlas().findRegion("alarmclock")));
-                    gameManager.getPig().setIsDraw(true);
-                    break;
+        if (preGameTime < (int)(gameTime / 20.0f)) {
+            preGameTime = (int) (gameTime / 20.0f);
+            if (MathUtils.random(0, 100) > 50) {
+                switch (MathUtils.random(0, 2)) {//MathUtils.random(0, 2)
+                    case 0:
+                        gameManager.getBonusItemsArray().add(new Skull(gameManager.getBonusTextureAtlas().findRegion("skull")));
+                        gameManager.getPig().setIsDraw(true);
+                        break;
+                    case 1:
+                        gameManager.getBonusItemsArray().add(new Coin(gameManager.getBonusTextureAtlas().findRegion("coin")));
+                        gameManager.getPig().setIsDraw(true);
+                        break;
+                    case 2:
+                        gameManager.getBonusItemsArray().add(new AlarmClock(gameManager.getBonusTextureAtlas().findRegion("alarmclock")));
+                        gameManager.getPig().setIsDraw(true);
+                        break;
+                }
             }
         }
     }

@@ -158,7 +158,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK){
-            if (state == PAUSE_STATE || state == END_STATE || state == LEVEL_END_STATE) {
+            if (state == PAUSE_STATE || state == END_STATE || state == LEVEL_END_STATE || state == READY_STATE) {
                 screenManager.setCurrentScreen(new LevelScreen(screenManager));
             }
             takeScreenshot = true;
@@ -252,7 +252,8 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
                 screenY  > gameDriver.getGameManager().getPlayer().getSpriteRegionHeight() / 2 &&
                 screenY < gameStage.getHeight() - gameDriver.getGameManager().getPlayer().getSpriteRegionHeight() / 2){
             //Положение игрока со смещением от точки касания экрана
-            playerPosition.x = screenX - gameDriver.getGameManager().getPlayer().getSpriteRegionWidth()*3 - gameDriver.getGameManager().getPlayer().getSpriteRegionWidth();
+            playerPosition.x = screenX - gameDriver.getGameManager().getPlayer().getSpriteRegionWidth()*3
+                    - gameDriver.getGameManager().getPlayer().getSpriteRegionWidth();
             playerPosition.y = (gameStage.getHeight() - screenY);// - gameDriver.getGameManager().player.getSpriteRegionHeight() / 2;
             //установка позиции игрока
             gameDriver.getGameManager().getPlayer().setPosition(playerPosition);

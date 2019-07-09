@@ -32,11 +32,11 @@ public class Virus extends Microbe {
     private float speed;
     private float koeffVirusBulletSpeed;
 
-    public Virus(Vector2 position, float speed, int weight, Player player,
+    public Virus(Vector2 position, float speed, int weightTmp, Player player,
                   TextureAtlas virusTextureAtlas, TextureAtlas bulletTextureAtlas, TextureAtlas lifeScaleAtlas) {
         super(position, speed);
         this.speed = speed;
-        this.weight = weight;
+        weight = weightTmp;
         this.player = player;
         this.position = position;
         this.degree = 0.0f;
@@ -141,7 +141,7 @@ public class Virus extends Microbe {
                 interval = 1.5f;
                 break;
             case 3://super big
-                setHealth(200);
+                setHealth(1000);
                 setPrice(500);
                 speed = 0.25f;
                 interval = 2.0f;
@@ -425,5 +425,14 @@ public class Virus extends Microbe {
     @Override
     public void setKoeffVirusBulletSpeed(float koeffVirusBulletSpeed) {
         super.setKoeffVirusBulletSpeed(koeffVirusBulletSpeed);
+    }
+    @Override
+    public int getWeight() {
+        return this.weight;
+    }
+
+    @Override
+    public void setWeight(int weight) {
+        super.setWeight(weight);
     }
 }

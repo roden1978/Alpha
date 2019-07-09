@@ -253,11 +253,15 @@ class CollisionDetector {
                         gameManager.setSpermAmount(gameManager.getSpermAmount() - 1);
                         //Обновляем счетчик сперм
                         gameManager.updateSpermAmount();
-                        //Удаляем врага
-                        gameManager.getEnemies().get(j).remove();
+                        //Удаляем врага если он не босс
+                        if (gameManager.getEnemies().get(j).getWeight() < 3){
+                            gameManager.getEnemies().get(j).remove();
+                            gameManager.getEnemies().removeIndex(j);
+                        }
+
                         deleteSperm = i;
                         overlap = true;
-                        gameManager.getEnemies().removeIndex(j);
+
                        /* removedMicrobe = gameManager.getEnemies().removeIndex(j);
                         removedMicrobe = null;*/
                     }

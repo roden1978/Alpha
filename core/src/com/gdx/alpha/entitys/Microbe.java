@@ -20,6 +20,7 @@ public class Microbe extends Actor {
     protected String entity;
     protected float interval;
     protected float koeffVirusBulletSpeed;
+    protected int weight;
 
     Microbe(){
         this.position = new Vector2(0.0f, 0.0f);
@@ -31,6 +32,7 @@ public class Microbe extends Actor {
         this.entity = "";
         this.interval = 0.0f;
         this.koeffVirusBulletSpeed = 0.0f;
+        this.weight = 0;
     }
 
     Microbe(Vector2 position, float speed){
@@ -44,6 +46,7 @@ public class Microbe extends Actor {
         this.entity = "";
         this.interval = 0.0f;
         this.koeffVirusBulletSpeed = 0.0f;
+        this.weight = 0;
     }
 
     //установка позиции микроба
@@ -123,5 +126,13 @@ public class Microbe extends Actor {
 
     public void setKoeffVirusBulletSpeed(float koeffVirusBulletSpeed) {
         this.koeffVirusBulletSpeed = koeffVirusBulletSpeed;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 }
