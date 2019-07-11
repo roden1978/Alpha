@@ -2,6 +2,7 @@ package com.gdx.alpha.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -119,7 +120,7 @@ public class GameManager {
     //Динамический фон
     private DynamicBackground dynamicBackground;
 
-    private TextureAtlas gameBackgroundTextureAtlas;
+    private Texture gameBackgroundTextureAtlas;
 
     private String line;
     //Признак конца уровня
@@ -247,7 +248,7 @@ public class GameManager {
         lifeCountAtlas = new TextureAtlas(Gdx.files.internal("caveman/cm_life.pack"));
         bacteriumAtlas = new TextureAtlas(Gdx.files.internal("bacterias/bacteriums.pack"));
         bonusTextureAtlas = new TextureAtlas(Gdx.files.internal("bonus/bonusItems.pack"));
-        gameBackgroundTextureAtlas = new TextureAtlas(Gdx.files.internal("background/db.pack"));
+        gameBackgroundTextureAtlas = new Texture(Gdx.files.internal("background/db.png"));
         condomsTextureAtlasBuild();
     }
 
@@ -430,7 +431,7 @@ public class GameManager {
 
     public Player getPlayer() {return player;}
 
-    public TextureAtlas getGameBackgroundTextureAtlas() {
+    public Texture getGameBackgroundTextureAtlas() {
         return gameBackgroundTextureAtlas;
     }
 
