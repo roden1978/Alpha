@@ -12,10 +12,11 @@ public class Bacterium extends Microbe {
     private Vector2 position;
     private Bounds bacteriumBound;
     private Integer bacteriumType;
-
+    private float degree;
+    private Boolean direction;
 
     Bacterium (Vector2 position, TextureAtlas bacteriumAtlas, Integer bacteriumType){
-        super(position, 0.0f);
+        super(position, 0.5f);
         this.position = position;
         this.bacteriumAtlas = bacteriumAtlas;
         this.bacteriumType = bacteriumType;
@@ -25,6 +26,8 @@ public class Bacterium extends Microbe {
         setPrice(100);
         setHealth(45);
         setBacteriumRegions();
+        this.degree = 0.0f;
+        this.direction = true;
     }
 
     @Override
@@ -41,9 +44,28 @@ public class Bacterium extends Microbe {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         //super.draw(batch, parentAlpha);
-        batch.draw(bacteriumRegion,position.x, position.y);
+        batch.draw(bacteriumRegion, this.position.x, this.position.y,
+                bacteriumRegion.getRegionWidth() / 2.0f, bacteriumRegion.getRegionHeight() / 2.0f,
+                bacteriumRegion.getRegionWidth(),
+                bacteriumRegion.getRegionHeight(),
+                1.0f, 1.0f, this.degree);
     }
 
+    @Override
+    public void act(float delta) {
+        //super.act(delta);
+        if (this.degree <= 10.0f && this.direction)
+            this.degree += 1.0f;
+        if (this.degree >= 10.0f)
+            this.direction = false;
+        if (!this.direction)
+            this.degree -= 1.0f;
+        if (this.degree <= 0.0f)
+            this.direction = true;
+
+        this.position.x += speed;
+        this.bacteriumBound.update(this.position.x, this.position.y, bacteriumBound.getBox().getWidth(), bacteriumBound.getBox().getHeight());
+    }
 
     private void setBacteriumRegions(){
         switch(bacteriumType){

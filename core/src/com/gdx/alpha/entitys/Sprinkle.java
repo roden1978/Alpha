@@ -39,7 +39,7 @@ public class Sprinkle{ //extends Actor
         this.sprinkleArray = new Array<Sperm>();
         this.position = new Vector2();
         this.spermAtlas = spermAtlas;
-        this.speed = 1280 * koeff / (2048 + 585 * level);//0.625f * koeff - 0.1f * level; //0.0625 - 5 минут скорость капли чем больше число тем выше скорость движения капли
+        this.speed = 1280 * koeff / (2048 + 585 * level); //0.0625 - 5 минут скорость капли чем больше число тем выше скорость движения капли
         System.out.println("Speed: "+speed);
         randomizeSprinkle();
     }

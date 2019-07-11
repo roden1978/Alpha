@@ -60,6 +60,8 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     //фон промежуточных состояний
     private Texture backgroundTexture;
     private Image background;
+    //private Texture gameBackgroundTexture;
+    //private Image gameBackground;
     //
     private float WIDTH;
     private float HEIGHT;
@@ -116,6 +118,7 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
 
         font = new BitmapFont(Gdx.files.internal("font/stonefont.fnt"));
         backgroundTexture = new Texture(Gdx.files.internal("ui/cave.png"));
+        //gameBackground = new Image(gameBackgroundTexture);
         background = new Image(backgroundTexture);
         spriteBatch = new SpriteBatch();
         Gdx.input.setInputProcessor(this);
@@ -148,6 +151,8 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         //изменяем размер фона под размер экрана
         background.setWidth(gameStage.getWidth());
         background.setHeight(gameStage.getHeight());
+        //gameBackground.setWidth(gameStage.getWidth());
+        //gameBackground.setHeight(gameStage.getHeight());
         //создаем сцену со строкой состояния
         //uiStage = new Stage();
         screenManager.getScreenMusic().stop();
@@ -394,11 +399,11 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     private void presentRunning(){
         Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-        //uiStage.getBatch().setProjectionMatrix(camera.combined);
-        gameStage.getBatch().setProjectionMatrix(camera.combined);
-        //gameStage.setRoot(gameDriver.getGameManager().getGroupLayer0());
+      /*  gameStage.getBatch().setProjectionMatrix(camera.combined);
+        gameStage.getBatch().begin();
+            gameStage.getBatch().draw(gameBackgroundTexture, 0.0f,0.0f , gameStage.getWidth(), gameStage.getHeight());
+        gameStage.getBatch().end();*/
         gameStage.draw();
-        //uiStage.draw();
     }
     //отрисовка состояния паузы
     private void presentPaused(){

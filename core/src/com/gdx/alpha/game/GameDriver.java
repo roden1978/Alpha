@@ -112,6 +112,7 @@ public class GameDriver {
         controlBonusLife();
         controlBonusItemPosition();
         controlBonusItems(gameTime);
+        controlDynamicBackground(gameManager.getPlayer().getPosition());
         /*Запуск задержки для отрисовки ovum_effect и выходом на экран с выбором уровня
         * */
         if(gameManager.getOvumEffectStart())
@@ -119,13 +120,11 @@ public class GameDriver {
     }
     //Функция ввода основных объектов в игру
     public void addGeneralActorsToScene(){
-        //gameScreen.getGameStage().addActor(gameManager.player);
+        gameScreen.getGameStage().addActor(gameManager.getDynamicBackground());
         gameScreen.getGameStage().addActor(gameManager.getBackgroundLayer00());
         gameScreen.getGameStage().addActor(gameManager.getBackgroundLayer01());
-        //gameScreen.getGameStage().addActor(gameManager.getSprinkle());
         gameScreen.getGameStage().addActor(gameManager.getUiTable());
         gameScreen.getGameStage().addActor(gameManager.getGroupLayer0());
-
         addSpermsToGame();
         gameScreen.getGameStage().addActor(gameManager.getPig());
         gameManager.getGroupLayer0().addActor(gameManager.getThrowWeapon());
@@ -434,5 +433,9 @@ public class GameDriver {
                 }
             }
         }
+    }
+    //Контроль положения динамического фона
+    private void controlDynamicBackground(Vector2 playerPosition){
+        gameManager.getDynamicBackground().setPosition(playerPosition.x, playerPosition.y);
     }
 }//end of class

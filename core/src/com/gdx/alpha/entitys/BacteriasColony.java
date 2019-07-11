@@ -10,7 +10,6 @@ public class BacteriasColony extends Actor {
     private Vector2 position;
     private float bac_pos_x;
     private float bac_pos_y;
-    //private Array<Bacterium> bacteriumArray;
     private TextureAtlas bacteriumAtlas;
     private Array<Microbe> colony;
     private static final float BAC_WIDTH = 50.0f;
@@ -21,26 +20,34 @@ public class BacteriasColony extends Actor {
     private Boolean next;
     private int figureType;
     private int bacteriumType;
-    private int colony_option0[][]={{1,1,1,1},
-                                    {1,1,1,1},
-                                    {1,1,1,1},
-                                    {1,1,1,1}};
-    private int colony_option1[][]={{0,1,1,0},
-                                    {1,1,1,1},
-                                    {1,1,1,1},
-                                    {0,1,1,0}};
-    private int colony_option2[][]={{1,0,0,1},
+    private int[][] colony_option0 = {{1,1,1,1},
+                                      {1,1,1,1},
+                                      {1,1,1,1},
+                                      {1,1,1,1}};
+    private int[][] colony_option1 = {{0,1,1,0},
+                                      {1,1,1,1},
+                                      {1,1,1,1},
+                                      {0,1,1,0}};
+    private int[][] colony_option2={{1,0,0,1},
                                     {1,0,0,1},
                                     {1,0,0,1},
                                     {1,0,0,1}};
-    private int colony_option3[][]={{1,1,1,1},
+    private int[][] colony_option3={{1,1,1,1},
                                     {1,0,0,1},
                                     {1,0,0,1},
                                     {1,1,1,1}};
-    private int colony_option4[][]={{0,1,1,0},
+    private int[][] colony_option4={{0,1,1,0},
                                     {0,1,1,0},
                                     {0,1,1,0},
                                     {0,1,1,0}};
+    private int[][] colony_option5={{0,1,1,0},
+                                    {1,1,1,1},
+                                    {1,1,1,1},
+                                    {0,1,1,0}};
+    private int[][] colony_option6={{1,0,0,1},
+                                    {0,1,1,0},
+                                    {0,1,1,0},
+                                    {1,0,0,1}};
 
     public BacteriasColony(Vector2 position, TextureAtlas bacteriumAtlas){
         this.position = position;
@@ -64,7 +71,7 @@ public class BacteriasColony extends Actor {
 
     private void randomizeColonyFigure()
     {
-        figureType = MathUtils.random(0,4);
+        figureType = MathUtils.random(0,6);
         switch (figureType){
             case 0:
                 createColony(colony_option0);
@@ -81,9 +88,15 @@ public class BacteriasColony extends Actor {
             case 4:
                 createColony(colony_option4);
                 break;
+            case 5:
+                createColony(colony_option5);
+                break;
+            case 6:
+                createColony(colony_option6);
+                break;
         }
     }
-    void createColony(int[][] colony_options){
+    private void createColony(int[][] colony_options){
         bacteriumType = MathUtils.random(0,9);
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -102,15 +115,15 @@ public class BacteriasColony extends Actor {
         return colony;
     }
 
-    public Boolean getNext_item() {
+  /*  public Boolean getNext_item() {
         return next_item;
     }
 
     public void setNext_item(Boolean next_item) {
         this.next_item = next_item;
-    }
+    }*/
 
-    public void Delay(float delta){
+    private void Delay(float delta){
         delay -= delta;
         if (delay < 0){
             this.next_item = true;
@@ -119,11 +132,11 @@ public class BacteriasColony extends Actor {
         }
     }
 
-    public Boolean getNext() {
+  /*  public Boolean getNext() {
         return next;
     }
 
     public void setNext(Boolean next) {
         this.next = next;
-    }
+    }*/
 }// end of class

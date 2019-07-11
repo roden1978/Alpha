@@ -116,6 +116,10 @@ public class GameManager {
     //движущийся фон игры
     private ParallaxBackgroundLayer00 backgroundLayer00;
     private ParallaxBackgroundLayer01 backgroundLayer01;
+    //Динамический фон
+    private DynamicBackground dynamicBackground;
+
+    private TextureAtlas gameBackgroundTextureAtlas;
 
     private String line;
     //Признак конца уровня
@@ -243,6 +247,7 @@ public class GameManager {
         lifeCountAtlas = new TextureAtlas(Gdx.files.internal("caveman/cm_life.pack"));
         bacteriumAtlas = new TextureAtlas(Gdx.files.internal("bacterias/bacteriums.pack"));
         bonusTextureAtlas = new TextureAtlas(Gdx.files.internal("bonus/bonusItems.pack"));
+        gameBackgroundTextureAtlas = new TextureAtlas(Gdx.files.internal("background/db.pack"));
         condomsTextureAtlasBuild();
     }
 
@@ -254,7 +259,7 @@ public class GameManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        dynamicBackground = new DynamicBackground(gameBackgroundTextureAtlas, player.getPositionX(), player.getPositionY());
         backgroundLayer00 = new ParallaxBackgroundLayer00(backgroundAtlas);
         backgroundLayer01 = new ParallaxBackgroundLayer01(backgroundAtlas);
         sprinkle = new Sprinkle(spermAtlas, koeff, level);
@@ -424,4 +429,12 @@ public class GameManager {
     Array<Weapon> getWeapons() {return weapons;}
 
     public Player getPlayer() {return player;}
+
+    public TextureAtlas getGameBackgroundTextureAtlas() {
+        return gameBackgroundTextureAtlas;
+    }
+
+    public DynamicBackground getDynamicBackground() {
+        return dynamicBackground;
+    }
 }//end of class
