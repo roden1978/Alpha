@@ -15,6 +15,7 @@ public class ScreenManager {
     private String soundParam;
     private Music screenMusic;
     private Boolean onoff;
+    private int currentSelectedGirl;
 
     public ScreenManager(){
         currentScreen = null;
@@ -36,6 +37,7 @@ public class ScreenManager {
             e.printStackTrace();
         }
         screenMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/backgroundMenuMusic.mp3"));
+        currentSelectedGirl = 0;
     }
 
     public ObjectScreen getCurrentScreen(){
@@ -79,4 +81,8 @@ public class ScreenManager {
     void setOnoff(Boolean onoff) {
         this.onoff = onoff;
     }
+
+    public void setCurrentSelectedGirl(int index) {currentSelectedGirl = index;}
+
+    public int getCurrentSelectedGirl(){return currentSelectedGirl;}
 }//end of class

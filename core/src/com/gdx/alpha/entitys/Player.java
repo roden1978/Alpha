@@ -1,6 +1,5 @@
 package com.gdx.alpha.entitys;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -71,16 +70,11 @@ public class Player extends Actor {
             batch.draw(caveman_newlifeAnimation.getKeyFrame(stateTime, true), position.x, position.y);
         else
             batch.draw(cavemanAnimation.getKeyFrame(stateTime, true), position.x, position.y);
-        /*if (!throwing && !newlife)//если не бросание и не новая жизнь - бросающий герой
-            batch.draw(cavemanAnimation.getKeyFrame(stateTime, true), position.x, position.y);
-        if (throwing && newlife)//если бросание и новая жизнь - новая жизнь
-            batch.draw(caveman_newlifeAnimation.getKeyFrame(stateTime, false), position.x, position.y);*/
 
         lifeScale.draw(batch, parentAlpha);
         lifes.draw(batch,parentAlpha);
         if (stateTime > stateTimeNewLife + 1.0f)
             newlife = false;
-        //throwing = true;
     }
 
     @Override
@@ -96,9 +90,6 @@ public class Player extends Actor {
             stateTime +=delta;
         else
             stateTime=0.0f;
-
-        /*if(newlife)
-            stateTime += delta;*/
         lifeControl();
     }
 

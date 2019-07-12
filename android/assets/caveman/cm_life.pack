@@ -3,23 +3,44 @@ cm_life.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-caveman_life00
+caveman_life04
   rotate: false
-  xy: 1, 1
-  size: 68, 45
-  orig: 68, 45
+  xy: 1, 219
+  size: 180, 60
+  orig: 180, 60
+  offset: 0, 0
+  index: -1
+caveman_life05
+  rotate: false
+  xy: 1, 157
+  size: 180, 60
+  orig: 180, 60
+  offset: 0, 0
+  index: -1
+caveman_life06
+  rotate: false
+  xy: 1, 95
+  size: 180, 60
+  orig: 180, 60
   offset: 0, 0
   index: -1
 caveman_life01
   rotate: false
-  xy: 71, 1
+  xy: 1, 48
   size: 68, 45
   orig: 68, 45
   offset: 0, 0
   index: -1
 caveman_life02
   rotate: false
-  xy: 141, 1
+  xy: 1, 1
+  size: 68, 45
+  orig: 68, 45
+  offset: 0, 0
+  index: -1
+caveman_life03
+  rotate: false
+  xy: 71, 48
   size: 68, 45
   orig: 68, 45
   offset: 0, 0

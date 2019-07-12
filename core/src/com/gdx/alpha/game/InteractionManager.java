@@ -242,7 +242,7 @@ class InteractionManager {
                 }
                 break;
             case 3:
-                if (gameManager.getPlayer().getLifeCount() < 3)
+                if (gameManager.getPlayer().getLifeCount() < 6)
                     gameManager.getPlayer().setLifeCount(gameManager.getPlayer().getLifeCount() + 1);
                 break;
         }

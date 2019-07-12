@@ -57,6 +57,7 @@ public class LevelScreen extends ObjectScreen {
     private Array<Integer> complete;
     private Array<Integer> available;
     private String line;
+    //private int currentSelectedName;
 
 
     public LevelScreen(ScreenManager screenManager){
@@ -67,6 +68,7 @@ public class LevelScreen extends ObjectScreen {
         this.screenManager = screenManager;
         scoreAmount = "";
         spermAmount = "";
+        //currentSelectedName = screenManager.getCurrentSelectedGirl();
 
         //girlStatus = new int[]{1,1,1,1,1,0,0,0,0,0,0,0,0,0,0};
 
@@ -106,6 +108,7 @@ public class LevelScreen extends ObjectScreen {
 
         girlsnames = new List(skin);
         girlsnames.setItems(names);
+        girlsnames.setSelectedIndex(screenManager.getCurrentSelectedGirl());
 
         scrollPane = new ScrollPane(girlsnames,skin);
 
@@ -194,6 +197,7 @@ public class LevelScreen extends ObjectScreen {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl001o"));
                     playButton.setVisible(true);
                     currentGirl.setText(names.get(girlsnames.getSelectedIndex()));
+                    screenManager.setCurrentSelectedGirl(girlsnames.getSelectedIndex());
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(false);
@@ -206,6 +210,7 @@ public class LevelScreen extends ObjectScreen {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl002o"));
                     playButton.setVisible(true);
                     currentGirl.setText(names.get(girlsnames.getSelectedIndex()));
+                    screenManager.setCurrentSelectedGirl(girlsnames.getSelectedIndex());
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(false);
@@ -218,6 +223,7 @@ public class LevelScreen extends ObjectScreen {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl003o"));
                     playButton.setVisible(true);
                     currentGirl.setText(names.get(girlsnames.getSelectedIndex()));
+                    screenManager.setCurrentSelectedGirl(girlsnames.getSelectedIndex());
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(false);
@@ -230,6 +236,7 @@ public class LevelScreen extends ObjectScreen {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl004o"));
                     playButton.setVisible(true);
                     currentGirl.setText(names.get(girlsnames.getSelectedIndex()));
+                    screenManager.setCurrentSelectedGirl(girlsnames.getSelectedIndex());
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(false);
@@ -242,6 +249,7 @@ public class LevelScreen extends ObjectScreen {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl005o"));
                     playButton.setVisible(true);
                     currentGirl.setText(names.get(girlsnames.getSelectedIndex()));
+                    screenManager.setCurrentSelectedGirl(girlsnames.getSelectedIndex());
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(false);
@@ -254,6 +262,7 @@ public class LevelScreen extends ObjectScreen {
                     girl_image.setDrawable(girlsFaceSkinPart2.getDrawable("g006"));
                     playButton.setVisible(true);
                     currentGirl.setText(names.get(girlsnames.getSelectedIndex()));
+                    screenManager.setCurrentSelectedGirl(girlsnames.getSelectedIndex());
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(false);
@@ -266,6 +275,7 @@ public class LevelScreen extends ObjectScreen {
                     girl_image.setDrawable(girlsFaceSkinPart2.getDrawable("g007"));
                     playButton.setVisible(true);
                     currentGirl.setText(names.get(girlsnames.getSelectedIndex()));
+                    screenManager.setCurrentSelectedGirl(girlsnames.getSelectedIndex());
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(false);
@@ -278,6 +288,7 @@ public class LevelScreen extends ObjectScreen {
                     girl_image.setDrawable(girlsFaceSkinPart2.getDrawable("g008"));
                     playButton.setVisible(true);
                     currentGirl.setText(names.get(girlsnames.getSelectedIndex()));
+                    screenManager.setCurrentSelectedGirl(girlsnames.getSelectedIndex());
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(false);
@@ -290,6 +301,7 @@ public class LevelScreen extends ObjectScreen {
                     girl_image.setDrawable(girlsFaceSkinPart2.getDrawable("g009"));
                     playButton.setVisible(true);
                     currentGirl.setText(names.get(girlsnames.getSelectedIndex()));
+                    screenManager.setCurrentSelectedGirl(girlsnames.getSelectedIndex());
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(false);
@@ -302,6 +314,7 @@ public class LevelScreen extends ObjectScreen {
                     girl_image.setDrawable(girlsFaceSkinPart2.getDrawable("g010"));
                     playButton.setVisible(true);
                     currentGirl.setText(names.get(girlsnames.getSelectedIndex()));
+                    screenManager.setCurrentSelectedGirl(girlsnames.getSelectedIndex());
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(false);
@@ -314,6 +327,7 @@ public class LevelScreen extends ObjectScreen {
                     girl_image.setDrawable(girlsFaceSkinPart3.getDrawable("sasha"));
                     playButton.setVisible(true);
                     currentGirl.setText(names.get(girlsnames.getSelectedIndex()));
+                    screenManager.setCurrentSelectedGirl(girlsnames.getSelectedIndex());
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(false);
@@ -326,6 +340,7 @@ public class LevelScreen extends ObjectScreen {
                     girl_image.setDrawable(girlsFaceSkinPart3.getDrawable("katrina"));
                     playButton.setVisible(true);
                     currentGirl.setText(names.get(girlsnames.getSelectedIndex()));
+                    screenManager.setCurrentSelectedGirl(girlsnames.getSelectedIndex());
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(false);
@@ -338,6 +353,7 @@ public class LevelScreen extends ObjectScreen {
                     girl_image.setDrawable(girlsFaceSkinPart3.getDrawable("kylie"));
                     playButton.setVisible(true);
                     currentGirl.setText(names.get(girlsnames.getSelectedIndex()));
+                    screenManager.setCurrentSelectedGirl(girlsnames.getSelectedIndex());
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(false);
@@ -350,6 +366,7 @@ public class LevelScreen extends ObjectScreen {
                     girl_image.setDrawable(girlsFaceSkinPart3.getDrawable("lana"));
                     playButton.setVisible(true);
                     currentGirl.setText(names.get(girlsnames.getSelectedIndex()));
+                    screenManager.setCurrentSelectedGirl(girlsnames.getSelectedIndex());
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(false);
@@ -362,6 +379,7 @@ public class LevelScreen extends ObjectScreen {
                     girl_image.setDrawable(girlsFaceSkinPart3.getDrawable("mia"));
                     playButton.setVisible(true);
                     currentGirl.setText(names.get(girlsnames.getSelectedIndex()));
+                    screenManager.setCurrentSelectedGirl(girlsnames.getSelectedIndex());
                 }else {
                     girl_image.setDrawable(girlsFaceSkin.getDrawable("girl_close"));
                     playButton.setVisible(false);
