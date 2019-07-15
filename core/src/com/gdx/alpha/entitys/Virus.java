@@ -1,5 +1,6 @@
 package com.gdx.alpha.entitys;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -31,6 +32,8 @@ public class Virus extends Microbe {
     private Vector2 position;
     private float speed;
     private float koeffVirusBulletSpeed;
+    private float koeff;
+    private static float SCREEN_WIDTH  = Gdx.graphics.getWidth();
 
     public Virus(Vector2 position, float speed, int weightTmp, Player player,
                   TextureAtlas virusTextureAtlas, TextureAtlas bulletTextureAtlas, TextureAtlas lifeScaleAtlas) {
@@ -44,13 +47,15 @@ public class Virus extends Microbe {
         this.bulletTextureAtlas = bulletTextureAtlas;
         this.lifeScaleAtlas = lifeScaleAtlas;
         this.virus_type = 0;
-        init();
         this.virusBound = new Bounds(this.position.x, this.position.y, boundWidth, boundHeight);
         this.lifeScale = new LifeScale(lifeScaleAtlas,position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
                 position.y + boundHeight,lifeScaleAtlas.findRegion("green").getRegionWidth());
         this.maxHealth = health;
         this.entity = "v";
-        koeffVirusBulletSpeed = 8.0f;
+        this.koeff = SCREEN_WIDTH / 1280;
+        koeffVirusBulletSpeed = 8.0f * this.koeff;
+        init();
+        System.out.println("Sw "+SCREEN_WIDTH  + " koeff " + this.koeff);
     }
 
     private void init(){
@@ -125,25 +130,25 @@ public class Virus extends Microbe {
             case 0://small
                 setHealth(70);
                 setPrice(100);
-                speed = 1.25f;
+                speed = 1.25f * this.koeff;
                 interval = 0.6f;
                 break;
             case 1://normal
                 setHealth(100);
                 setPrice(200);
-                speed = 1.0f;
+                speed = 1.0f* this.koeff;
                 interval = 1.0f;
                 break;
             case 2://big
                 setHealth(150);
                 setPrice(300);
-                speed = 0.5f;
+                speed = 0.5f* this.koeff;
                 interval = 1.5f;
                 break;
             case 3://super big
                 setHealth(1000);
                 setPrice(500);
-                speed = 0.25f;
+                speed = 0.25f* this.koeff;
                 interval = 2.0f;
                 break;
         }

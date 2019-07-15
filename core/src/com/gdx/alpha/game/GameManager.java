@@ -148,7 +148,7 @@ public class GameManager {
 
     private Table uiTable;
 
-    private float koeff; // коэффициент скорссти капли в зависимости от ширины экрана
+    //private float koeff; // коэффициент скорссти капли в зависимости от ширины экрана
 
     private Group groupLayer0;
 
@@ -175,12 +175,12 @@ public class GameManager {
         delta_time_particle_effect = 3.0f;
         ovum_effectStart = false;
 
-        if(Gdx.graphics.getWidth() <= 1280){
+       /* if(Gdx.graphics.getWidth() <= 1280){
             koeff = 1;
         }else
         {
             koeff = Gdx.graphics.getWidth() / 1280;
-        }
+        }*/
 
         line = "";
 
@@ -263,7 +263,7 @@ public class GameManager {
         dynamicBackground = new DynamicBackground(gameBackgroundTextureAtlas, player.getPositionX(), player.getPositionY());
         backgroundLayer00 = new ParallaxBackgroundLayer00(backgroundAtlas);
         backgroundLayer01 = new ParallaxBackgroundLayer01(backgroundAtlas);
-        sprinkle = new Sprinkle(spermAtlas, koeff, level);
+        sprinkle = new Sprinkle(spermAtlas, level);
         ovum = new Ovum(ovumAtlas);
         pig = new Pig(bonusTextureAtlas.findRegion("pig"));
     }

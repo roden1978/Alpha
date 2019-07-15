@@ -24,7 +24,7 @@ public class Bacterium extends Microbe {
                 bacteriumAtlas.findRegion("b001").getRegionWidth(),
                 bacteriumAtlas.findRegion("b001").getRegionHeight());
         setPrice(100);
-        setHealth(45);
+        setHealth(40);
         setBacteriumRegions();
         this.degree = 0.0f;
         this.direction = true;

@@ -25,12 +25,6 @@ public class GameDriver {
     private CollisionDetector collisionDetector;
     private InteractionManager interactionManager;
     private AudioManager audioManager;
-   /* private Actor removedActor;
-    private BonusItems removedBonusItem;
-    private Weapon removedAxe;
-    private Float removedTime;
-    private HitParticleEffect removedHPE;
-    private ScoreCloud removedScoreCloud;*/
     private Microbe microbe;
     private BacteriasColony colony;
 
