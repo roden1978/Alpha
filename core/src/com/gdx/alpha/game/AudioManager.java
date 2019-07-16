@@ -41,7 +41,7 @@ public class AudioManager {
         //звук подбора бонусной монеты
         bonusCoinSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bonusCoin.mp3"));
         //звук подбора черепа
-        bonusSkullSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bonusSkull.mp3"));
+        bonusSkullSound = Gdx.audio.newSound(Gdx.files.internal("sounds/usingSkull.mp3"));
         //взук бросания оружия(топора)
         throwAxeSound = Gdx.audio.newSound(Gdx.files.internal("sounds/axeThrow.mp3"));
     }
@@ -56,8 +56,5 @@ public class AudioManager {
     public Sound getCreateBonusItemSound() {return createBonusItemSound;}
     public Sound getBonusCoinSound() {return bonusCoinSound;}
     public Sound getBonusSkullSound() {return bonusSkullSound;}
-
-    public Sound getThrowAxeSound() {
-        return throwAxeSound;
-    }
+    public Sound getThrowAxeSound() {return throwAxeSound;}
 }

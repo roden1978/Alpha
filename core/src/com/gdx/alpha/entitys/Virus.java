@@ -52,15 +52,15 @@ public class Virus extends Microbe {
         this.lifeScaleAtlas = lifeScaleAtlas;
         this.virus_type = 0;
         this.soundOnOff = soundOnOff;
-        this.virusBound = new Bounds(this.position.x, this.position.y, boundWidth, boundHeight);
-        this.lifeScale = new LifeScale(lifeScaleAtlas,position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
+        virusBound = new Bounds(this.position.x, this.position.y, this.boundWidth, this.boundHeight);
+        lifeScale = new LifeScale(lifeScaleAtlas,position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
                 position.y + boundHeight,lifeScaleAtlas.findRegion("green").getRegionWidth());
-        this.maxHealth = health;
         entity = "v";
         this.koeff = SCREEN_WIDTH / 1280;
         koeffVirusBulletSpeed = 8.0f * this.koeff;
         init();
-        System.out.println("Sw "+SCREEN_WIDTH  + " koeff " + this.koeff);
+        maxHealth = health;
+        //System.out.println("Sw "+SCREEN_WIDTH  + " koeff " + this.koeff);
     }
 
     private void init(){
@@ -95,7 +95,7 @@ public class Virus extends Microbe {
         batch.draw(virusTextureRegion, this.position.x, this.position.y,virusTextureRegion.getRegionWidth()/2.00f,
                 virusTextureRegion.getRegionHeight()/2.00f,virusTextureRegion.getRegionWidth(),virusTextureRegion.getRegionHeight(),
                 1.0f,1.0f,degree);
-        this.lifeScale.draw(batch,parentAlpha);
+        lifeScale.draw(batch,parentAlpha);
     }
 
     @Override
@@ -106,10 +106,11 @@ public class Virus extends Microbe {
         if (degree < -359.0f)
             degree = 0.0f;
         degree -=5.0f;
-        this.virusBound.update(this.position.x, this.position.y, this.boundWidth, this.boundHeight);
-        this.lifeScale.setWidth(33.0f*health/maxHealth);
-        this.lifeScale.setPosition(position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
+        virusBound.update(position.x, position.y, boundWidth, boundHeight);
+        lifeScale.setWidth(33.0f * health/maxHealth);
+        lifeScale.setPosition(position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
                 position.y + boundHeight);
+        //System.out.println("Pos x "+ (33.0f * health/maxHealth));
     }
 
     @Override

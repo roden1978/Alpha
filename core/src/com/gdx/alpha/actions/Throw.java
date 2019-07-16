@@ -105,7 +105,8 @@ public class Throw extends Actor{
                     setInterval(weapon.getInterval());
                     weaponArray.add(weapon);
                     intervalDelta = 0.0f;
-                    //throwAxeSound.play();
+                    if(soundOnOff)
+                        throwAxeSound.play();
                     isDelay = true;
                     //System.out.println("X: "+playerPosition.x  + " Y: " + playerPosition.y + " size " + axeArray.size);
                 }
@@ -116,7 +117,8 @@ public class Throw extends Actor{
                     setInterval(weapon.getInterval());
                     weaponArray.add(weapon);
                     intervalDelta = 0.0f;
-                    //throwAxeSound.play();
+                    if(soundOnOff)
+                        throwAxeSound.play();
                     isDelay = true;
                 }
                     //System.out.println("X: "+playerPosition.x  + " Y: " + playerPosition.y + " size " + axeArray.size);
@@ -127,7 +129,8 @@ public class Throw extends Actor{
                     setInterval(weapon.getInterval());
                     weaponArray.add(weapon);
                     intervalDelta = 0.0f;
-                   // throwAxeSound.play();
+                   if(soundOnOff)
+                        throwAxeSound.play();
                     isDelay = true;
                 }
                 //System.out.println("X: "+playerPosition.x  + " Y: " + playerPosition.y + " size " + axeArray.size);
@@ -136,14 +139,15 @@ public class Throw extends Actor{
                 if (intervalDelta > interval){
                     weaponArray.add(new Axe(new Vector2(playerPosition)));
                     intervalDelta = 0.0f;
-                    //throwAxeSound.play();
+                    if(soundOnOff)
+                        throwAxeSound.play();
                     isDelay = false;
                     //System.out.println("X: "+playerPosition.x  + " Y: " + playerPosition.y + " size " + axeArray.size);
                 }
                 break;
         }
-        if(soundOnOff)
-            throwAxeSound.play();
+        /*if(soundOnOff)
+            throwAxeSound.play();*/
     }
 
     public void updatePosition(Vector2 playerPosition){

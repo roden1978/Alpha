@@ -27,7 +27,7 @@ public class DynamicBackground extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         //super.draw(batch, parentAlpha);
-        batch.draw(textureRegion, position.x, position.y,SCREEN_WIDTH + 40, SCREEN_HEIGHT + 40);
+        batch.draw(textureRegion, position.x, position.y,SCREEN_WIDTH + 60, SCREEN_HEIGHT + 60);
     }
 
     @Override
@@ -36,13 +36,13 @@ public class DynamicBackground extends Actor {
        if (playerPosition.x > origin.x && position.x <= 0)
             position.x += 1;
 
-        if (playerPosition.x < origin.x && position.x >= - 20)
+        if (playerPosition.x < origin.x && position.x >= - 30)
             position.x -= 1;
 
         if(playerPosition.y > origin.y && position.y <= 0)
             position.y += 1;
 
-        if(playerPosition.y < origin.y && position.y >= -20)
+        if(playerPosition.y < origin.y && position.y >= -30)
             position.y -=1;
     }
 
