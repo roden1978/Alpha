@@ -1,6 +1,7 @@
 package com.gdx.alpha.entitys;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -34,24 +35,28 @@ public class Virus extends Microbe {
     private float koeffVirusBulletSpeed;
     private float koeff;
     private static float SCREEN_WIDTH  = Gdx.graphics.getWidth();
+    private Sound shootSound;
+    private Boolean soundOnOff;
 
     public Virus(Vector2 position, float speed, int weightTmp, Player player,
-                  TextureAtlas virusTextureAtlas, TextureAtlas bulletTextureAtlas, TextureAtlas lifeScaleAtlas) {
+                 TextureAtlas virusTextureAtlas, TextureAtlas bulletTextureAtlas, TextureAtlas lifeScaleAtlas, Sound shootSound, Boolean soundOnOff) {
         super(position, speed);
         this.speed = speed;
         weight = weightTmp;
         this.player = player;
         this.position = position;
+        this.shootSound = shootSound;
         this.degree = 0.0f;
         this.virusTextureAtlas = virusTextureAtlas;
         this.bulletTextureAtlas = bulletTextureAtlas;
         this.lifeScaleAtlas = lifeScaleAtlas;
         this.virus_type = 0;
+        this.soundOnOff = soundOnOff;
         this.virusBound = new Bounds(this.position.x, this.position.y, boundWidth, boundHeight);
         this.lifeScale = new LifeScale(lifeScaleAtlas,position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
                 position.y + boundHeight,lifeScaleAtlas.findRegion("green").getRegionWidth());
         this.maxHealth = health;
-        this.entity = "v";
+        entity = "v";
         this.koeff = SCREEN_WIDTH / 1280;
         koeffVirusBulletSpeed = 8.0f * this.koeff;
         init();
@@ -78,6 +83,8 @@ public class Virus extends Microbe {
             bullet.updateAngel();
             bulletsArray.add(bullet);
             this.intervalDelta = 0.0f;
+            if (this.soundOnOff)
+                this.shootSound.play();
             //System.out.println("X: "+bullet.getPositionX()  + " Y: " + bullet.getPositionY() + " size " + bulletsArray.size);
         }
     }
@@ -88,7 +95,7 @@ public class Virus extends Microbe {
         batch.draw(virusTextureRegion, this.position.x, this.position.y,virusTextureRegion.getRegionWidth()/2.00f,
                 virusTextureRegion.getRegionHeight()/2.00f,virusTextureRegion.getRegionWidth(),virusTextureRegion.getRegionHeight(),
                 1.0f,1.0f,degree);
-        lifeScale.draw(batch,parentAlpha);
+        this.lifeScale.draw(batch,parentAlpha);
     }
 
     @Override
@@ -99,9 +106,9 @@ public class Virus extends Microbe {
         if (degree < -359.0f)
             degree = 0.0f;
         degree -=5.0f;
-        virusBound.update(this.position.x, this.position.y, this.boundWidth, this.boundHeight);
-        lifeScale.setWidth(33.0f*health/maxHealth);
-        lifeScale.setPosition(position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
+        this.virusBound.update(this.position.x, this.position.y, this.boundWidth, this.boundHeight);
+        this.lifeScale.setWidth(33.0f*health/maxHealth);
+        this.lifeScale.setPosition(position.x + boundWidth/2.0f - lifeScaleAtlas.findRegion("green").getRegionWidth()/2.0f,
                 position.y + boundHeight);
     }
 

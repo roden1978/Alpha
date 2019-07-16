@@ -40,7 +40,7 @@ public class Condom extends Microbe {
         setPrice(200);
         setHealth(120);
         maxHealth = health;
-        this.entity = "c";
+        entity = "c";
     }
 
     @Override

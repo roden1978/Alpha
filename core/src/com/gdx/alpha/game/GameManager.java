@@ -148,11 +148,11 @@ public class GameManager {
 
     private Table uiTable;
 
-    //private float koeff; // коэффициент скорссти капли в зависимости от ширины экрана
+    private AudioManager audioManager;
 
     private Group groupLayer0;
 
-    GameManager(int level) {
+    GameManager(AudioManager audioManager, int level, Boolean soundOnOff) {
         this.level = level;
         typeEnemie = new Array<String>();
         posX = new Array<Float>();
@@ -174,6 +174,8 @@ public class GameManager {
         scoreCloudArray = new Array<ScoreCloud>(10);
         delta_time_particle_effect = 3.0f;
         ovum_effectStart = false;
+        this.soundOnOff = soundOnOff;
+        this.audioManager = audioManager;
 
        /* if(Gdx.graphics.getWidth() <= 1280){
             koeff = 1;
@@ -269,7 +271,8 @@ public class GameManager {
     }
 
     void buildActions() {
-        throwWeapon = new Throw(0, new Vector2(player.getPositionX(), player.getPositionY()));
+        throwWeapon = new Throw(0, new Vector2(player.getPositionX(), player.getPositionY()),
+                this.audioManager.getThrowAxeSound(), this.soundOnOff);
     }
 
     public Integer getScoresAmount() {

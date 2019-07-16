@@ -41,10 +41,10 @@ public class GameDriver {
 
     public GameDriver(GameScreen gameScreen, int level){
         this.gameScreen = gameScreen;
-        //Создаем экземпляр класса GameManager
-        gameManager = new GameManager(level);
         //Создаем AudioManager
         audioManager = new AudioManager();
+        //Создаем экземпляр класса GameManager
+        gameManager = new GameManager(audioManager, level, gameScreen.getScreenManager().getOnoff());
         //interaction manager
         interactionManager = new InteractionManager(gameManager, audioManager);
         //Создаем экзкмпляр класса CollisionDetector и передаем в него экземпляр класса GameManager
@@ -146,8 +146,9 @@ public class GameDriver {
 
         //System.out.println("Height: "+gameManager.virusAtlas);
         if(gameManager.typeEnemie.get(i).trim().equals("v")){
-            microbe = new Virus(new Vector2(gameManager.posX.get(i),gameManager.posY.get(i) * Gdx.graphics.getHeight()),gameManager.speed.get(i),
-                    gameManager.weight.get(i),gameManager.getPlayer(),gameManager.virusAtlas, gameManager.virusBulletAtlas, gameManager.getLifeScaleAtlas());
+            microbe = new Virus(new Vector2(gameManager.posX.get(i),gameManager.posY.get(i) * Gdx.graphics.getHeight()),
+                    gameManager.speed.get(i), gameManager.weight.get(i),gameManager.getPlayer(),gameManager.virusAtlas,
+                    gameManager.virusBulletAtlas, gameManager.getLifeScaleAtlas(), audioManager.getEnemyShootSound(), gameManager.getSoundOnOff());
             gameManager.getEnemies().add(microbe);
             gameScreen.getGameStage().addActor(microbe);
         }
@@ -425,6 +426,8 @@ public class GameDriver {
                         gameManager.getPig().setIsDraw(true);
                         break;
                 }
+                if(gameManager.getSoundOnOff())
+                    audioManager.getCreateBonusItemSound();
             }
         }
     }

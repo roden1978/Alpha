@@ -74,7 +74,7 @@ class InteractionManager {
         hitParticleEffect.setPositionEffect(gameManager.getEnemies().get(i).getPositionX() + gameManager.getEnemies().get(i).getBound().getBox().getWidth() / 2,
                 gameManager.getEnemies().get(i).getPositionY() + gameManager.getEnemies().get(i).getBound().getBox().getHeight() / 2);
         gameManager.hitParticleEffectArray.add(hitParticleEffect);
-        playBlowEnemySound();
+        //playBlowEnemySound();
     }
     //создание облака очко от столкновения игрока с врагом
      void createScoreCloudToPlayer(Integer i){
@@ -171,9 +171,14 @@ class InteractionManager {
         gameManager.scoreCloudArray.add(scoreCloud);
     }
     //Проигрывание звука уничтожениея врага
-    private void playBlowEnemySound (){
-        if(gameManager.getSoundOnOff())
-            audioManager.getBlowEnemySound().play();
+    void playBlowEnemySound (int i){
+        if(gameManager.getSoundOnOff()) {
+            if (gameManager.getEnemies().get(i).getEntity().equals("v"))
+                audioManager.getBlowEnemySound().play();
+
+            if (gameManager.getEnemies().get(i).getEntity().equals("b"))
+                audioManager.getBacteriumDeathSound().play();
+        }
     }
 
     //Подбор бектериофага
@@ -217,7 +222,10 @@ class InteractionManager {
                     //Выводим облако очков поражения врага
                    createScoreCloudToEnemies(j);
 
-                    gameManager.getEnemies().get(j).remove();
+                   if(gameManager.getSoundOnOff())
+                       audioManager.getBonusSkullSound().play();
+
+                   gameManager.getEnemies().get(j).remove();
                     //System.out.println("Collision player bacter array size: " + gameManager.getBacteriophages().size);
                     //gameManager.getEnemies().removeIndex(j);
                 }
@@ -233,12 +241,17 @@ class InteractionManager {
                 break;
             case 1://Монета прибавление 5000 очков
                 gameManager.setScoresAmount(gameManager.getScoresAmount() + 5000);
+                if (gameManager.getSoundOnOff())
+                    audioManager.getBonusCoinSound().play();
                 break;
             case 2:// Будилник вирусы перестают стрелять и начинают двигаться в противоположном направлении
+
                 for (int j = 0; j < gameManager.getEnemies().size; j++){
-                   gameManager.getEnemies().get(j).setSpeed(gameManager.getEnemies().get(j).getSpeed() / -2.0f);
-                   gameManager.getEnemies().get(j).setInterval(0.0f);
-                   gameManager.getEnemies().get(j).setPrice(gameManager.getEnemies().get(j).getPrice() * 2);
+                    if (gameManager.getEnemies().get(j).getEntity().equals("v")) {
+                        gameManager.getEnemies().get(j).setSpeed(gameManager.getEnemies().get(j).getSpeed() / -2.0f);
+                        gameManager.getEnemies().get(j).setInterval(0.0f);
+                        gameManager.getEnemies().get(j).setPrice(gameManager.getEnemies().get(j).getPrice() * 2);
+                    }
                 }
                 break;
             case 3:

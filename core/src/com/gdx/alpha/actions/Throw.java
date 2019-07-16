@@ -37,12 +37,15 @@ public class Throw extends Actor{
     private Sound throwAxeSound;
     private float weaponDelay;
     private Boolean isDelay;
+    private Boolean soundOnOff;
 
-    public Throw(int weaponType, Vector2 playerPosition){
+    public Throw(int weaponType, Vector2 playerPosition, Sound throwAxeSound, Boolean soundOnOff){
         this.weaponType = weaponType;
         this.playerPosition = playerPosition;
+        this.throwAxeSound = throwAxeSound;
+        this.soundOnOff = soundOnOff;
         //this.axeAtlas = axeAtlas;
-        throwAxeSound = Gdx.audio.newSound(Gdx.files.internal("sounds/axeThrow.mp3"));
+        //throwAxeSound = Gdx.audio.newSound(Gdx.files.internal("sounds/axeThrow.mp3"));
         intervalDefault = 0.3f;
         weaponInterval = 6.0f;
         throwing = true;
@@ -102,7 +105,7 @@ public class Throw extends Actor{
                     setInterval(weapon.getInterval());
                     weaponArray.add(weapon);
                     intervalDelta = 0.0f;
-                    throwAxeSound.play();
+                    //throwAxeSound.play();
                     isDelay = true;
                     //System.out.println("X: "+playerPosition.x  + " Y: " + playerPosition.y + " size " + axeArray.size);
                 }
@@ -113,7 +116,7 @@ public class Throw extends Actor{
                     setInterval(weapon.getInterval());
                     weaponArray.add(weapon);
                     intervalDelta = 0.0f;
-                    throwAxeSound.play();
+                    //throwAxeSound.play();
                     isDelay = true;
                 }
                     //System.out.println("X: "+playerPosition.x  + " Y: " + playerPosition.y + " size " + axeArray.size);
@@ -124,7 +127,7 @@ public class Throw extends Actor{
                     setInterval(weapon.getInterval());
                     weaponArray.add(weapon);
                     intervalDelta = 0.0f;
-                    throwAxeSound.play();
+                   // throwAxeSound.play();
                     isDelay = true;
                 }
                 //System.out.println("X: "+playerPosition.x  + " Y: " + playerPosition.y + " size " + axeArray.size);
@@ -133,12 +136,14 @@ public class Throw extends Actor{
                 if (intervalDelta > interval){
                     weaponArray.add(new Axe(new Vector2(playerPosition)));
                     intervalDelta = 0.0f;
-                    throwAxeSound.play();
+                    //throwAxeSound.play();
                     isDelay = false;
                     //System.out.println("X: "+playerPosition.x  + " Y: " + playerPosition.y + " size " + axeArray.size);
                 }
                 break;
         }
+        if(soundOnOff)
+            throwAxeSound.play();
     }
 
     public void updatePosition(Vector2 playerPosition){

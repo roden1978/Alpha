@@ -178,6 +178,8 @@ class CollisionDetector {
                                     interactionManager.changeScoreAmountUIEnemiesKill(i);
                                     //Выводим облако очков поражения врага
                                     interactionManager.createScoreCloudToEnemies(i);
+                                    //Проигрывание звука уничтожения врага
+                                    interactionManager.playBlowEnemySound(i);
                                     //Добавление бактериофага в игру
                                     //if (interactionManager.randomizeBacteriophages(i) != null)
                                     interactionManager.randomizeBacteriophage(gameManager.getEnemies().get(i));

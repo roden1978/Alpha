@@ -28,6 +28,7 @@ public class Bacterium extends Microbe {
         setBacteriumRegions();
         this.degree = 0.0f;
         this.direction = true;
+        entity = "b";
     }
 
     @Override
