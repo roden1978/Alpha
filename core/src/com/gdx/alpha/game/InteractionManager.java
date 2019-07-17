@@ -222,8 +222,8 @@ class InteractionManager {
                     //Выводим облако очков поражения врага
                    createScoreCloudToEnemies(j);
 
-                   if(gameManager.getSoundOnOff())
-                       audioManager.getBonusSkullSound().play();
+                  /* if(gameManager.getSoundOnOff())
+                       audioManager.getBonusSkullSound().play();*/
 
                    gameManager.getEnemies().get(j).remove();
                     //System.out.println("Collision player bacter array size: " + gameManager.getBacteriophages().size);

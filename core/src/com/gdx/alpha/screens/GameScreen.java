@@ -7,20 +7,17 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-//import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -215,6 +212,8 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
                 screenY < (int)(gameStage.getHeight() - (gameStage.getHeight() - gameDriver.getGameManager().pauseImage.getImageHeight()*2.0f)) &&
                 screenY > 0.0f){
 //(int) (gameStage.getHeight() - gameDriver.gameManager.pauseImage.getImageY() - gameDriver.gameManager.pauseImage.getImageHeight())
+            if(screenManager.getOnoff())
+                screenManager.getScreenTapSound().play();
             state = PAUSE_STATE;
             takeScreenshot = true;
             //System.out.println("State out: " + state);
@@ -230,6 +229,15 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
             gameDriver.getAudioManager().getBackgroundGameMusic().stop();
             gameDriver.getAudioManager().getBackgroundGameMusic().dispose();
         }
+        //Возврат в меню выбора уровня из экрана паузы
+        if (state == PAUSE_STATE){
+            if (screenX > 0 && screenX < 100 && screenY < 50 && screenY > 0.0f){
+                if(screenManager.getOnoff())
+                    screenManager.getScreenTapSound().play();
+                screenManager.setCurrentScreen(new LevelScreen(screenManager));
+            }
+        }
+
 
         return true;
     }
@@ -444,7 +452,9 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
            /* font.draw(spriteBatch,"LEVEL COMPLETE",gameStage.getWidth()/2 - font.getBounds("LEVEL COMPLETE").width/2,
                     gameStage.getHeight()/2 + font.getBounds("LEVEL COMPLETE").height/2);*/
         background.draw(spriteBatch, 0.5f);
-        font.draw(spriteBatch,"LEVEL COMPLETE",0.0f, gameStage.getHeight()/2.0f, gameStage.getWidth(), Align.center, true);
+        font.draw(spriteBatch,"LEVEL COMPLETE",0.0f, gameStage.getHeight()/2.0f + 100, gameStage.getWidth(), Align.center, true);
+        String str = "SCORE " + gameDriver.getGameManager().getScoresAmount() + "    SPERM " + gameDriver.getGameManager().getSpermAmount();
+        font.draw(spriteBatch, str, 0.0f,gameStage.getHeight()/ 3.0f + 100, gameStage.getWidth(),Align.center, true);
         spriteBatch.end();
         //Сохранение результатов пройденного уровня
         if(isStringLevelParamsSave) {
@@ -457,6 +467,9 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
             }
             isStringLevelParamsSave = false;
         }
+
+        if(screenManager.getOnoff())
+            screenManager.getLevelCompleteSound().play();
     }
     //отрисовка окончания игры
     private void presentGameOver(){

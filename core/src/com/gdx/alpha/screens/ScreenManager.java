@@ -2,6 +2,7 @@ package com.gdx.alpha.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 
 import java.io.IOException;
@@ -14,6 +15,9 @@ public class ScreenManager {
     private String line;
     private String soundParam;
     private Music screenMusic;
+    private Sound buttonClickSound;
+    private Sound screenTapSound;
+    private Sound levelCompleteSound;
     private Boolean onoff;
     private int currentSelectedGirl;
 
@@ -37,6 +41,9 @@ public class ScreenManager {
             e.printStackTrace();
         }
         screenMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/backgroundMenuMusic.mp3"));
+        buttonClickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonClick.mp3"));
+        screenTapSound = Gdx.audio.newSound(Gdx.files.internal("sounds/screenTapSound.mp3"));
+        levelCompleteSound = Gdx.audio.newSound(Gdx.files.internal("sounds/levelComplete.mp3"));
         currentSelectedGirl = 0;
     }
 
@@ -73,6 +80,12 @@ public class ScreenManager {
     Music getScreenMusic() {
         return screenMusic;
     }
+
+    Sound getButtonClickSound() {return buttonClickSound;}
+
+    Sound getScreenTapSound(){return  screenTapSound;}
+
+    Sound getLevelCompleteSound() {return  levelCompleteSound;}
 
     public Boolean getOnoff() {
         return onoff;

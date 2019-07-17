@@ -155,12 +155,15 @@ public class MenuScreen extends ObjectScreen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //Gdx.app.exit();
+                if (screenManager.getOnoff())
+                    screenManager.getButtonClickSound().play();
                 return true; //super.touchDown(event, x, y, pointer, button);
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
+
                 Gdx.app.exit();
             }
         });
@@ -168,6 +171,8 @@ public class MenuScreen extends ObjectScreen {
         playButton.addListener(new ClickListener(){
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (screenManager.getOnoff())
+                    screenManager.getButtonClickSound().play();
                 screenManager.setCurrentScreen(new LevelScreen(screenManager));
                 super.touchUp(event, x, y, pointer, button);
             }
@@ -177,6 +182,8 @@ public class MenuScreen extends ObjectScreen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 //screenManager.setCurrentScreen(new LevelScreen(screenManager));
+                if (screenManager.getOnoff())
+                    screenManager.getButtonClickSound().play();
                 super.touchUp(event, x, y, pointer, button);
             }
         });
@@ -186,6 +193,8 @@ public class MenuScreen extends ObjectScreen {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (screenManager.getOnoff()){
                     soundOnOff.setDrawable(soundSkin.getDrawable("sound_off"));
+                    if (screenManager.getOnoff())
+                        screenManager.getButtonClickSound().play();
                     screenManager.setOnoff(false);
                     if (screenManager.getScreenMusic().isPlaying())
                         screenManager.getScreenMusic().stop();
@@ -198,6 +207,8 @@ public class MenuScreen extends ObjectScreen {
                 }else{
                     soundOnOff.setDrawable(soundSkin.getDrawable("sound_on"));
                     screenManager.setOnoff(true);
+                    if (screenManager.getOnoff())
+                        screenManager.getButtonClickSound().play();
                     screenManager.getScreenMusic().play();
 
                     try {

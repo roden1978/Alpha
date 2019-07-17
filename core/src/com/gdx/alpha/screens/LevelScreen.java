@@ -111,6 +111,10 @@ public class LevelScreen extends ObjectScreen {
         girlsnames.setSelectedIndex(screenManager.getCurrentSelectedGirl());
 
         scrollPane = new ScrollPane(girlsnames,skin);
+        //scrollPane.setScrollY(40 * girlsnames.getSelectedIndex());
+        //scrollPane.setScrollbarsVisible(true);
+        //scrollPane.scrollTo(0.0f, 40 * girlsnames.getSelectedIndex(), 0.0f, 0.0f);
+
 
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = bitmapFont;
@@ -167,6 +171,8 @@ public class LevelScreen extends ObjectScreen {
         backButton.addListener(new ClickListener(){
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (screenManager.getOnoff())
+                    screenManager.getButtonClickSound().play();
                 screenManager.setCurrentScreen(new MenuScreen(screenManager));
                 super.touchUp(event, x, y, pointer, button);
             }
@@ -175,6 +181,8 @@ public class LevelScreen extends ObjectScreen {
         playButton.addListener(new ClickListener(){
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (screenManager.getOnoff())
+                    screenManager.getButtonClickSound().play();
                 gameScreen = new GameScreen(screenManager, level);
                 screenManager.setCurrentScreen(gameScreen);
 
