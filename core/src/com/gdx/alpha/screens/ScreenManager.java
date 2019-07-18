@@ -42,7 +42,7 @@ public class ScreenManager {
         }
         screenMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/backgroundMenuMusic.mp3"));
         buttonClickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonClick.mp3"));
-        screenTapSound = Gdx.audio.newSound(Gdx.files.internal("sounds/screenTapSound.mp3"));
+        screenTapSound = Gdx.audio.newSound(Gdx.files.internal("sounds/screensTapSound.mp3"));
         levelCompleteSound = Gdx.audio.newSound(Gdx.files.internal("sounds/levelComplete.mp3"));
         currentSelectedGirl = 0;
     }

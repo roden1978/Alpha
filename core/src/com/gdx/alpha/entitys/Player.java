@@ -1,5 +1,7 @@
 package com.gdx.alpha.entitys;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -34,11 +36,13 @@ public class Player extends Actor {
     private boolean throwing;
     private Boolean newlife;
     private Boolean stateTimeCheck;
+    private Sound lifeLostSound;
+    private Boolean soundOnOff;
 
 
 
     public Player(Vector2 position, TextureAtlas cavemanAtlas, TextureAtlas lifeScaleAtlas,
-                  TextureAtlas lifeCountAtlas, TextureAtlas newlifeTextureAtlas){
+                  TextureAtlas lifeCountAtlas, TextureAtlas newlifeTextureAtlas, Boolean soundOnOff){
         this.position = position;
         this.stateTime = 0.0f;
         this.stateTimeNewLife =0.0f;
@@ -52,6 +56,7 @@ public class Player extends Actor {
         this.lifeCountAtlas = lifeCountAtlas;
         this.newlifeTextureAtlas = newlifeTextureAtlas;
         this.frameDuration = 1/30f;
+        this.soundOnOff = soundOnOff;
         boundWidth = cavemanAtlas.findRegion("right_shot_game001").getRegionWidth();
         boundHeight = cavemanAtlas.findRegion("right_shot_game001").getRegionHeight();
         lifeScale = new LifeScale(lifeScaleAtlas,position.x, position.y,lifeScaleAtlas.findRegion("green").getRegionWidth());
@@ -59,6 +64,8 @@ public class Player extends Actor {
         playerBound = new Bounds(position.x, position.y, boundWidth, boundHeight);
         cavemanAnimation = new Animation<TextureRegion>(frameDuration,cavemanAtlas.getRegions());
         caveman_newlifeAnimation = new Animation<TextureRegion>(frameDuration, newlifeTextureAtlas.getRegions());
+        //Звук потери жизни
+        lifeLostSound = Gdx.audio.newSound(Gdx.files.internal("sounds/lifeLostSound.wav"));
     }
 
 
@@ -160,6 +167,8 @@ public class Player extends Actor {
 
     public void lifeControl() {
         if (getHealth() <= 0) {
+            if (soundOnOff)
+                lifeLostSound.play();
             setLifeCount(getLifeCount() - 1);
             setHealth(getDefaultHealth());
             newlife = true;

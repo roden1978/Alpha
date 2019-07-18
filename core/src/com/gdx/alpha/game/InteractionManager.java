@@ -178,6 +178,9 @@ class InteractionManager {
 
             if (gameManager.getEnemies().get(i).getEntity().equals("b"))
                 audioManager.getBacteriumDeathSound().play();
+
+            if (gameManager.getEnemies().get(i).getEntity().equals("c"))
+                audioManager.getBlowCondomSound().play();
         }
     }
 
@@ -189,18 +192,26 @@ class InteractionManager {
                 gameManager.getPlayer().setHealth(gameManager.getPlayer().getHealth() + gameManager.getBacteriophages().get(i).getHealth());
                 if (gameManager.getPlayer().getHealth() > 300)
                     gameManager.getPlayer().setHealth(300);
+                if(gameManager.getSoundOnOff())
+                    audioManager.getBacteriophageCatchSound().play();
                 break;
             case 1:
                 gameManager.getThrowWeapon().changeType(1);
+                if(gameManager.getSoundOnOff())
+                    audioManager.getBacteriophageCatchSound().play();
                 break;
             case 2:
                 gameManager.getThrowWeapon().changeType(2);
+                if(gameManager.getSoundOnOff())
+                    audioManager.getBacteriophageCatchSound().play();
                 break;
             case 3:
                 gameManager.getThrowWeapon().changeType(3);
+                if(gameManager.getSoundOnOff())
+                    audioManager.getBacteriophageCatchSound().play();
                 break;
         }
-        System.out.println("UseBacter array size interact manager: "+ gameManager.getBacteriophages().size);
+        //System.out.println("UseBacter array size interact manager: "+ gameManager.getBacteriophages().size);
     }
 
   /*  public void changePlayerLifeCount(){
@@ -222,8 +233,8 @@ class InteractionManager {
                     //Выводим облако очков поражения врага
                    createScoreCloudToEnemies(j);
 
-                  /* if(gameManager.getSoundOnOff())
-                       audioManager.getBonusSkullSound().play();*/
+                  if(gameManager.getSoundOnOff())
+                       audioManager.getBonusSkullSound().play();
 
                    gameManager.getEnemies().get(j).remove();
                     //System.out.println("Collision player bacter array size: " + gameManager.getBacteriophages().size);
@@ -253,10 +264,14 @@ class InteractionManager {
                         gameManager.getEnemies().get(j).setPrice(gameManager.getEnemies().get(j).getPrice() * 2);
                     }
                 }
+                if(gameManager.getSoundOnOff())
+                    audioManager.getAlarmClockSound().play();
                 break;
             case 3:
                 if (gameManager.getPlayer().getLifeCount() < 6)
                     gameManager.getPlayer().setLifeCount(gameManager.getPlayer().getLifeCount() + 1);
+                if(gameManager.getSoundOnOff())
+                    audioManager.getNewLifeSound().play();
                 break;
         }
     }

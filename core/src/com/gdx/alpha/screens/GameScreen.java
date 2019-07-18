@@ -57,8 +57,6 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     //фон промежуточных состояний
     private Texture backgroundTexture;
     private Image background;
-    //private Texture gameBackgroundTexture;
-    //private Image gameBackground;
     //
     private float WIDTH;
     private float HEIGHT;
@@ -196,8 +194,23 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         //System.out.println("State in: " + state);
         //Отлеживание продолжения игрового процесса после нажатия на экране паузы
         if (state == PAUSE_STATE){
+            if (screenX > 0 && screenX < gameStage.getWidth() && screenY > gameStage.getHeight() - 100 && screenY > 0.0f){ //(int)(gameStage.getHeight() -(gameStage.getHeight() - 100))
+               /* if(screenManager.getOnoff())
+                    screenManager.getButtonClickSound().play();*/
+                gameDriver.getAudioManager().getBackgroundGameMusic().stop();
+                gameDriver.getAudioManager().getBackgroundGameMusic().dispose();
+                screenManager.setCurrentScreen(new LevelScreen(screenManager));
+            }
+
+            if(screenManager.getOnoff())
+                screenManager.getScreenTapSound().play();
             state = RUNNING_STATE;
             gameDriver.getAudioManager().getBackgroundGameMusic().play();
+
+            System.out.println("Screen X: " + screenX);
+            System.out.println("Screen Y: " + screenY);
+            System.out.println("State in: " + state);
+
         }
         //Бросание оружия при одиночном клике по экрану
         gameDriver.getGameManager().getPlayer().setThrowing(true);
@@ -229,15 +242,15 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
             gameDriver.getAudioManager().getBackgroundGameMusic().stop();
             gameDriver.getAudioManager().getBackgroundGameMusic().dispose();
         }
-        //Возврат в меню выбора уровня из экрана паузы
+       /* //Возврат в меню выбора уровня из экрана паузы
         if (state == PAUSE_STATE){
-            if (screenX > 0 && screenX < 100 && screenY < 50 && screenY > 0.0f){
+            if (screenX > 0 && screenX < gameStage.getWidth() && screenY < 100 && screenY > 0.0f){ //(int)(gameStage.getHeight() -(gameStage.getHeight() - 100))
                 if(screenManager.getOnoff())
-                    screenManager.getScreenTapSound().play();
+                    screenManager.getButtonClickSound().play();
                 screenManager.setCurrentScreen(new LevelScreen(screenManager));
             }
         }
-
+*/
 
         return true;
     }
@@ -439,7 +452,8 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
                     gameStage.getHeight()/2 - font.getBounds("TAP TO CONTINUE").height*2);
             font.draw(spriteBatch,"OR BACK (ESC) TO EXIT",gameStage.getWidth()/2 - font.getBounds("OR BACK (ESC) TO EXIT").width/2,
                     gameStage.getHeight()/2 - font.getBounds("OR BACK TO EXIT").height*3);*/
-        font.draw(spriteBatch,"PAUSE",0.0f, gameStage.getHeight()/2.0f, gameStage.getWidth(), Align.center, true);
+        font.draw(spriteBatch,"PAUSE",0.0f, gameStage.getHeight()/2.0f + 100, gameStage.getWidth(), Align.center, true);
+        font.draw(spriteBatch,"TAP TO CONTINUE\n OR BACK TO EXIT",0.0f, gameStage.getHeight()/3.0f, gameStage.getWidth(), Align.center, true);
             backButton.left().bottom();
             backButton.draw(spriteBatch, 1.0f);
         spriteBatch.end();
@@ -466,10 +480,12 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
                 e.printStackTrace();
             }
             isStringLevelParamsSave = false;
+
+            if(screenManager.getOnoff())
+                screenManager.getLevelCompleteSound().play();
         }
 
-        if(screenManager.getOnoff())
-            screenManager.getLevelCompleteSound().play();
+
     }
     //отрисовка окончания игры
     private void presentGameOver(){

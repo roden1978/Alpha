@@ -257,7 +257,7 @@ public class GameManager {
     void buildGeneralPlayers() {
         try {
             player = new Player(new Vector2(Gdx.graphics.getWidth() / 2.0f, Gdx.graphics.getHeight() / 2.0f),
-                    cavemanAtlas, lifeScaleAtlas,lifeCountAtlas, caveman_newlifeAtlas);
+                    cavemanAtlas, lifeScaleAtlas,lifeCountAtlas, caveman_newlifeAtlas, soundOnOff);
             //System.out.println("Z index " + player.getZIndex());
         } catch (Exception e) {
             e.printStackTrace();

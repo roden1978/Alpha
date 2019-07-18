@@ -7,15 +7,11 @@ import com.badlogic.gdx.audio.Sound;
 public class AudioManager {
 
 
-    private Sound throwMaceSound;
-    private Sound throwStoneSound;
-    private Sound hitEnemySound;
     private Sound blowEnemySound;
     private Sound hitPlayerSound;
     private Sound hitSpermSound;
     private Sound bornBacteriophageSound;
     private Sound beginLevelSound;
-    private Sound endLevelSound;
     private Sound enemyShootSound;
     private Sound bacteriumDeathSound;
     private Sound createBonusItemSound;
@@ -23,6 +19,12 @@ public class AudioManager {
     private Sound bonusSkullSound;
     private Music backgroundGameMusic;
     private Sound throwAxeSound;
+    private Sound bacteriophageCatchSound;
+    private Sound blowCondomSound;
+    private Sound newLifeSound;
+    private Sound alarmClockSound;
+    private Sound gameOverSound;
+    //private Sound lifeLostSound;
 
 
     public AudioManager() {
@@ -30,8 +32,6 @@ public class AudioManager {
         blowEnemySound = Gdx.audio.newSound(Gdx.files.internal("sounds/blowEnemy.mp3"));
         //фоновая музыка в игре
         backgroundGameMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/backgroundGameMusic.mp3"));
-        //звук завершения уровня
-        endLevelSound = Gdx.audio.newSound(Gdx.files.internal("sounds/levelComplete.mp3"));
         //звук выстрела вируса
         enemyShootSound =  Gdx.audio.newSound(Gdx.files.internal("sounds/enemyshoot.mp3"));
         //звук уничтожения бактерии
@@ -44,17 +44,31 @@ public class AudioManager {
         bonusSkullSound = Gdx.audio.newSound(Gdx.files.internal("sounds/usingSkull.mp3"));
         //взук бросания оружия(топора)
         throwAxeSound = Gdx.audio.newSound(Gdx.files.internal("sounds/axeThrow.mp3"));
+        //Звук подбора бактериофага
+        bacteriophageCatchSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bacterCatchSound.mp3"));
+        //Звук сдувания кондома
+        blowCondomSound = Gdx.audio.newSound(Gdx.files.internal("sounds/blowCondom.mp3"));
+        //Звук подбора жизни
+        newLifeSound = Gdx.audio.newSound(Gdx.files.internal("sounds/newLifeSound.mp3"));
+        //Звук конца игры
+        gameOverSound = Gdx.audio.newSound(Gdx.files.internal("sounds/gameOverSound.mp3"));
+        //Звук будильника
+        alarmClockSound = Gdx.audio.newSound(Gdx.files.internal("sounds/alarmClockSound.mp3"));
     }
 
     public Sound getBlowEnemySound() {
         return blowEnemySound;
     }
     public Music getBackgroundGameMusic(){return backgroundGameMusic;}
-    public Sound getEndLevelSound() {return endLevelSound;}
     public Sound getEnemyShootSound() {return enemyShootSound;}
     public Sound getBacteriumDeathSound() {return bacteriumDeathSound;}
     public Sound getCreateBonusItemSound() {return createBonusItemSound;}
     public Sound getBonusCoinSound() {return bonusCoinSound;}
     public Sound getBonusSkullSound() {return bonusSkullSound;}
     public Sound getThrowAxeSound() {return throwAxeSound;}
+    public Sound getBacteriophageCatchSound() {return bacteriophageCatchSound;}
+    public Sound getBlowCondomSound(){return blowCondomSound;}
+    public Sound getNewLifeSound(){return newLifeSound;}
+    public Sound getGameOverSound() {return gameOverSound;}
+    public Sound getAlarmClockSound() {return alarmClockSound;}
 }

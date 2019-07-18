@@ -338,6 +338,8 @@ public class GameDriver {
     }
     private void controlLifeScale(){
         if (gameManager.getPlayer().getLifeCount() == 0 || gameManager.getSpermAmount() == 0){
+            if (gameManager.getSoundOnOff())
+                audioManager.getGameOverSound();
             gameScreen.setGameState(4);
         } //Game over
     }
