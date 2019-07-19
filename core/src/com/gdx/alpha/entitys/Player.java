@@ -65,7 +65,7 @@ public class Player extends Actor {
         cavemanAnimation = new Animation<TextureRegion>(frameDuration,cavemanAtlas.getRegions());
         caveman_newlifeAnimation = new Animation<TextureRegion>(frameDuration, newlifeTextureAtlas.getRegions());
         //Звук потери жизни
-        lifeLostSound = Gdx.audio.newSound(Gdx.files.internal("sounds/lifeLostSound.wav"));
+        lifeLostSound = Gdx.audio.newSound(Gdx.files.internal("sounds/lifeLostSound.mp3"));
     }
 
 

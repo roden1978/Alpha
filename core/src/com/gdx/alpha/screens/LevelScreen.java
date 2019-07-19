@@ -181,8 +181,10 @@ public class LevelScreen extends ObjectScreen {
         playButton.addListener(new ClickListener(){
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (screenManager.getOnoff())
+                if (screenManager.getOnoff()){
                     screenManager.getButtonClickSound().play();
+                    screenManager.getLevelBeginSound().play();
+                }
                 gameScreen = new GameScreen(screenManager, level);
                 screenManager.setCurrentScreen(gameScreen);
 

@@ -146,10 +146,6 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         //изменяем размер фона под размер экрана
         background.setWidth(gameStage.getWidth());
         background.setHeight(gameStage.getHeight());
-        //gameBackground.setWidth(gameStage.getWidth());
-        //gameBackground.setHeight(gameStage.getHeight());
-        //создаем сцену со строкой состояния
-        //uiStage = new Stage();
         screenManager.getScreenMusic().stop();
 
     }
@@ -224,12 +220,10 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
                 screenX < (int)(gameStage.getWidth() - (gameStage.getWidth() - gameDriver.getGameManager().pauseImage.getImageWidth()* 2.0f))&&
                 screenY < (int)(gameStage.getHeight() - (gameStage.getHeight() - gameDriver.getGameManager().pauseImage.getImageHeight()*2.0f)) &&
                 screenY > 0.0f){
-//(int) (gameStage.getHeight() - gameDriver.gameManager.pauseImage.getImageY() - gameDriver.gameManager.pauseImage.getImageHeight())
-            if(screenManager.getOnoff())
-                screenManager.getScreenTapSound().play();
-            state = PAUSE_STATE;
-            takeScreenshot = true;
-            //System.out.println("State out: " + state);
+                                    if(screenManager.getOnoff())
+                                        screenManager.getScreenTapSound().play();
+                                    state = PAUSE_STATE;
+                                    takeScreenshot = true;
         }
         //Если уровень заокнчен по клику переходим к экрану выбора уровня и останавливаем музыку игрового процесса
         if(state == LEVEL_END_STATE){
@@ -242,16 +236,6 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
             gameDriver.getAudioManager().getBackgroundGameMusic().stop();
             gameDriver.getAudioManager().getBackgroundGameMusic().dispose();
         }
-       /* //Возврат в меню выбора уровня из экрана паузы
-        if (state == PAUSE_STATE){
-            if (screenX > 0 && screenX < gameStage.getWidth() && screenY < 100 && screenY > 0.0f){ //(int)(gameStage.getHeight() -(gameStage.getHeight() - 100))
-                if(screenManager.getOnoff())
-                    screenManager.getButtonClickSound().play();
-                screenManager.setCurrentScreen(new LevelScreen(screenManager));
-            }
-        }
-*/
-
         return true;
     }
 
@@ -407,23 +391,17 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
     //отрисова состояний игры
     //отрисовка состояния готовности
     private void presentReady(){
-        Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         spriteBatch.begin();
-            /*font.draw(spriteBatch,"TAP TO PLAY",gameStage.getWidth()/2 - font.getBounds("TAP TO PLAY").width/2,
-                    gameStage.getHeight()/2 + font.getBounds("TAP TO PLAY").height/2);*/
             background.draw(spriteBatch, 0.5f);
             font.draw(spriteBatch,"TAP TO PLAY",0.0f, gameStage.getHeight()/2.0f, gameStage.getWidth(), Align.center, true);
         spriteBatch.end();
     }
     //отрисовка состояния игры
     private void presentRunning(){
-        Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-      /*  gameStage.getBatch().setProjectionMatrix(camera.combined);
-        gameStage.getBatch().begin();
-            gameStage.getBatch().draw(gameBackgroundTexture, 0.0f,0.0f , gameStage.getWidth(), gameStage.getHeight());
-        gameStage.getBatch().end();*/
         gameStage.draw();
     }
     //отрисовка состояния паузы
@@ -434,26 +412,16 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
             isScreenshot = true;
         }
 
-        Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-        //Останавливаем пузыку во время паузы
+        //Останавливаем музыку во время паузы
         if (gameDriver.getAudioManager().getBackgroundGameMusic().isPlaying())
             gameDriver.getAudioManager().getBackgroundGameMusic().pause();
         spriteBatch.begin();
-       // table.clear();
-        //table.setFillParent(true);
-        //table.add(backButton).left().pad(20).bottom();
-        //table.draw(spriteBatch, 1.0f);
-        if (isScreenshot)
-            screenShot.draw(spriteBatch, 0.5f);
-           /* font.draw(spriteBatch,"PAUSE",gameStage.getWidth()/2 - font.getBounds("PAUSE").width/2,
-                    gameStage.getHeight()/2 + font.getBounds("PAUSE").height/2);
-            font.draw(spriteBatch,"TAP TO CONTINUE",gameStage.getWidth()/2 - font.getBounds("TAP TO CONTINUE").width/2,
-                    gameStage.getHeight()/2 - font.getBounds("TAP TO CONTINUE").height*2);
-            font.draw(spriteBatch,"OR BACK (ESC) TO EXIT",gameStage.getWidth()/2 - font.getBounds("OR BACK (ESC) TO EXIT").width/2,
-                    gameStage.getHeight()/2 - font.getBounds("OR BACK TO EXIT").height*3);*/
-        font.draw(spriteBatch,"PAUSE",0.0f, gameStage.getHeight()/2.0f + 100, gameStage.getWidth(), Align.center, true);
-        font.draw(spriteBatch,"TAP TO CONTINUE\n OR BACK TO EXIT",0.0f, gameStage.getHeight()/3.0f, gameStage.getWidth(), Align.center, true);
+            if (isScreenshot)
+                screenShot.draw(spriteBatch, 0.5f);
+            font.draw(spriteBatch,"PAUSE",0.0f, gameStage.getHeight()/2.0f + 100, gameStage.getWidth(), Align.center, true);
+            font.draw(spriteBatch,"TAP TO CONTINUE\n OR BACK TO EXIT",0.0f, gameStage.getHeight()/3.0f, gameStage.getWidth(), Align.center, true);
             backButton.left().bottom();
             backButton.draw(spriteBatch, 1.0f);
         spriteBatch.end();
@@ -463,12 +431,10 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         Gdx.gl.glClearColor(0, 0, 0, 1); //Gdx.gl.glClearColor(1, 0.784f, 0.784f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         spriteBatch.begin();
-           /* font.draw(spriteBatch,"LEVEL COMPLETE",gameStage.getWidth()/2 - font.getBounds("LEVEL COMPLETE").width/2,
-                    gameStage.getHeight()/2 + font.getBounds("LEVEL COMPLETE").height/2);*/
-        background.draw(spriteBatch, 0.5f);
-        font.draw(spriteBatch,"LEVEL COMPLETE",0.0f, gameStage.getHeight()/2.0f + 100, gameStage.getWidth(), Align.center, true);
-        String str = "SCORE " + gameDriver.getGameManager().getScoresAmount() + "    SPERM " + gameDriver.getGameManager().getSpermAmount();
-        font.draw(spriteBatch, str, 0.0f,gameStage.getHeight()/ 3.0f + 100, gameStage.getWidth(),Align.center, true);
+            background.draw(spriteBatch, 0.5f);
+            font.draw(spriteBatch,"LEVEL COMPLETE",0.0f, gameStage.getHeight()/2.0f + 100, gameStage.getWidth(), Align.center, true);
+            String str = "SCORE " + gameDriver.getGameManager().getScoresAmount() + "    SPERM " + gameDriver.getGameManager().getSpermAmount();
+            font.draw(spriteBatch, str, 0.0f,gameStage.getHeight()/ 3.0f + 100, gameStage.getWidth(),Align.center, true);
         spriteBatch.end();
         //Сохранение результатов пройденного уровня
         if(isStringLevelParamsSave) {
@@ -480,6 +446,9 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
                 e.printStackTrace();
             }
             isStringLevelParamsSave = false;
+
+            if(gameDriver.getAudioManager().getBackgroundGameMusic().isPlaying())
+                gameDriver.getAudioManager().getBackgroundGameMusic().stop();
 
             if(screenManager.getOnoff())
                 screenManager.getLevelCompleteSound().play();
@@ -566,14 +535,11 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         levels = line.split("#");
         for (int i = 0; i < levels.length; i++) {
             levelString = levels[i].split(";");
-            //System.out.println(levels[i]);
-            //if(Integer.valueOf(levelString[0].trim()) == level) {
-                levelNumber.add(Integer.valueOf(levelString[0].trim()));
-                score.add(Integer.valueOf(levelString[1].trim()));
-                sperms.add(Integer.valueOf(levelString[2].trim()));
-                complete.add(Integer.valueOf(levelString[3].trim()));
-                available.add(Integer.valueOf(levelString[4].trim()));
-
+            levelNumber.add(Integer.valueOf(levelString[0].trim()));
+            score.add(Integer.valueOf(levelString[1].trim()));
+            sperms.add(Integer.valueOf(levelString[2].trim()));
+            complete.add(Integer.valueOf(levelString[3].trim()));
+            available.add(Integer.valueOf(levelString[4].trim()));
             //System.out.println(levelString[0]+" "+levelString[1]+" "+levelString[2]+" "+levelString[3]+" "+levelString[4]);
         }
         //Изменяем в массивах количество очков и кол-во сперм, устанавливаем признак что уровень выполнен,
@@ -581,7 +547,6 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         score.set(level, gameDriver.getGameManager().getScoresAmount());
         sperms.set(level, gameDriver.getGameManager().getSpermAmount());
         complete.set(level, 1);
-       // if (levelNumber.size > level)
         available.set(level + 1, 1);
     }
    private void createStringForSaveLevelParams(){
@@ -589,9 +554,6 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
            builder.append(levelNumber.get(i).toString()).append(";").append(score.get(i).toString()).append(";").
                     append(sperms.get(i).toString()).append(";").append(complete.get(i).toString()).append(";").
                     append(available.get(i).toString()).append("#");
-            /*savedLine += levelNumber.get(i).toString()+";"+score.get(i).toString()+";"+
-                    sperms.get(i).toString()+";"+complete.get(i).toString()+";" +
-                    available.get(i).toString()+"#";*/
         }
         //System.out.println("Line: "+builder.toString());
     }

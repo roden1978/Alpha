@@ -18,6 +18,7 @@ public class ScreenManager {
     private Sound buttonClickSound;
     private Sound screenTapSound;
     private Sound levelCompleteSound;
+    private Sound levelBeginSound;
     private Boolean onoff;
     private int currentSelectedGirl;
 
@@ -44,6 +45,7 @@ public class ScreenManager {
         buttonClickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonClick.mp3"));
         screenTapSound = Gdx.audio.newSound(Gdx.files.internal("sounds/screensTapSound.mp3"));
         levelCompleteSound = Gdx.audio.newSound(Gdx.files.internal("sounds/levelComplete.mp3"));
+        levelBeginSound = Gdx.audio.newSound(Gdx.files.internal("sounds/levelBegin.mp3"));
         currentSelectedGirl = 0;
     }
 
@@ -87,6 +89,8 @@ public class ScreenManager {
 
     Sound getLevelCompleteSound() {return  levelCompleteSound;}
 
+    Sound getLevelBeginSound() {return  levelBeginSound;}
+
     public Boolean getOnoff() {
         return onoff;
     }
@@ -95,7 +99,7 @@ public class ScreenManager {
         this.onoff = onoff;
     }
 
-    public void setCurrentSelectedGirl(int index) {currentSelectedGirl = index;}
+    void setCurrentSelectedGirl(int index) {currentSelectedGirl = index;}
 
-    public int getCurrentSelectedGirl(){return currentSelectedGirl;}
+    int getCurrentSelectedGirl(){return currentSelectedGirl;}
 }//end of class

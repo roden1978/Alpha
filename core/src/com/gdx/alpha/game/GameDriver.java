@@ -339,7 +339,7 @@ public class GameDriver {
     private void controlLifeScale(){
         if (gameManager.getPlayer().getLifeCount() == 0 || gameManager.getSpermAmount() == 0){
             if (gameManager.getSoundOnOff())
-                audioManager.getGameOverSound();
+                audioManager.getGameOverSound().play();
             gameScreen.setGameState(4);
         } //Game over
     }
@@ -429,7 +429,7 @@ public class GameDriver {
                         break;
                 }
                 if(gameManager.getSoundOnOff())
-                    audioManager.getCreateBonusItemSound();
+                    audioManager.getCreateBonusItemSound().play();
             }
         }
     }

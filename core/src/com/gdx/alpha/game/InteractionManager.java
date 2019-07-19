@@ -65,6 +65,8 @@ class InteractionManager {
             }
            // System.out.println("Weapon type: "+ weapon_type_bacteriophage);
             //System.out.println("Bacter array siaze interact manager: "+ gameManager.getBacteriophages().size);
+            if(gameManager.getSoundOnOff())
+                audioManager.getBornBacteriophageSound().play();
         }
 
     }
@@ -275,5 +277,14 @@ class InteractionManager {
                 break;
         }
     }
-
+    //воспроизведение звука гибели бактериофага
+    void playBacteriophageDeathSound(){
+        if(gameManager.getSoundOnOff())
+            audioManager.getBacteriophageDeathSound().play();
+    }
+    //Воспроизведение звука гибели сперм
+    void playHitSpermSound(){
+        if(gameManager.getSoundOnOff())
+            audioManager.getHitSpermSound().play();
+    }
 }//end of class

@@ -11,7 +11,6 @@ public class AudioManager {
     private Sound hitPlayerSound;
     private Sound hitSpermSound;
     private Sound bornBacteriophageSound;
-    private Sound beginLevelSound;
     private Sound enemyShootSound;
     private Sound bacteriumDeathSound;
     private Sound createBonusItemSound;
@@ -24,10 +23,10 @@ public class AudioManager {
     private Sound newLifeSound;
     private Sound alarmClockSound;
     private Sound gameOverSound;
-    //private Sound lifeLostSound;
+    private Sound bacteriophageDeathSound;
 
 
-    public AudioManager() {
+    AudioManager() {
         //звук уничтожения вируса
         blowEnemySound = Gdx.audio.newSound(Gdx.files.internal("sounds/blowEnemy.mp3"));
         //фоновая музыка в игре
@@ -54,21 +53,30 @@ public class AudioManager {
         gameOverSound = Gdx.audio.newSound(Gdx.files.internal("sounds/gameOverSound.mp3"));
         //Звук будильника
         alarmClockSound = Gdx.audio.newSound(Gdx.files.internal("sounds/alarmClockSound.mp3"));
+        //звук уничтожения сперматозоида
+        bacteriophageDeathSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bacterEnemyHit.mp3"));
+        //звук уничтожения сперм
+        hitSpermSound = Gdx.audio.newSound(Gdx.files.internal("sounds/blowSperm.mp3"));
+        //Звук создания бактериофага
+        bornBacteriophageSound = Gdx.audio.newSound(Gdx.files.internal("sounds/createBacteriophage.mp3"));
     }
 
-    public Sound getBlowEnemySound() {
+    Sound getBlowEnemySound() {
         return blowEnemySound;
     }
     public Music getBackgroundGameMusic(){return backgroundGameMusic;}
-    public Sound getEnemyShootSound() {return enemyShootSound;}
-    public Sound getBacteriumDeathSound() {return bacteriumDeathSound;}
-    public Sound getCreateBonusItemSound() {return createBonusItemSound;}
-    public Sound getBonusCoinSound() {return bonusCoinSound;}
-    public Sound getBonusSkullSound() {return bonusSkullSound;}
-    public Sound getThrowAxeSound() {return throwAxeSound;}
-    public Sound getBacteriophageCatchSound() {return bacteriophageCatchSound;}
-    public Sound getBlowCondomSound(){return blowCondomSound;}
-    public Sound getNewLifeSound(){return newLifeSound;}
-    public Sound getGameOverSound() {return gameOverSound;}
-    public Sound getAlarmClockSound() {return alarmClockSound;}
+    Sound getEnemyShootSound() {return enemyShootSound;}
+    Sound getBacteriumDeathSound() {return bacteriumDeathSound;}
+    Sound getCreateBonusItemSound() {return createBonusItemSound;}
+    Sound getBonusCoinSound() {return bonusCoinSound;}
+    Sound getBonusSkullSound() {return bonusSkullSound;}
+    Sound getThrowAxeSound() {return throwAxeSound;}
+    Sound getBacteriophageCatchSound() {return bacteriophageCatchSound;}
+    Sound getBlowCondomSound(){return blowCondomSound;}
+    Sound getNewLifeSound(){return newLifeSound;}
+    Sound getGameOverSound() {return gameOverSound;}
+    Sound getAlarmClockSound() {return alarmClockSound;}
+    Sound getBacteriophageDeathSound() {return bacteriophageDeathSound;}
+    Sound getHitSpermSound() {return hitSpermSound;}
+    Sound getBornBacteriophageSound() {return bornBacteriophageSound;}
 }

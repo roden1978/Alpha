@@ -53,6 +53,7 @@ public class MenuScreen extends ObjectScreen {
     private BacteryA bacteriaA;
     private Array<BacteryA> bacteriaAArray;
     private Skin soundSkin;
+    private StringBuilder stringBuilder;
 
 
     public MenuScreen(ScreenManager screenManager){
@@ -62,6 +63,7 @@ public class MenuScreen extends ObjectScreen {
         spermObject = new Array <Sperm>();
         bacteriaAArray = new Array<BacteryA>();
         this.screenManager = screenManager;
+        stringBuilder = new StringBuilder();
 
         freeTypeFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("JFRocSol_rus.ttf"));
         parameter = new FreeTypeFontParameter();
@@ -131,7 +133,6 @@ public class MenuScreen extends ObjectScreen {
         table.add(exitButton).spaceBottom(exitButton.getHeight()).fillX().row();
         table.add().width(table.getWidth() / 5 * 3);
         table.add(soundOnOff).center();
-        //table.debug();
         background.setFillParent(true);
         stage.addActor(background);
 
@@ -195,7 +196,9 @@ public class MenuScreen extends ObjectScreen {
                     soundOnOff.setDrawable(soundSkin.getDrawable("sound_off"));
                     if (screenManager.getOnoff())
                         screenManager.getButtonClickSound().play();
+
                     screenManager.setOnoff(false);
+
                     if (screenManager.getScreenMusic().isPlaying())
                         screenManager.getScreenMusic().stop();
 
@@ -206,9 +209,12 @@ public class MenuScreen extends ObjectScreen {
                     }
                 }else{
                     soundOnOff.setDrawable(soundSkin.getDrawable("sound_on"));
+
                     screenManager.setOnoff(true);
+
                     if (screenManager.getOnoff())
                         screenManager.getButtonClickSound().play();
+
                     screenManager.getScreenMusic().play();
 
                     try {
@@ -282,11 +288,19 @@ public class MenuScreen extends ObjectScreen {
         return super.getNAME();
     }
 
-    private void saveSoundParamFile(Boolean onoff) throws IOException {
+    private void saveSoundParamFile(Boolean onOff) throws IOException {
         FileHandle handle = Gdx.files.local("gamesound.txt");
-        if (onoff)
-            handle.writeString("1", false);
-        else
-            handle.writeString("0", false);
+        if (onOff){
+            stringBuilder.append("1");
+            handle.writeString(stringBuilder.toString(), false);
+            System.out.println("Save: 1");
+        }
+
+        else{
+            stringBuilder.append("0");
+            handle.writeString(stringBuilder.toString(), false);
+            System.out.println("Save: 0");
+        }
+        stringBuilder.delete(0, stringBuilder.length());
     }
 }

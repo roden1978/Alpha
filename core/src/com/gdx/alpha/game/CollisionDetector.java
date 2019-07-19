@@ -130,6 +130,8 @@ class CollisionDetector {
                                 deleteBac = i;
                                 overlap = true;
                                 interactionManager.createParticleEffectBlow(j);
+                                //воспроизводим звук гибели бактериофага
+                                interactionManager.playBacteriophageDeathSound();
                                 gameManager.getEnemies().removeIndex(j);
                                /* removedMicrobe = gameManager.getEnemies().removeIndex(j);
                                 removedMicrobe = null;*/
@@ -260,6 +262,8 @@ class CollisionDetector {
                             gameManager.getEnemies().get(j).remove();
                             gameManager.getEnemies().removeIndex(j);
                         }
+                        //воспроизводим звук гибели сперм
+                        interactionManager.playHitSpermSound();
 
                         deleteSperm = i;
                         overlap = true;
@@ -272,8 +276,6 @@ class CollisionDetector {
         }
         if (overlap && gameManager.getSperms().size > 0 && deleteSperm != -1) {
             gameManager.getSperms().removeIndex(deleteSperm);
-           /* removedSperm = gameManager.getSperms().removeIndex(deleteSperm);
-            removedSperm = null;*/
         }
         deleteSperm = -1;
     }
