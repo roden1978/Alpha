@@ -182,7 +182,7 @@ public class MenuScreen extends ObjectScreen {
         aboutButton.addListener(new ClickListener(){
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                //screenManager.setCurrentScreen(new LevelScreen(screenManager));
+                screenManager.setCurrentScreen(new AboutScreen(screenManager));
                 if (screenManager.getOnoff())
                     screenManager.getButtonClickSound().play();
                 super.touchUp(event, x, y, pointer, button);

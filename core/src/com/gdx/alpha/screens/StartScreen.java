@@ -18,8 +18,12 @@ public class StartScreen extends ObjectScreen {
 
     public StartScreen(ScreenManager screenManager){
         Texture texture = new Texture(Gdx.files.internal("ui/redhairs_logo.png")); //Gdx.files.internal("ui/redhairs_logo.png")
+        Texture sorryTexture = new Texture(Gdx.files.internal("ui/sorry.png"));
         spriteBatch = new SpriteBatch();
-        sprite = new Sprite(texture);
+        if (Gdx.graphics.getWidth()/1280 >= 1)
+            sprite = new Sprite(texture);
+        else
+            sprite = new Sprite(sorryTexture);
         NAME = "StartScreen";
         lifeTime = 1.0f;
         time = 0.0f;
