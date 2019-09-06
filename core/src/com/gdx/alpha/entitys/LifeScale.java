@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 /**
- * Created by admin on 07.03.2015.
+ * Created by Ro|)e|\| on 07.03.2015.
  */
 public class LifeScale extends Actor {
     private TextureAtlas textureAtlas;

@@ -170,8 +170,6 @@ class CollisionDetector {
                                 //удаляем оружие со сцены
                                 gameManager.getWeapons().get(j).remove();
                                 gameManager.getWeapons().removeIndex(j);
-                                /*removedWeapon = gameManager.weapons.removeIndex(j);
-                                removedWeapon = null;*/
                                 //определение обнуления здоровья врага
                                 if (gameManager.getEnemies().get(i).getHealth() < 0) {
                                     //Создаем еффект взрыва
@@ -183,7 +181,6 @@ class CollisionDetector {
                                     //Проигрывание звука уничтожения врага
                                     interactionManager.playBlowEnemySound(i);
                                     //Добавление бактериофага в игру
-                                    //if (interactionManager.randomizeBacteriophages(i) != null)
                                     interactionManager.randomizeBacteriophage(gameManager.getEnemies().get(i));
                                     //Удаляем текущего врага из массива врагов
                                     gameManager.getEnemies().get(i).remove();
@@ -197,8 +194,6 @@ class CollisionDetector {
             }
             if (overlap && gameManager.getEnemies().size > 0 && deleteMicrobe != -1) {
                 gameManager.getEnemies().removeIndex(deleteMicrobe);
-                /*removedMicrobe = gameManager.getEnemies().removeIndex(deleteMicrobe);
-                removedMicrobe = null;*/
                 overlap = false;
             }
             deleteMicrobe = -1;

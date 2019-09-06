@@ -36,7 +36,7 @@ public class AudioManager {
         //звук уничтожения бактерии
         bacteriumDeathSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bacteriumDeath.mp3"));
         //звук появления бонусного предмета
-        createBonusItemSound = Gdx.audio.newSound(Gdx.files.internal("sounds/createBonusItem.mp3"));
+        createBonusItemSound = Gdx.audio.newSound(Gdx.files.internal("sounds/pigSound.mp3"));
         //звук подбора бонусной монеты
         bonusCoinSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bonusCoin.mp3"));
         //звук подбора черепа

@@ -1,6 +1,7 @@
 package com.gdx.alpha.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -142,7 +143,7 @@ public class LevelScreen extends ObjectScreen {
         currentGirl = new Label("",skin,"style56");
         space = new Label("",skin,"style56");
 
-        readLevelParams(screenManager.getLevelParams());
+        readLevelParams();
         if (!screenManager.getScreenMusic().isPlaying() && screenManager.getOnoff())
             screenManager.getScreenMusic().play();
     }
@@ -443,10 +444,10 @@ public class LevelScreen extends ObjectScreen {
     }
 
    //Считываем параметры уровней из файла
-    private void readLevelParams(String line) {
+    private void readLevelParams() {
      /*   FileHandle handle = Gdx.files.internal("levelparam.txt");
         line = handle.readString();*/
-        levels = line.split("#");
+       /* levels = line.split("#");
         for (int i = 0; i < levels.length; i++) {
             levelString = levels[i].split(";");
             //System.out.println(levels[i]);
@@ -456,8 +457,19 @@ public class LevelScreen extends ObjectScreen {
             complete.add(Integer.valueOf(levelString[3].trim()));
             available.add(Integer.valueOf(levelString[4].trim()));
             //System.out.println(levelString[0]+" "+levelString[1]+" "+levelString[2]+" "+levelString[3]+" "+levelString[4]);
-        }
+        }*/
        // System.out.println(line +" "+levels[0]+" "+levels.length);
+
+        Preferences levelPref = Gdx.app.getPreferences("levelparam");
+        for (int i = 0; i < 15; i ++){
+            levelNumber.add(levelPref.getInteger("levelNumber_"  + i));
+            score.add(levelPref.getInteger("score_" + i));
+            sperms.add(levelPref.getInteger("sperm_" + i));
+            complete.add(levelPref.getInteger("complete_" + i));
+            available.add(levelPref.getInteger("available_" + i));
+        }
+        available.set(0, 1);
+        //levelPref.flush();
     }
     //Обновление счетчиков очков и спрм на экране выбора уровня
     private void setScoreSperm(Integer i){

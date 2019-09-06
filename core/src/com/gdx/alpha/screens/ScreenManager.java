@@ -1,11 +1,9 @@
 package com.gdx.alpha.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
-
-import java.io.IOException;
 
 /**
  * Created by Ro|)e|\| on 01.01.2015.
@@ -13,34 +11,23 @@ import java.io.IOException;
 public class ScreenManager {
     private static ObjectScreen currentScreen;
     private String line;
-    private String soundParam;
+    //private String soundParam;
     private Music screenMusic;
     private Sound buttonClickSound;
     private Sound screenTapSound;
     private Sound levelCompleteSound;
     private Sound levelBeginSound;
-    private Boolean onoff;
+    private Boolean soundOnOff;
     private int currentSelectedGirl;
 
     public ScreenManager(){
+        soundOnOff = true;
         currentScreen = null;
-        try {
-            loadLevelParamFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        try {
-            loadSoundParamFile();
-            if (Integer.valueOf(soundParam.trim()) == 1){
-                onoff = true;
-            }
-            else{
-                onoff = false;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //loadLevelParamFile();
+
+        loadSoundParamFile();
+
         screenMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/backgroundMenuMusic.mp3"));
         buttonClickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonClick.mp3"));
         screenTapSound = Gdx.audio.newSound(Gdx.files.internal("sounds/screensTapSound.mp3"));
@@ -61,23 +48,20 @@ public class ScreenManager {
         }
 
     }
-
-    /*public ScreenManager getScreenManager(){
-        return this;
-    }*/
-    private void loadLevelParamFile() throws IOException{
+/*
+    private void loadLevelParamFile(){
         FileHandle handle = Gdx.files.internal("levelparam.txt");
         line = handle.readString();
+    }*/
+
+    private void loadSoundParamFile() {
+        Preferences pref =  Gdx.app.getPreferences("sound");
+        soundOnOff = pref.getBoolean("sound");
     }
 
-    private void loadSoundParamFile() throws IOException{
-        FileHandle handle = Gdx.files.internal("gamesound.txt");
-        soundParam = handle.readString();
-    }
+   /* String getLevelParams(){return line;}
 
-    String getLevelParams(){return line;}
-
-    void setLevelParams(String line){this.line = line;}
+    void setLevelParams(String line){this.line = line;}*/
 
     Music getScreenMusic() {
         return screenMusic;
@@ -92,11 +76,11 @@ public class ScreenManager {
     Sound getLevelBeginSound() {return  levelBeginSound;}
 
     public Boolean getOnoff() {
-        return onoff;
+        return soundOnOff;
     }
 
     void setOnoff(Boolean onoff) {
-        this.onoff = onoff;
+        this.soundOnOff = onoff;
     }
 
     void setCurrentSelectedGirl(int index) {currentSelectedGirl = index;}

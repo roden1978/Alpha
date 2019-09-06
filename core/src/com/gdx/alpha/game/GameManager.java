@@ -177,13 +177,6 @@ public class GameManager {
         this.soundOnOff = soundOnOff;
         this.audioManager = audioManager;
 
-       /* if(Gdx.graphics.getWidth() <= 1280){
-            koeff = 1;
-        }else
-        {
-            koeff = Gdx.graphics.getWidth() / 1280;
-        }*/
-
         line = "";
 
         level_end = false;

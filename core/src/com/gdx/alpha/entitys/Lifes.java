@@ -47,7 +47,8 @@ public class Lifes extends Actor {
                 lifes_region.setRegion(textureAtlas.findRegion("caveman_life01"));
                 break;
         }
-       batch.draw(lifes_region,x,y);
+        if (life_count > 0)
+            batch.draw(lifes_region,x,y);
     }
 
     @Override

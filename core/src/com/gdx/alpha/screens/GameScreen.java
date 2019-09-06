@@ -3,7 +3,7 @@ package com.gdx.alpha.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -23,8 +23,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gdx.alpha.game.GameDriver;
-
-import java.io.IOException;
 
 /**
  * Created by Ro|)e|\| on 19.01.2015.
@@ -189,24 +187,28 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         //System.out.println("Y: " + screenY);
         //System.out.println("State in: " + state);
         //Отлеживание продолжения игрового процесса после нажатия на экране паузы
-        if (state == PAUSE_STATE){
-            if (screenX > 0 && screenX < gameStage.getWidth() && screenY > gameStage.getHeight() - 100 && screenY > 0.0f){ //(int)(gameStage.getHeight() -(gameStage.getHeight() - 100))
+        if (state == PAUSE_STATE) {
+            if (screenX > 0 && screenX < gameStage.getWidth() && screenY > gameStage.getHeight() - 100 && screenY > 0.0f) { //(int)(gameStage.getHeight() -(gameStage.getHeight() - 100))
                /* if(screenManager.getOnoff())
                     screenManager.getButtonClickSound().play();*/
                 gameDriver.getAudioManager().getBackgroundGameMusic().stop();
                 gameDriver.getAudioManager().getBackgroundGameMusic().dispose();
-                screenManager.setCurrentScreen(new LevelScreen(screenManager));
+                //spriteBatch.dispose();
+                //gameStage.dispose();
+                //screenManager.setCurrentScreen(new LevelScreen(screenManager));
+                state = END_STATE;
+            } else {
+
+                if (screenManager.getOnoff())
+                    screenManager.getScreenTapSound().play();
+                state = RUNNING_STATE;
+                gameDriver.getAudioManager().getBackgroundGameMusic().play();
+
+                System.out.println("Screen X: " + screenX);
+                System.out.println("Screen Y: " + screenY);
+                System.out.println("State in: " + state);
+
             }
-
-            if(screenManager.getOnoff())
-                screenManager.getScreenTapSound().play();
-            state = RUNNING_STATE;
-            gameDriver.getAudioManager().getBackgroundGameMusic().play();
-
-            System.out.println("Screen X: " + screenX);
-            System.out.println("Screen Y: " + screenY);
-            System.out.println("State in: " + state);
-
         }
         //Бросание оружия при одиночном клике по экрану
         gameDriver.getGameManager().getPlayer().setThrowing(true);
@@ -436,15 +438,13 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
             String str = "SCORE " + gameDriver.getGameManager().getScoresAmount() + "    SPERM " + gameDriver.getGameManager().getSpermAmount();
             font.draw(spriteBatch, str, 0.0f,gameStage.getHeight()/ 3.0f + 100, gameStage.getWidth(),Align.center, true);
         spriteBatch.end();
+
         //Сохранение результатов пройденного уровня
         if(isStringLevelParamsSave) {
-            setLevelParams(screenManager.getLevelParams());
-            createStringForSaveLevelParams();
-            try {
-                saveLevelParamFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            setLevelParams();
+            //createStringForSaveLevelParams();
+            saveLevelParamFile();
+
             isStringLevelParamsSave = false;
 
             if(gameDriver.getAudioManager().getBackgroundGameMusic().isPlaying())
@@ -531,8 +531,8 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         this.state = state;
     }
 
-    private void setLevelParams(String line) {
-        levels = line.split("#");
+    private void setLevelParams() {
+       /* levels = line.split("#");
         for (int i = 0; i < levels.length; i++) {
             levelString = levels[i].split(";");
             levelNumber.add(Integer.valueOf(levelString[0].trim()));
@@ -541,6 +541,14 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
             complete.add(Integer.valueOf(levelString[3].trim()));
             available.add(Integer.valueOf(levelString[4].trim()));
             //System.out.println(levelString[0]+" "+levelString[1]+" "+levelString[2]+" "+levelString[3]+" "+levelString[4]);
+        }*/
+        Preferences levelPref = Gdx.app.getPreferences("levelparam");
+        for (int i = 0; i < 15; i ++){
+            levelNumber.add(levelPref.getInteger("levelNumber_"  + i));
+            score.add(levelPref.getInteger("score_" + i));
+            sperms.add(levelPref.getInteger("sperm_" + i));
+            complete.add(levelPref.getInteger("complete_" + i));
+            available.add(levelPref.getInteger("available_" + i));
         }
         //Изменяем в массивах количество очков и кол-во сперм, устанавливаем признак что уровень выполнен,
         // устанавливаем признак что следующий уровень открыт
@@ -549,23 +557,32 @@ public class GameScreen extends ObjectScreen implements InputProcessor{
         complete.set(level, 1);
         available.set(level + 1, 1);
     }
-   private void createStringForSaveLevelParams(){
+  /* private void createStringForSaveLevelParams(){
         for (int i =0; i < levelNumber.size; i++){
            builder.append(levelNumber.get(i).toString()).append(";").append(score.get(i).toString()).append(";").
                     append(sperms.get(i).toString()).append(";").append(complete.get(i).toString()).append(";").
                     append(available.get(i).toString()).append("#");
         }
         //System.out.println("Line: "+builder.toString());
-    }
+    }*/
 
     public void setStringLevelParamsSave(Boolean stringLevelParamsSave) {
         isStringLevelParamsSave = stringLevelParamsSave;
     }
-    private void saveLevelParamFile() throws IOException {
-        FileHandle handle = Gdx.files.local("levelparam.txt");
+    private void saveLevelParamFile(){
+        Preferences savePref = Gdx.app.getPreferences("levelparam");
+        for (int i = 0; i < levelNumber.size; i++){
+            savePref.putInteger("levelNumber_" + i, levelNumber.get(i));
+            savePref.putInteger("score_" + i, score.get(i));
+            savePref.putInteger("sperm_" + i, sperms.get(i));
+            savePref.putInteger("complete_" + i, complete.get(i));
+            savePref.putInteger("available_" + i, available.get(i));
+        }
+        savePref.flush();
+        /*FileHandle handle = Gdx.files.local("levelparam.txt");
         handle.writeString(builder.toString(), false);
         screenManager.setLevelParams(builder.toString());
-        builder.delete(0, builder.length());
+        builder.delete(0, builder.length());*/
     }
 
     public ScreenManager getScreenManager() {

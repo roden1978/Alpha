@@ -27,26 +27,6 @@ public class VirusBullet extends Microbe {
         setPrice(10);
     }
 
-   /* VirusBullet(Vector2 position, float speed, int bulletType, Vector2 direction, TextureAtlas virusBulletsAtlas) {
-        super(position, speed);
-        this.direction = direction;
-        this.virusBulletsAtlas = virusBulletsAtlas;
-        init(bulletType);
-        boundWidth = virusBulletTexture.getRegionWidth();
-        boundHeight = virusBulletTexture.getRegionHeight();
-        bulletBound = new Bounds(position.x, position.y, boundWidth, boundHeight);
-    }*/
-
-   /* public VirusBullet(float x, float y, float speed, int bulletType, Vector2 direction, TextureAtlas virusBulletsAtlas) {
-        super(x, y, speed);
-        this.direction = direction;
-        this.virusBulletsAtlas = virusBulletsAtlas;
-        init(bulletType);
-        boundWidth = virusBulletTexture.getRegionWidth();
-        boundHeight = virusBulletTexture.getRegionHeight();
-        bulletBound = new Bounds(position.x, position.y, boundWidth, boundHeight);
-    }*/
-
     private void init(int bulletType){
         switch (bulletType){
             case 0:

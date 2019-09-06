@@ -1,6 +1,7 @@
 package com.gdx.alpha.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -202,11 +203,9 @@ public class MenuScreen extends ObjectScreen {
                     if (screenManager.getScreenMusic().isPlaying())
                         screenManager.getScreenMusic().stop();
 
-                    try {
-                        saveSoundParamFile(screenManager.getOnoff());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+
+                    saveSoundParamFile(screenManager.getOnoff());
+
                 }else{
                     soundOnOff.setDrawable(soundSkin.getDrawable("sound_on"));
 
@@ -217,11 +216,8 @@ public class MenuScreen extends ObjectScreen {
 
                     screenManager.getScreenMusic().play();
 
-                    try {
-                        saveSoundParamFile(screenManager.getOnoff());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    saveSoundParamFile(screenManager.getOnoff());
+
                 }
                 return super.touchDown(event, x, y, pointer, button);
             }
@@ -288,19 +284,9 @@ public class MenuScreen extends ObjectScreen {
         return super.getNAME();
     }
 
-    private void saveSoundParamFile(Boolean onOff) throws IOException {
-        FileHandle handle = Gdx.files.local("gamesound.txt");
-        if (onOff){
-            stringBuilder.append("1");
-            handle.writeString(stringBuilder.toString(), false);
-            System.out.println("Save: 1");
-        }
-
-        else{
-            stringBuilder.append("0");
-            handle.writeString(stringBuilder.toString(), false);
-            System.out.println("Save: 0");
-        }
-        stringBuilder.delete(0, stringBuilder.length());
+    private void saveSoundParamFile(Boolean onOff) {
+        Preferences pref = Gdx.app.getPreferences("sound");
+        pref.putBoolean("sound", onOff);
+        pref.flush();
     }
 }
