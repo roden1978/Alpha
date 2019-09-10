@@ -52,6 +52,7 @@ public class ScreenManager {
         if(!notFirstRun){
             soundOnOff = true;
             pref.putBoolean("notFirst", true);
+            pref.putBoolean("sound", true);
             pref.flush();
         }
     }
