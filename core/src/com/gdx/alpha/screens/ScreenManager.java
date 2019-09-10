@@ -10,8 +10,6 @@ import com.badlogic.gdx.audio.Sound;
  */
 public class ScreenManager {
     private static ObjectScreen currentScreen;
-    private String line;
-    //private String soundParam;
     private Music screenMusic;
     private Sound buttonClickSound;
     private Sound screenTapSound;
@@ -23,8 +21,6 @@ public class ScreenManager {
     public ScreenManager(){
         soundOnOff = true;
         currentScreen = null;
-
-        //loadLevelParamFile();
 
         loadSoundParamFile();
 
@@ -48,20 +44,18 @@ public class ScreenManager {
         }
 
     }
-/*
-    private void loadLevelParamFile(){
-        FileHandle handle = Gdx.files.internal("levelparam.txt");
-        line = handle.readString();
-    }*/
 
     private void loadSoundParamFile() {
         Preferences pref =  Gdx.app.getPreferences("sound");
         soundOnOff = pref.getBoolean("sound");
+        Boolean notFirstRun = pref.getBoolean("notFirst");
+        if(!notFirstRun){
+            soundOnOff = true;
+            pref.putBoolean("notFirst", true);
+            pref.flush();
+        }
     }
 
-   /* String getLevelParams(){return line;}
-
-    void setLevelParams(String line){this.line = line;}*/
 
     Music getScreenMusic() {
         return screenMusic;
@@ -79,8 +73,8 @@ public class ScreenManager {
         return soundOnOff;
     }
 
-    void setOnoff(Boolean onoff) {
-        this.soundOnOff = onoff;
+    void setOnoff(Boolean onOff) {
+        this.soundOnOff = onOff;
     }
 
     void setCurrentSelectedGirl(int index) {currentSelectedGirl = index;}
